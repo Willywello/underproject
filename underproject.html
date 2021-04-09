@@ -170,7 +170,7 @@
         }
 
         var healthbar = {
-            x: 375,
+            x: 400,
             y: 300,
             w: 100,
             h: 20,
@@ -253,6 +253,17 @@
 
         var dialogue = 0
 
+        var items = {
+            pie: 2,
+            cake: 3,
+            steroids: 2,
+            candy: 5,
+            noodles: 2,
+            nood: 0,
+            ster: 0
+        }
+
+
         function draw() {
 
             if (joueur.x == 50 && bouton == 0 && combat == false) {
@@ -282,12 +293,15 @@
             c.font = "25px Comic Sans MS"
             c.textAlign = "left"
             c.fillStyle = "white"
-            c.fillText("FRISK      LV1                       HP                   " + healthbar.w / 5 + "/20", 0, 315)
-
+            c.fillText("FRISK      LV1                       HP", 0, 315)
+            c.fillText(healthbar.w / 5 + "/20", 550, 315)
+            if (healthbar.w > 100) {
+                healthbar.w = 100
+            }
 
 
             c.fillStyle = "red"
-            c.fillRect(375, 300, 100, 20)
+            c.fillRect(400, 300, 100, 20)
             c.fillStyle = healthbar.color
             c.fillRect(healthbar.x, healthbar.y, healthbar.w, healthbar.h)
 
@@ -307,19 +321,48 @@
             c.textAlign = "left"
             c.fillStyle = "white"
             if (bouton == 1 && attacking == false && combat == false) {
-                c.fillText(" * pixie", 70, 70)
+                c.fillText(" * Pixie", 70, 70)
                 c.fillStyle = "red"
                 c.fillRect(200, 50, 200, bossvie.h)
                 c.fillStyle = bossvie.color
                 c.fillRect(200, 50, bossvie.w, bossvie.h)
             }
-            if (bouton == 2) {
-                c.fillText(" * pixie", 70, 70)
+            else if (bouton == 2) {
+                c.fillText(" * Pixie", 70, 70)
             }
-            if (bouton == 3) {
-                c.fillText(" * pie", 70, 70)
+            else if (bouton == 2.5 && combat == false) {
+                c.fillText(" * check", 70, 70)
             }
-            if (bouton == 4) {
+            else if (bouton == 3 && combat == false) {
+                c.font = "25px Comic Sans MS"
+                c.fillText(" * noodles x" + items.noodles, 70, 70)
+                c.fillText(" * steroids x" + items.steroids, 270, 70)
+                c.fillText(" * candy x" + items.candy, 470, 70)
+                c.fillText(" * cake x" + items.cake, 670, 70)
+                c.fillText(" * pie x" + items.pie, 870, 70)
+                if (joueur.x == 49) {
+                    c.fillText("Noodles:   +2HP", 50, 150)
+                    c.fillText("The damage you receive is cut in half during the 2 next attacks.", 50, 190)
+                    c.fillText("Delicious and practicle! Don't get used to it.", 50, 230)
+                } else if (joueur.x == 249) {
+                    c.fillText("Steroids:   +2HP", 50, 150)
+                    c.fillText("The damage you deal is multiplied by 2 during your 2 next attacks.", 50, 190)
+                    c.fillText("Don't be scared of the warnings behind the box.", 50, 230)
+                } else if (joueur.x == 449) {
+                    c.fillText("Candy:   +5HP", 50, 150)
+                    c.fillText("Just a little treat.", 50, 190)
+                    c.fillText("Eat with moderation.", 50, 230)
+                } else if (joueur.x == 649) {
+                    c.fillText("Cake:   +10HP", 50, 150)
+                    c.fillText("Is it a lie?", 50, 190)
+                    c.fillText("There's only one way to find out.", 50, 230)
+                } else if (joueur.x == 849) {
+                    c.fillText("Pie:   +20HP", 50, 150)
+                    c.fillText("Dessert in the middle of a fight?", 50, 190)
+                    c.fillText("I wouldn't recommend it, but it looks so good!", 50, 230)
+                }
+            }
+            else if (bouton == 4) {
                 c.fillText(" * spare", 70, 70)
             }
 
@@ -336,7 +379,7 @@
                 coeur.src = "coeur.PNG"
             }
 
-            if (attacking == true && clicked == false) {
+            if (attacking == true) {
                 attbar.x += attbar.speed
                 c.drawImage(cible, boite.x, boite.y, boite.w, boite.h)
             }
@@ -378,65 +421,77 @@
             ct.fillStyle = "white"
             c.font = "30px Comic Sans MS"
             c.fillStyle = "white"
-            if (dialogue == 0&&bouton==0&&bossvie.w>10) {
+            if (bouton == 2.6 && bossvie.w > 10) {
+                speak = true
+                c.fillText("* ATT : 4                 DEF : 200", 50, 70)
+                c.fillText("A strange cat who wants to play with you.", 70, 110)
+            }
+            if ( bouton == 3&& bossvie.w > 10&&combat==false) {
+                speak = true
+                ct.fillText("That's looking good!", 10, 50)
+                ct.fillText("Mind sharing a bite?", 10, 80)
+                speak = false
+            }
+
+            if (dialogue == 0 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* A strange looking cat is blocking your path.", 50, 70)
             }
-            if (dialogue == 1&&bossvie.w>10) {
+            if (dialogue == 1 && bossvie.w > 10 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("You came here to play huh?", 10, 50)
             }
-            if (dialogue == 2&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 2 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* You did came here to play.", 50, 70)
                 c.fillText("Or are you expecting more from this?", 70, 110)
             }
-            if (dialogue == 3&&bossvie.w>10) {
+            if (dialogue == 3 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("Sure, I'll play.", 10, 50)
                 ct.fillText("It's not like I have something", 10, 80)
                 ct.fillText("else to do anyway.", 10, 110)
             }
-            if (dialogue == 4&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 4 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* Just play.", 50, 70)
             }
-            if (dialogue == 5&&bossvie.w>10) {
+            if (dialogue == 5 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("Don't be scared about dying.", 10, 50)
                 ct.fillText("You'll just restart at the beginning.", 10, 80)
                 ct.fillText("I can't say the same for me though.", 10, 110)
             }
-            if (dialogue == 6&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 6 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* You feel that he is hidding something from you.", 50, 70)
             }
-            if (dialogue == 7&&bossvie.w>10) {
+            if (dialogue == 7 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("We wouldn't want to", 10, 50)
                 ct.fillText("truly hurt each other...", 10, 80)
                 ct.fillText("Right?", 10, 110)
             }
-            if (dialogue == 8&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 8 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* Right...?", 50, 70)
             }
-            if (dialogue == 9&&bossvie.w>10) {
+            if (dialogue == 9 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("Anyway,", 10, 50)
                 ct.fillText("doesn't this game looks", 10, 80)
                 ct.fillText("familiar to you?", 10, 110)
             }
-            if (dialogue == 10&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 10 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* You start to question the creativity of the developer.", 50, 70)
             }
-            if (dialogue == 11&&bossvie.w>10) {
+            if (dialogue == 11 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("Almost as if the brilliant", 10, 50)
@@ -444,47 +499,47 @@
                 ct.fillText("this masterpiece was inspired", 10, 110)
                 ct.fillText("by another game.", 10, 140)
             }
-            if (dialogue == 12&&bouton==0&&bossvie.w>10 ||dialogue == 15&&bouton==0&&bossvie.w>10||dialogue == 18&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 12 && bouton == 0 && bossvie.w > 10 || dialogue == 15 && bouton == 0 && bossvie.w > 10 || dialogue == 18 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* Keep having fun.", 50, 70)
             }
-            if (dialogue == 13&&bossvie.w>10) {
+            if (dialogue == 13 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("If that's the case,", 10, 50)
                 ct.fillText("I bet this game is superior.", 10, 80)
             }
-            if (dialogue == 14&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 14 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* A ton of game better than this one cross your mind.", 50, 70)
             }
-            if (dialogue == 16&&bossvie.w>10) {
+            if (dialogue == 16 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("Still alive I see.", 10, 50)
                 ct.fillText("You are really good.", 10, 80)
             }
-            if (dialogue == 17&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 17 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* You feel your skills at the end of your fingers.", 50, 70)
             }
-            if (dialogue == 19&&bossvie.w>10) {
+            if (dialogue == 19 && bossvie.w > 100 && bouton == 1) {
                 dialogue += 1
                 speak = true
                 ct.fillText("Is this your first time", 10, 50)
                 ct.fillText("coming this far or...", 10, 80)
                 ct.fillText("am I repeating myself?", 10, 110)
             }
-            if (dialogue == 20&&bouton==0&&bossvie.w>10) {
+            if (dialogue == 20 && bouton == 0 && bossvie.w > 100 && bouton == 1) {
                 speak = true
                 c.fillText("* Is he repeating himself?", 50, 70)
                 c.fillText("How could he know?", 70, 110)
             }
-            if (dialogue > 20&&bouton==0&&bossvie.w>10) {
+            if (dialogue > 20 && bouton == 0 && bossvie.w > 10) {
                 speak = true
                 c.fillText("* You can feel the game coming to an end...?", 50, 70)
             }
-            if (phase==2&&bouton==0&&bossvie.w==10) {
+            if (phase == 2 && bouton == 0 && bossvie.w == 10) {
                 speak = true
                 c.fillText("* You considere to spare him and go play something better...", 50, 70)
                 c.fillStyle = "red"
@@ -634,6 +689,25 @@
                 setTimeout(clicks, 200)
             }
 
+            if (37 in keyDown && clicked == false && bouton == 3 && combat == false) {
+                clicked = true
+                if (joueur.x == 49) {
+                    joueur.x = 849
+                } else {
+                    joueur.x -= 200
+                }
+                setTimeout(clicks, 200)
+            }
+            if (39 in keyDown && clicked == false && bouton == 3 && combat == false) {
+                clicked = true
+                if (joueur.x == 849) {
+                    joueur.x = 49
+                } else {
+                    joueur.x += 200
+                }
+                setTimeout(clicks, 200)
+            }
+
             if (13 in keyDown && joueur.y != 50 && combat == false && healthbar.w > 0) {
                 if (joueur.x == 50) {
                     bouton = 1
@@ -651,14 +725,14 @@
                 joueur.x = 49
                 setTimeout(clickss, 200)
             }
-            if (16 in keyDown && attacking == false && combat == false) {
+            if (16 in keyDown && attacking == false && combat == false && bouton != 2.6) {
                 if (bouton == 1) {
                     joueur.x = 50
                 }
-                if (bouton == 2) {
+                if (bouton == 2 || bouton == 2.5) {
                     joueur.x = 300
                 }
-                if (bouton == 3) {
+                if (bouton == 3 || bouton == 3.5) {
                     joueur.x = 550
                 }
                 if (bouton == 4) {
@@ -673,8 +747,8 @@
                 setTimeout(function () { speak = false }, 1000)
             }
 
-            if (13 in keyDown && joueur.y == 50) {
-
+            if (13 in keyDown && joueur.y == 50 && combat == false && clicked == false) {
+                clicked = true
                 if (bouton == 1 && attacking == false && attbar.x < 100) {
                     attacking = true
                     joueur.x = -100
@@ -692,6 +766,40 @@
                     }
                     setTimeout(attacked, 600)
                 }
+                if (bouton == 2) {
+                    bouton = 2.5
+                } else if (bouton == 2.5) {
+                    bouton = 2.6
+                    joueur.x = -100
+                } else if (bouton == 2.6) {
+                    bouton = 2.7
+                    attacked()
+                }
+                if (bouton == 3) {
+                    if (joueur.x == 49) {
+                        items.noodles -= 1
+                        items.nood += 2
+                        healthbar.w += 10
+                        attacked()
+                    } else if (joueur.x == 249) {
+                        items.steroids -= 1
+                        items.ster += 2
+                        healthbar.w += 10
+                        attacked()
+                    } else if (joueur.x == 449) {
+                        items.candy -= 1
+                        healthbar.w += 25
+                        attacked()
+                    } else if (joueur.x == 649) {
+                        items.cake -= 1
+                        healthbar.w += 50
+                        attacked()
+                    } else if (joueur.x == 849) {
+                        items.pie -= 1
+                        healthbar.w += 100
+                        attacked()
+                    }
+                }
                 setTimeout(clicks, 200)
             }
             if (attacking == true && attbar.x > 1000 && joueur.x < 0) {
@@ -708,6 +816,7 @@
                 setTimeout(attacked, 600)
             }
 
+            //debug
             if (32 in keyDown) {
                 phase = 3
                 document.getElementById("container").style.display = "none"
@@ -732,6 +841,7 @@
 
 
         function attacked() {
+
             transition = true
             if (phase == 1) {
                 document.getElementById("container").style.display = "block"
@@ -743,26 +853,32 @@
                 document.getElementById("container11").style.display = "none"
             }
 
-            if (phase == 1) {
+            if (phase == 1 && bouton == 1) {
                 dialogue += 1
                 if (attbar.x + attbar.w / 2 > 100 && attbar.x + attbar.w / 2 <= 320 || attbar.x + attbar.w / 2 > 680 && attbar.x + attbar.w / 2 <= 1000) {
                     damage = Math.floor(Math.random() * 6)
-                    bossvie.w -= damage
                 } else if (attbar.x + attbar.w / 2 > 320 && attbar.x + attbar.w / 2 <= 450 || attbar.x + attbar.w / 2 > 550 && attbar.x + attbar.w / 2 <= 680) {
                     damage = 5 + Math.floor(Math.random() * 6)
-                    bossvie.w -= damage
                 } else if (attbar.x + attbar.w / 2 > 450 && attbar.x + attbar.w / 2 <= 490 || attbar.x + attbar.w / 2 > 510 && attbar.x + attbar.w / 2 <= 550) {
                     damage = 10 + Math.floor(Math.random() * 6)
-                    bossvie.w -= damage
                 } else if (attbar.x + attbar.w / 2 > 490 && attbar.x + attbar.w / 2 <= 510) {
                     damage = 15 + Math.floor(Math.random() * 6)
-                    bossvie.w -= damage
                 }
             } else if (phase == 3) {
                 damage = 0
                 combat2 = true
+            } else if (bouton > 1) {
+                damage = 0
             }
 
+            if (items.nood > 0) {
+                items.nood -= 1
+            }
+            if (items.ster > 0&&bouton==1) {
+                items.ster -= 1
+                damage = damage * 2
+            }
+            bossvie.w -= damage
             attbar.x = -100
             attbar.speed = 10
 
@@ -1172,6 +1288,9 @@
                     hit = true
                     healthbar.w -= 20
                     setTimeout(function () { hit = false }, 2000)
+                    if (items.nood >= 1) {
+                        healthbar.w += 10
+                    }
                 }
 
                 /* if (sac[i].y> boite.y + boite.h || sac[i].y < boite.y || sac[i].x> boite.x + boite.w || sac[i].x < boite.x) {
@@ -1185,6 +1304,9 @@
                     hit = true
                     healthbar.w -= 20
                     setTimeout(function () { hit = false }, 2000)
+                    if (items.nood >= 1) {
+                        healthbar.w += 10
+                    }
                 }
             }
 
@@ -1193,6 +1315,9 @@
                     hit = true
                     healthbar.w -= 20
                     setTimeout(function () { hit = false }, 2000)
+                    if (items.nood >= 1) {
+                        healthbar.w += 10
+                    }
                 }
             }
         }
@@ -1258,14 +1383,26 @@
         }
 
         function returns() {
+            if (bouton==1) {
+               joueur.y = 353
+            joueur.x = 50 
+            }else if (bouton==2.7) {
+               joueur.y = 353
+            joueur.x = 300 
+            }else if (bouton==3) {
+               joueur.y = 353
+            joueur.x = 550 
+            }else if (bouton==4) {
+               joueur.y = 353
+            joueur.x = 800 
+            }
             wait = false
             combat = false
             sac = []
             sacb = []
             saco = []
             bouton = 0
-            joueur.y = 353
-            joueur.x = 50
+            
             contour.x = 0
             contour.w = 1000
             boite.x = 10
@@ -1276,7 +1413,7 @@
 
 
         function mort() {
-            if (healthbar.w == 0) {
+            if (healthbar.w <= 0) {
                 healthbar.w = -1
                 document.getElementById("container5").style.display = "block"
                 document.getElementById("container").style.display = "none"
@@ -1294,8 +1431,8 @@
                 }, 6700)
 
                 setTimeout(function () {
-                    attack=-1
-                    combat2=false
+                    attack = -1
+                    combat2 = false
                     returns()
                     phase = 1
                     healthbar.w = 100
@@ -1325,7 +1462,7 @@
             clavier()
             checkcollision()
             mort()
-            requestAnimationFrame(game)
+            setTimeout(game, 16.67)
         }
         game()
 
