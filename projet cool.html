@@ -1,0 +1,2360 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ULTIMATE GAME</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #titlescreen {
+            background-color: black;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            display: block;
+            text-align: center;
+            text-size-adjust: 50;
+            color: firebrick;
+            font-size: 100px;
+        }
+
+        #shopscreen {
+            background-color: black;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            display: none;
+            text-align: center;
+            text-size-adjust: 50;
+            color: gold;
+            font-size: 100px;
+        }
+
+        #rulescreen {
+            background-color: black;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            display: none;
+            text-align: center;
+            text-size-adjust: 50;
+            color: white;
+            font-size: 100px;
+        }
+
+        #optionscreen {
+            background-color: black;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            display: none;
+            text-align: center;
+            text-size-adjust: 50;
+            color: white;
+            font-size: 100px;
+        }
+
+        #game {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #shop {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #rules {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #options {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #healt {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #dash {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #freeze {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #musique {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #bruit {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #back {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #back2 {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #back3 {
+            border: 2px white solid;
+            background-image: black;
+            display: inline-block;
+        }
+
+        #r1 {
+            color: white;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r2 {
+            color: red;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r3 {
+            color: lightblue;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r4 {
+            color: orange;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r5 {
+            color: green;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r6 {
+            color: purple;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r7 {
+            color: magenta;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r8 {
+            color: blue;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r9 {
+            color: grey;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r10 {
+            color: yellow;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r11 {
+            color: brown;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r12 {
+            color: saddlebrown;
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        #r13 {
+            color: coral;
+            font-size: 25px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="titlescreen">
+        ULTIMATE<br>
+        GAME<br>
+        <canvas id="game"></canvas><br>
+        <canvas id="shop"></canvas><br>
+        <canvas id="rules"></canvas><br>
+        <canvas id="options"></canvas>
+    </div>
+
+    <div id="shopscreen">
+        ULTIMATE<br>
+        $HOP<br>
+        <canvas id="healt"></canvas><br>
+        <canvas id="dash"></canvas><br>
+        <canvas id="freeze"></canvas><br>
+        <canvas id="back"></canvas>
+    </div>
+
+    <div id="rulescreen">
+        ULTIMATE<br>
+        RULES<br><br>
+        general:<br>
+        <p id="r1">Use the arrow keys to move.</p><br>
+        <p id="r1">If you refresh the page, you will lose all your progress.</p><br>
+        shop:<br>
+        <p id="r1">At the end of each level, you gain a coin. Bigger levels will give you 5 coins.</p><br>
+        <p id="r1">You can pause the game or go use your coins after level 5 by pressing ENTER.</p><br>
+        <p id="r1">The health bar will allow you to take some damage, but try not to! +10 health for each upgrade.</p><br>
+        <p id="r1">Press X in game to dash and become invincible. Each upgrade will give you an extra dash.</p><br>
+        <p id="r1">Press C in game to stop time. Each upgrade will make the ability last longer.</p><br>
+        colors:<br>
+        <p id="r5">Green is the end of each level.</p><br>
+        <p id="r2">Red will kill you.</p><br>
+        <p id="r3">Lightblue will kill you if you are moving.</p><br>
+        <p id="r4">Orange will kill you if you are not moving.</p><br>
+        <p id="r6">Purple will mirror your controls.</p><br>
+        <p id="r7">Magenta will follow you and kill you.</p><br>
+        <p id="r8">Blue will add gravity to the game.</p><br>
+        <p id="r1">White indicates walls or platforms.</p><br>
+        <p id="r9">Grey will push you in the direction indicated by the arrow.</p><br>
+        <p id="r10">Yellow indicates a locked door.</p><br>
+        <p id="r11">Dark red will make you bigger.</p><br>
+        <p id="r12">Brown will make you smaller.</p><br>
+        <p id="r13">Coral will erase all current effects.</p><br>
+        <canvas id="back2"></canvas>
+    </div>
+
+    <div id="optionscreen">
+        ULTIMATE<br>
+        OPTIONS<br>
+        <canvas id="musique"></canvas><br>
+        <canvas id="bruit"></canvas><br>
+        <canvas id="back3"></canvas>
+    </div>
+
+    <script>
+//variables de son
+        var menumusic = new Audio()
+        menumusic.src = "menu.mp3"
+
+        var music1 = new Audio()
+        music1.src = "music1.mp3"
+
+        var coinsound = new Audio()
+        coinsound.src = "coins.mp3"
+
+        var damagesound = new Audio()
+        damagesound.src = "damage.mp3"
+
+        var clicksound = new Audio()
+        clicksound.src = "click.mp3"
+
+        var dashsound = new Audio()
+        dashsound.src = "dashing.mp3"
+
+        var freezesound = new Audio()
+        freezesound.src = "freeze.mp3"
+
+        var errorsound = new Audio()
+        errorsound.src = "error.mp3"
+
+        var winsound = new Audio()
+        winsound.src = "win.mp3"
+
+        var oof = new Audio()
+        oof.src = "oof.mp3"
+
+        var alertt = new Audio()
+        alertt.src = "alert.mp3"
+
+        var breaks = new Audio()
+        breaks.src = "break.mp3"
+
+        var battle = new Audio()
+        battle.src = "battle.mp3"
+
+        //variables images
+
+        var fleched = new Image()
+        fleched.src = "flechedroite.png"
+
+        var flecheg = new Image()
+        flecheg.src = "flechegauche.png"
+
+        var flecheb = new Image()
+        flecheb.src = "flechebas.png"
+
+        var flecheh = new Image()
+        flecheh.src = "flechehaut.png"
+
+        var poison = new Image()
+        poison.src = "poison.png"
+
+        var fgravite = new Image()
+        fgravite.src = "gravite.png"
+
+        var clef = new Image()
+        clef.src = "clée.png"
+
+        var idash = new Image()
+        idash.src = "dash.png"
+
+        var grand = new Image()
+        grand.src = "grand.png"
+
+        var petit = new Image()
+        petit.src = "petit.png"
+
+        var ihealt = new Image()
+        ihealt.src = "healt.png"
+
+        var stoptime = new Image()
+        stoptime.src = "stoptime.png"
+
+        var lock = new Image()
+        lock.src = "lock.png"
+
+        var dark = new Image()
+        dark.src = "dark.png"
+
+        var stalactite = new Image()
+        stalactite.src = "stalactite.png"
+
+        var nutral = new Image()
+        nutral.src = "nutral.png"
+
+        var alarmed = new Image()
+        alarmed.src = "alarmed.png"
+
+        var boss = new Image()
+        boss.src = "boss.png"
+
+        var blueboss = new Image()
+        blueboss.src = "blueboss.png"
+
+        // Creation d'un canvas en Javascript au lieu de HTML 
+        var canvas = document.createElement("canvas");
+        var c = canvas.getContext("2d");
+        canvas.width = window.innerWidth - 50;
+        canvas.height = window.innerHeight - 50
+        canvas.style.border = "10px white solid";
+        canvas.style.backgroundColor = "black";
+        canvas.style.display = "none";
+        canvas.style.margin = "auto"
+        document.body.appendChild(canvas);
+
+        var canvas2 = document.getElementById("game")
+        var c2 = canvas2.getContext("2d")
+
+        var canvas3 = document.getElementById("shop")
+        var c3 = canvas3.getContext("2d")
+
+        var canvas4 = document.getElementById("rules")
+        var c4 = canvas4.getContext("2d")
+
+        var canvas5 = document.getElementById("options")
+        var c5 = canvas5.getContext("2d")
+
+        var canvas6 = document.getElementById("healt")
+        var c6 = canvas6.getContext("2d")
+
+        var canvas7 = document.getElementById("dash")
+        var c7 = canvas7.getContext("2d")
+
+        var canvas8 = document.getElementById("back")
+        var c8 = canvas8.getContext("2d")
+
+        var canvas9 = document.getElementById("freeze")
+        var c9 = canvas9.getContext("2d")
+
+        var canvas10 = document.getElementById("back2")
+        var c10 = canvas10.getContext("2d")
+
+        var canvas11 = document.getElementById("back3")
+        var c11 = canvas11.getContext("2d")
+
+        var canvas12 = document.getElementById("musique")
+        var c12 = canvas12.getContext("2d")
+
+        var canvas13 = document.getElementById("bruit")
+        var c13 = canvas13.getContext("2d")
+
+        canvas2.width = 300
+        canvas2.height = 100
+
+        canvas3.width = 300
+        canvas3.height = 100
+
+        canvas4.width = 300
+        canvas4.height = 100
+
+        canvas5.width = 300
+        canvas5.height = 100
+
+        canvas6.width = 300
+        canvas6.height = 100
+
+        canvas7.width = 300
+        canvas7.height = 100
+
+        canvas8.width = 150
+        canvas8.height = 50
+
+        canvas9.width = 300
+        canvas9.height = 100
+
+        canvas10.width = 150
+        canvas10.height = 50
+
+        canvas11.width = 150
+        canvas11.height = 50
+
+        canvas12.width = 300
+        canvas12.height = 100
+
+        canvas13.width = 300
+        canvas13.height = 100
+
+        //variables et objets du jeu
+        var joueur = {
+            x: 100,
+            y: canvas.height / 2,
+            w: canvas.width / 50,
+            h: canvas.width / 50,
+            color: "lime",
+            speed: 10,
+            velocity: canvas.height / 130
+        }
+
+        var healtbar = {
+            x: canvas.width - 150,
+            y: 20,
+            w: 0,
+            h: 20,
+            color: "lime"
+        }
+
+        var bosslife = {
+            x: canvas.width / 2 - canvas.width / 4,
+            y: canvas.height / 1.1,
+            w: canvas.width / 2,
+            h: canvas.height / 15,
+            color: "lime"
+        }
+
+        var menu = true
+
+        var win = false
+
+        var healtlvl = 0
+
+        var dashlvl = 0
+
+        var dashed = 0
+
+        var dashing = false
+
+        var freezelvl = 0
+
+        var freezing = false
+
+        var freezeuse = 1
+
+        var refresh = false
+
+        var coins = 0
+
+        var level = 12
+
+        var keyDown = {}
+
+        var buying = false
+
+        var lastxy = {
+            x: 0,
+            y: 0
+        }
+
+        var respawn = {
+            x: 50,
+            y: canvas.height / 2
+        }
+
+        var reverse = false
+
+        var gravity = false
+
+        var jump = false
+
+        var falling = false
+
+        var ouvert = false
+
+        var cles = {
+            un: false,
+            deux: false,
+            trois: false
+        }
+
+        var button = {
+            un: false,
+            deux: false,
+            trois: false
+        }
+
+        var night = false
+
+        var time = 0
+
+        var dead = 0
+
+        var hitted = false
+
+        var chanson = true
+
+        var bruits = true
+
+        var blueattack = false
+
+        var attacking = false
+
+        //trainée derriere le joueur
+        var particule1 = new Particule(0, 0, canvas.width / 150, canvas.width / 150, "green", 0, 0)
+        var particule2 = new Particule(0, 0, canvas.width / 150, canvas.width / 150, "green", canvas.width / 150, canvas.width / 150)
+        var particule3 = new Particule(0, 0, canvas.width / 150, canvas.width / 150, "green", canvas.width / 150, 0)
+        var particule4 = new Particule(0, 0, canvas.width / 150, canvas.width / 150, "green", canvas.width / 150, 0)
+        var particule5 = new Particule(0, 0, canvas.width / 150, canvas.width / 150, "green", canvas.width / 150, canvas.width / 150)
+        var particule6 = new Particule(0, 0, canvas.width / 150, canvas.width / 150, "green", canvas.width / 150, 0)
+
+        //variables des obstacles, plateformes, power up
+        var obstacle1 = new Obstaclev(canvas.width / 3, 0, 20, canvas.height / 3.5, "red", 10, 0, canvas.height)
+        var obstacle2 = new Obstaclev(canvas.width / 1.7, canvas.height / 2, 20, canvas.height / 3.5, "red", 15, 0, canvas.height)
+        var obstacle3 = new Obstaclev(canvas.width - 100, 0, 100, canvas.height, "green", 0, 0, 0)
+        var obstacle4 = new Obstacleh(canvas.width - 140, 0, 20, canvas.height, "lightblue", 5, 100, canvas.width - 120)
+        var obstacle5 = new Obstacleh(canvas.width - 140, 0, 20, canvas.height, "orange", 5, 100, canvas.width - 120)
+        var obstacle6 = new Obstaclev(100, 0, canvas.width - 100, 20, "lightblue", 5, 0, canvas.height)
+        var obstacle7 = new Obstaclev(150, 0, 20, canvas.height, "purple", 0, 0, 0)
+        var obstacle8 = new Obstaclefv(canvas.width / 3, 0, 20, canvas.height / 3.5, "magenta", 5, 0, canvas.height)
+        var obstacle9 = new Obstaclefv(canvas.width / 1.5, canvas.height - 200, 20, canvas.height / 3.5, "magenta", 7, 0, canvas.height)
+        var obstacle10 = new Obstaclev(150, 0, 20, canvas.height, "blue", 0, 0, 0)
+        var obstacle11 = new Obstaclev(canvas.width / 4.5, canvas.height - 20, canvas.width - 400, 20, "red", 0, 0, 0)
+        var obstacle12 = new Obstaclev(canvas.width / 4, canvas.height / 1.2, canvas.width / 6, 20, "white", 0, 0, 0)
+        var obstacle13 = new Obstacleh(canvas.width / 1.9, canvas.height / 1.8, canvas.width / 6, 20, "white", 5, canvas.width / 2.5, canvas.width - 200)
+        var obstacle14 = new Obstacleh(canvas.width / 4 + 0.5, canvas.height / 2, canvas.width, 20, "white", 0, 0, 0)
+        var obstacle15 = new Obstaclev(canvas.width / 4, 0, canvas.width / 1.8, canvas.height / 3, "red", 9, 0, canvas.height - canvas.width / 50 - 10)
+        var obstacle16 = new Obstaclev(canvas.width / 4 + 0.25, canvas.height - canvas.width / 50 - 10, canvas.width / 10, canvas.width / 50 + 10, "red", 0, 0, 0)
+        var obstacle17 = new Obstaclev(canvas.width / 1.416 - 1, canvas.height - canvas.width / 50 - 10, canvas.width / 10, canvas.width / 50 + 10, "red", 0, 0, 0)
+        var obstacle18 = new Obstaclev(canvas.width / 4 + 0.25, 0, canvas.width / 1.8 - 0.5, canvas.height, "grey", 0, 0, 0)
+        var obstacle19 = new Obstaclev(canvas.width / 1.25, 0, 20, canvas.height / 2, "yellow", 0, 0, 0)
+        var obstacle20 = new Obstaclev(canvas.width - 115, canvas.height / 1.35 - 15, 60, 60, "yellow", 0, 0, 0)
+        var obstacle21 = new Obstaclev(canvas.width / 1.2, 0, canvas.width / 5, canvas.height / 2, "green", 0, 0, 0)
+        var obstacle22 = new Obstacleh(canvas.width / 4, canvas.height / 2, 20, canvas.height / 2, "saddlebrown", 0, 0, 0)
+        var obstacle23 = new Obstacleh(canvas.width / 4, 0, 20, canvas.height / 2, "brown", 0, 0, 0)
+        var obstacle24 = new Obstaclev(canvas.width / 1.7, canvas.height / 2 + 20, 20, canvas.height / 4, "coral", 7.5, canvas.height / 2 + 20, canvas.height)
+        var obstacle25 = new Obstaclev(canvas.width / 1.25, canvas.height / 2 + 20, 20, canvas.height / 2.25, "red", 0, 0, 0)
+        var obstacle26 = new Obstaclev(canvas.width / 1.27, canvas.height / 2 + 20, 20, canvas.height / 4, "coral", 10, canvas.height / 2 + 20, canvas.height)
+        var obstacle27 = new Obstaclev(canvas.width / 2.5, canvas.height / 2 + 20, 20, canvas.height / 4, "coral", 5, canvas.height / 2 + 20, canvas.height)
+        var obstacle28 = new Obstaclev(canvas.width / 3.5, 0, canvas.width / 5, canvas.height / 10, "red", 5, 0, canvas.height / 2)
+        var obstacle29 = new Obstaclev(canvas.width / 1.8, 0, canvas.width / 5, canvas.height / 10, "red", 7.5, 0, canvas.height / 2)
+        var obstacle30 = new Obstacleh(canvas.width / 2, 0, 20, canvas.height / 2, "lightblue", 3, canvas.width / 3.9, canvas.width / 1.25)
+        var obstacle31 = new Obstaclev(canvas.width / 3, 0, 20, canvas.height / 1.03, "white", 0, 0, 0)
+        var obstacle32 = new Obstaclev(canvas.width / 1.5, canvas.height / 35, 20, canvas.height, "white", 0, 0, 0)
+        var obstacle33 = new Obstaclev(canvas.width / 1.5, canvas.height / 1.2, canvas.width / 3, canvas.height / 3, "green", 0, 0, 0)
+        var obstacle34 = new Obstaclefh(10, canvas.height / 2, canvas.width / 15, 20, "magenta", 7.5, 0, canvas.width / 3)
+        var obstacle35 = new Obstacleh(0, 0, canvas.width / 3, canvas.height / 5, "purple", 0, 0, 0)
+        var obstacle36 = new Obstacleh(0, canvas.height / 1.2 - 20, canvas.width / 3, 20, "saddlebrown", 0, 0, 0)
+        var obstacle37 = new Obstacleh(0, canvas.height / 1.2 - 40, canvas.width / 3, 20, "coral", 0, 0, 0)
+        var obstacle38 = new Obstacleh(canvas.width / 3 + 20, canvas.height / 1.4, canvas.width / 3 - 20, canvas.height / 2, "grey", 0, 0, 0)
+        var obstacle39 = new Obstacleh(canvas.width / 3 + 20, 0, canvas.width / 3 - 20, canvas.height / 3.3, "grey", 0, 0, 0)
+        var obstacle40 = new Obstacleh(canvas.width / 3 + 20, canvas.height / 2.6, canvas.width / 3 - 20, canvas.height / 4, "orange", 0, 0, 0)
+        var obstacle41 = new Obstaclev(canvas.width / 3 + 20, 100, canvas.width / 3 - 20, canvas.height / 15, "lightblue", 10, 0, canvas.height)
+        var obstacle42 = new Obstacleh(canvas.width / 1.47, canvas.height / 35, canvas.width / 3, 20, "blue", 0, 0, 0)
+        var obstacle43 = new Obstacleh(canvas.width / 1.47, canvas.height / 35 + 20, canvas.width / 3, 20, "brown", 0, 0, 0)
+        var obstacle44 = new Obstacleh(canvas.width / 1.3, canvas.height / 6, canvas.width / 20, canvas.height / 1.7, "red", 10, canvas.width / 1.5 + 20, canvas.width)
+        var obstacle45 = new Obstacleh(0, 0, canvas.width, canvas.height / 10, "red", 0, 0, 0)
+        var obstacle46 = new Obstacleh(0, canvas.height / 1.1, canvas.width, canvas.height / 2, "red", 0, 0, 0)
+        var obstacle47 = new Obstacleh(0, canvas.height / 1.5, canvas.width / 6, 20, "white", 0, 0, 0)
+        var obstacle48 = new Obstaclev(canvas.width / 5, 0, canvas.width / 6, 20, "white", 5, 0, canvas.height)
+        var obstacle49 = new Obstaclev(canvas.width / 2.2, canvas.height - 20, canvas.width / 6, 20, "white", 2, 0, canvas.height)
+        var obstacle50 = new Obstaclev(canvas.width / 1.42, 0, canvas.width / 6, 20, "white", 5, 0, canvas.height)
+        var obstacle51 = new Obstaclev(0, canvas.height / 1.5 + 20, 50, canvas.height / 2, "green", 0, 0, 0)
+        var obstacle52 = new Obstaclev(0, canvas.height / 1.8, canvas.width / 6, canvas.height / 9, "blue", 0, 0, 0)
+        var obstacle53 = new Obstaclev(canvas.width / 5, 20, canvas.width / 6, 20, "red", 5, 20, canvas.height + 20)
+        var obstacle54 = new Obstaclev(canvas.width / 1.1, 0, canvas.width / 2, canvas.height, "coral", 0, 0, 0)
+        var obstacle55 = new Obstaclev(canvas.width / 2.2, canvas.height, canvas.width / 6, 20, "red", 2, 20, canvas.height + 20)
+        var obstacle56 = new Obstaclev(canvas.width / 1.42, 20, canvas.width / 6, 20, "red", 5, 20, canvas.height + 20)
+        var obstacle57 = new Obstaclev(0, 0, canvas.width, 0, "black", 0, 0, 0)
+        var obstacle58 = new Obstaclev(0, 0, 0, canvas.height, "black", 0, 0, 0)
+        var obstacle59 = new Obstaclev(0, 0, canvas.width, canvas.height, "black", 0, 0, 0)
+        var obstacle60 = new Obstaclev(0, 0, canvas.width, canvas.height, "black", 0, 0, 0)
+        var obstacle61 = new Obstaclev(0, canvas.height / 3.2, canvas.width / 1.25, canvas.height / 20, "white", 0, 0, 0)
+        var obstacle62 = new Obstaclev(canvas.width / 1.8, canvas.height / 1.5, canvas.width, canvas.height / 20, "white", 0, 0, 0)
+        var obstacle63 = new Obstaclev(0, canvas.height / 1.5, canvas.width / 2.5, canvas.height / 20, "white", 0, 0, 0)
+        var obstacle64 = new Obstaclev(canvas.width / 1.05, canvas.height / 1.5 + 20, canvas.width, canvas.height / 1.5 + 20, "green", 0, 0, 0)
+        var obstacle65 = new Obstaclefh(10, canvas.height / 3.05, canvas.width / 7, canvas.height / 50, "magenta", 7.5, 0, canvas.width)
+        var obstacle66 = new Obstaclefh(canvas.width / 2.5, canvas.height / 1.5, canvas.width / 6, canvas.height / 20, "yellow", 0, 0, 0)
+        var obstacle67 = new Obstaclefh(canvas.width / 20 - 15, canvas.height / 8 - 15, 60, 60, "yellow", 0, 0, 0)
+        var obstacle68 = new Obstaclee(canvas.width / 1.5, canvas.height / 1.7, canvas.width / 50, canvas.width / 50, "turquoise", 4, canvas.width / 1.5, canvas.height / 1.7)
+        var obstacle69 = new Obstaclee(canvas.width / 2.5, canvas.height / 1.7, canvas.width / 50, canvas.width / 50, "turquoise", 4.5, canvas.width / 2.5, canvas.height / 1.7)
+        var obstacle70 = new Obstaclee(canvas.width / 1.5, canvas.height / 3, canvas.width / 50, canvas.width / 50, "turquoise", 5, canvas.width / 1.5, canvas.height / 3)
+        var obstacle71 = new Obstaclee(canvas.width / 2.5, canvas.height / 3, canvas.width / 50, canvas.width / 50, "turquoise", 5.5, canvas.width / 2.5, canvas.height / 3)
+        var obstacle72 = new Obstaclee(canvas.width / 1.92, canvas.height / 1.1, canvas.width / 50, canvas.width / 50, "turquoise", 4, canvas.width / 1.92, canvas.height / 1.1)
+        var obstacle73 = new Obstaclee(canvas.width / 1.92, canvas.height / 1.4, canvas.width / 50, canvas.width / 50, "turquoise", 4.5, canvas.width / 1.92, canvas.height / 1.4)
+        var obstacle74 = new Obstaclee(canvas.width / 1.92, canvas.height / 5, canvas.width / 50, canvas.width / 50, "turquoise", 5, canvas.width / 1.92, canvas.height / 5)
+        var obstacle75 = new Obstaclee(canvas.width / 1.92, canvas.height / 50, canvas.width / 50, canvas.width / 50, "turquoise", 5.5, canvas.width / 1.92, canvas.height / 50)
+        var obstacle76 = new Obstaclee(canvas.width / 1.92, canvas.height / 2.3, canvas.width / 25, canvas.width / 25, "turquoise", 3, canvas.width / 1.92, canvas.height / 2.3)
+        var obstacle77 = new Obstaclev(canvas.width / 1.2, canvas.height / 5, 20, canvas.height, "white", 0, 0, 0)
+        var obstacle78 = new Obstaclev(canvas.width / 1.2 + 20, canvas.height / 1.5, canvas.width, 20, "yellow", 0, 0, 0)
+        var obstacle79 = new Obstaclev(canvas.width / 10, canvas.height / 6, canvas.width / 15, canvas.width / 15, "yellow", 0, 0, 0)
+        var obstacle80 = new Obstaclev(canvas.width / 1.2 + 20, canvas.height / 1.3, canvas.width, canvas.height, "green", 0, 0, 0)
+        var obstacle81 = new Obstaclet(canvas.width / 10, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle82 = new Obstaclet(canvas.width / 5, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle83 = new Obstaclet(canvas.width / 4, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle84 = new Obstaclet(canvas.width / 2, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle85 = new Obstaclet(canvas.width / 1.5, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle86 = new Obstaclet(canvas.width / 1.3, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle87 = new Obstaclet(canvas.width / 2.5, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle88 = new Obstaclet(canvas.width / 1.8, 0, canvas.width / 30, canvas.height / 8, 15)
+        var obstacle89 = new Obstaclev(canvas.width / 1.2, 0, canvas.width / 20, canvas.height, "yellow", 0, 0, 0)
+        var obstacle90 = new Obstaclev(0, canvas.height / 2 - canvas.width / 7, 20, canvas.width / 3.5, "darkgreen", 0, 0, 0)
+        var obstacle91 = new Obstaclev(canvas.width / 2 - canvas.width / 7, 0, canvas.width / 3.5, 20, "darkgreen", 0, 0, 0)
+        var obstacle92 = new Obstaclev(canvas.width / 2 - canvas.width / 7, canvas.height - 20, canvas.width / 3.5, 20, "darkgreen", 0, 0, 0)
+        var obstacle93 = new Obstaclev(canvas.width - 20, canvas.height / 2 - canvas.width / 7, 20, canvas.width / 3.5, "darkgreen", 0, 0, 0)
+        var obstacle94 = new Obstaclev(0, canvas.height / 1.2, canvas.width / 6, 20, "white", 0, 0, 0)
+        var obstacle95 = new Obstacleh(canvas.width / 3, canvas.height / 1.3, canvas.width / 6, 20, "white", 5, canvas.width / 5, canvas.width / 1.7)
+        var obstacle96 = new Obstaclev(canvas.width / 1.5, canvas.height / 1.2, canvas.width, 20, "white", 0, 0, 0)
+        var obstacle97 = new Obstaclev(canvas.width / 1.3, 0, 20, canvas.height / 1.2, "blue", 0, 0, 0)
+        var obstacle98 = new Obstaclev(canvas.width / 1.3 + 20, 0, 20, canvas.height / 1.2, "coral", 0, 0, 0)
+        var obstacle99 = new Obstaclev(canvas.width / 15 - 20, canvas.height / 1.2 - 65, 60, 60, "yellow", 0, 0, 0)
+        var obstacle100 = new Obstaclee(canvas.width / 1.5, canvas.height / 1.7, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 1.5, canvas.height / 1.7)
+        var obstacle101 = new Obstaclee(canvas.width / 2.8, canvas.height / 1.7, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 2.8, canvas.height / 1.7)
+        var obstacle102 = new Obstaclee(canvas.width / 1.2, canvas.height / 3, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 1.2, canvas.height / 3)
+        var obstacle103 = new Obstaclee(canvas.width / 1.4, canvas.height / 3, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 1.4, canvas.height / 3)
+        var obstacle104 = new Obstaclee(canvas.width / 1.5, canvas.height / 1.1, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 1.5, canvas.height / 1.1)
+        var obstacle105 = new Obstaclee(canvas.width / 6, canvas.height / 1.4, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 6, canvas.height / 1.4)
+        var obstacle106 = new Obstaclee(canvas.width / 5, canvas.height / 5, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 5, canvas.height / 5)
+        var obstacle107 = new Obstaclee(canvas.width / 3, canvas.height / 50, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 3, canvas.height / 50)
+        var obstacle108 = new Obstaclee(canvas.width / 4, canvas.height / 2.3, canvas.width / 50, canvas.width / 50, "turquoise", 2, canvas.width / 4, canvas.height / 2.3)
+        var obstacle109 = new Obstaclev(canvas.width / 2 - canvas.width / 7, 0, canvas.width / 3.5, 20, "darkgreen", 0, 0, 0)
+        var obstacle110 = new Obstaclev(canvas.width / 2 - canvas.width / 7, canvas.height - 20, canvas.width / 3.5, 20, "darkgreen", 0, 0, 0)
+        var obstacle111 = new Obstaclee(canvas.width / 2, canvas.height / 1.5, canvas.width / 25, canvas.width / 25, "turquoise", 3, canvas.width / 2, canvas.height / 1.5)
+        var obstacle112 = new Obstaclee(canvas.width / 1.3, canvas.height / 2, canvas.width / 25, canvas.width / 25, "turquoise", 3, canvas.width / 1.3, canvas.height / 2)
+        var obstacle113 = new Obstaclee(canvas.width / 6, canvas.height / 2, canvas.width / 25, canvas.width / 25, "turquoise", 3, canvas.width / 6, canvas.height / 2)
+        var obstacle114 = new Obstaclev(canvas.width / 1.2, canvas.height / 6, canvas.width / 15, canvas.width / 15, "yellow", 0, 0, 0)
+        var obstacle115 = new Obstaclev(canvas.width / 2.2, canvas.height / 1.2, canvas.width / 15, canvas.width / 15, "yellow", 0, 0, 0)
+        var obstacle116 = new Obstaclev(canvas.width / 2 - 20, canvas.height / 4 - 15, 60, 60, "yellow", 0, 0, 0)
+        var obstacle117 = new Obstaclee(canvas.width / 2, canvas.height / 2, canvas.width / 15, canvas.width / 15, "turquoise", 3, canvas.width / 2, canvas.height / 2)
+        var obstacle118 = new Obstaclet(canvas.width / 1.5, 0, canvas.width / 15, canvas.height / 5, 5)
+        var obstacle119 = new Obstaclev(0, 0, canvas.width, canvas.height, "lightblue", 0, 0, 0)
+
+        //fonctions
+
+        function drawJoueur() {
+            if (joueur.x != lastxy.x || joueur.y != lastxy.y) {
+                particule1.draw()
+                particule2.draw()
+                particule3.draw()
+                particule4.draw()
+                particule5.draw()
+                particule6.draw()
+            }
+            if (gravity == true) {
+                joueur.color = "darkblue"
+            } else {
+                joueur.color = "green"
+            }
+            c.fillStyle = joueur.color
+            c.fillRect(joueur.x, joueur.y, joueur.w, joueur.h)
+        }
+
+        function drawstats() {
+            c.font = "10px Arial"
+            c.textAlign = "left"
+            c.fillStyle = "white"
+            c.fillText("Press ENTER to go back to the menu", 10, 10)
+            c.fillText("Effects:", 10, 35)
+
+            if (reverse == true) {
+                c.drawImage(poison, 10, 45)
+            }
+            if (gravity == true) {
+                c.drawImage(fgravite, 60, 50)
+            }
+            if (joueur.w == canvas.width / 100) {
+                c.drawImage(petit, 100, 50)
+            } else if (joueur.w == canvas.width / 25) {
+                c.drawImage(grand, 100, 50)
+            }
+            if (dashing == true) {
+                c.drawImage(idash, 140, 55)
+            }
+            if (freezing == true) {
+                c.drawImage(stoptime, 180, 50)
+            }
+            if (ouvert == true) {
+                c.drawImage(clef, 220, 50)
+            }
+            if (night == true) {
+                c.drawImage(dark, 260, 50)
+            }
+            if (gravity == false && reverse == false && joueur.w == canvas.width / 50 && dashing == false && freezing == false && ouvert == false && night == false) {
+                c.fillText("none", 10, 45)
+            }
+
+            c.font = "20px Arial"
+            if (healtbar.w > 0) {
+                c.fillText("health:" + healtbar.w, canvas.width - 250, 35)
+                c.fillStyle = healtbar.color
+                c.fillRect(healtbar.x, healtbar.y, healtbar.w, healtbar.h)
+            }
+            c.fillStyle = "white"
+            if (dashlvl > 0) {
+                c.fillText(dashed + "/" + dashlvl + " dashes", canvas.width - 250, 55)
+            }
+            if (freezelvl > 0) {
+                c.fillText(freezeuse + "/1 Timefreeze", canvas.width - 250, 75)
+            }
+
+            c.fillStyle = "gold"
+            c.fillText("Coins:" + coins, canvas.width - 250, 95)
+
+            c.textAlign = "center"
+            c.fillStyle = "white"
+            c.fillText("Time:" + time, canvas.width / 2, 35)
+        }
+
+        function Particule(x, y, w, h, color, offx, offy) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.color = color
+            this.offx = offx
+            this.offy = offy
+            this.draw = function () {
+                if (gravity == true) {
+                    this.color = "darkblue"
+                } else {
+                    this.color = "green"
+                }
+                c.fillStyle = this.color
+                c.fillRect(this.x, this.y, this.w, this.h)
+                this.y = lastxy.y + (Math.random() * 10) + this.offy
+                this.x = lastxy.x + (Math.random() * 10) + this.offx
+            }
+        }
+
+        function Obstaclee(x, y, w, h, color, speed, respx, respy) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.color = color
+            this.speed = speed
+            this.respx = respx
+            this.respy = respy
+            this.draw = function () {
+                c.fillStyle = this.color
+                c.fillRect(this.x, this.y, this.w, this.h)
+                if (freezing == false && level != 17) {
+                    if (this.y + this.h + canvas.height / 3.5 > joueur.y && this.y + this.h < joueur.y && this.x + this.w + canvas.height / 3.5 > joueur.x && this.x - canvas.height / 3.5 < joueur.w + joueur.x) {
+                        this.y += this.speed
+                        alertt.play()
+                        c.drawImage(alarmed, this.x, this.y, this.w, this.h)
+                    }
+                    else if (this.y - canvas.height / 3.5 < joueur.y + joueur.h && this.y > joueur.y + joueur.h && this.x + this.w + canvas.height / 3.5 > joueur.x && this.x - canvas.height / 3.5 < joueur.w + joueur.x) {
+                        this.y -= this.speed
+                        alertt.play()
+                        c.drawImage(alarmed, this.x, this.y, this.w, this.h)
+                    }
+                    else if (this.x + this.w + canvas.height / 3.5 > joueur.x && this.x + this.w < joueur.x && this.y + this.h + canvas.height / 3.5 > joueur.y && this.y - canvas.height / 3.5 < joueur.y + joueur.h) {
+                        this.x += this.speed
+                        alertt.play()
+                        c.drawImage(alarmed, this.x, this.y, this.w, this.h)
+                    }
+                    else if (this.x - canvas.height / 3.5 < joueur.w + joueur.x && this.x > joueur.x + joueur.w && this.y + this.h + canvas.height / 3.5 > joueur.y && this.y - canvas.height / 3.5 < joueur.y + joueur.h) {
+                        this.x -= this.speed
+                        alertt.play()
+                        c.drawImage(alarmed, this.x, this.y, this.w, this.h)
+                    } else {
+                        c.drawImage(nutral, this.x, this.y, this.w, this.h)
+                    }
+                }
+
+                if (freezing == false && level == 17) {
+                    c.drawImage(boss, this.x, this.y, this.w, this.h)
+                    if (this.y + this.h + canvas.height * 5 > joueur.y && this.y + this.h < joueur.y && this.x + this.w + canvas.height * 5 > joueur.x && this.x - canvas.height * 5 < joueur.w + joueur.x) {
+                        this.y += this.speed
+                    }
+                    else if (this.y - canvas.height * 5 < joueur.y + joueur.h && this.y > joueur.y + joueur.h && this.x + this.w + canvas.height * 5 > joueur.x && this.x - canvas.height * 5 < joueur.w + joueur.x) {
+                        this.y -= this.speed
+                    }
+                    else if (this.x + this.w + canvas.height * 5 > joueur.x && this.x + this.w < joueur.x && this.y + this.h + canvas.height * 5 > joueur.y && this.y - canvas.height * 5 < joueur.y + joueur.h) {
+                        this.x += this.speed
+                    }
+                    else if (this.x - canvas.height * 5 < joueur.w + joueur.x && this.x > joueur.x + joueur.w && this.y + this.h + canvas.height * 5 > joueur.y && this.y - canvas.height * 5 < joueur.y + joueur.h) {
+                        this.x -= this.speed
+                    }
+                }
+                if (hitted == true) {
+                    this.x = this.respx
+                    this.y = this.respy
+                }
+            }
+        }
+
+
+        function Obstaclet(x, y, w, h, speed) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.speed = speed
+            this.draw = function () {
+                c.drawImage(stalactite, this.x, this.y, this.w, this.h)
+                if (freezing == false && level != 17) {
+                    if (this.x < joueur.x + joueur.w && this.x + this.w > joueur.x) {
+                        breaks.play()
+                        this.y += this.speed
+                    }
+                    if (this.y != 0) {
+                        this.y += this.speed
+                    }
+                    if (this.y > canvas.height - this.h) {
+                        this.y = 0
+                    }
+                    if (level == 100) {
+                        this.speed = 10
+                    }
+
+                }
+                if (freezing == false && level == 17) {
+                    if (this.x < joueur.x + joueur.w && this.x + this.w > joueur.x) {
+                        breaks.play()
+                        this.y += this.speed
+                    }
+                    if (this.y != 0) {
+                        this.y += this.speed
+                    }
+                    if (this.y > canvas.height - this.h) {
+                        this.x = (Math.random() * canvas.width - canvas.width / 15)
+                        this.y = 0
+                    }
+
+                }
+
+            }
+        }
+
+        function Obstaclev(x, y, w, h, color, speed, min, max) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.color = color
+            this.speed = speed
+            this.min = min
+            this.max = max
+            this.draw = function () {
+                c.fillStyle = this.color
+                c.fillRect(this.x, this.y, this.w, this.h)
+                if (this.y < this.min || this.y + this.h > this.max) {
+                    this.speed = -this.speed
+                }
+                if (freezing == false) {
+                    this.y += this.speed
+                }
+            }
+        }
+
+        function Obstacleh(x, y, w, h, color, speed, min, max) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.color = color
+            this.speed = speed
+            this.min = min
+            this.max = max
+            this.draw = function () {
+                c.fillStyle = this.color
+                c.fillRect(this.x, this.y, this.w, this.h)
+                if (this.x < this.min || this.x + this.w > this.max) {
+                    this.speed = -this.speed
+                }
+                if (freezing == false) {
+                    this.x += this.speed
+                }
+            }
+        }
+
+        function Obstaclefv(x, y, w, h, color, speed, min, max) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.color = color
+            this.speed = speed
+            this.min = min
+            this.max = max
+            this.draw = function () {
+                c.fillStyle = this.color
+                c.fillRect(this.x, this.y, this.w, this.h)
+                if (lastxy.y < this.y + this.h / 2 - joueur.h / 2 && this.y > this.min && freezing == false) {
+                    this.y -= this.speed
+                } else if (lastxy.y > +this.h / 2 - joueur.h / 2 && this.y < this.max - this.h && freezing == false) {
+                    this.y += this.speed
+                }
+            }
+        }
+
+        function Obstaclefh(x, y, w, h, color, speed, min, max) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+            this.color = color
+            this.speed = speed
+            this.min = min
+            this.max = max
+            this.draw = function () {
+                c.fillStyle = this.color
+                c.fillRect(this.x, this.y, this.w, this.h)
+                if (lastxy.x < this.x + this.w / 2 - joueur.w / 2 && this.x > this.min && freezing == false) {
+                    this.x -= this.speed
+                } else if (lastxy.x > this.x + this.w / 2 - joueur.w / 2 && this.x < this.max - this.w && freezing == false) {
+                    this.x += this.speed
+                }
+            }
+        }
+
+        function draw() {
+            c.font = "25px Arial"
+            c.textAlign = "center"
+            if (level == 1) {
+                obstacle1.draw()
+                obstacle2.draw()
+                obstacle3.draw()
+                c.fillStyle = "white"
+                c.fillText("Those red bars are scary...", canvas.width / 2, 100)
+                c.fillText("I would try to avoid them.", canvas.width / 2, 150)
+            }
+            if (level == 2) {
+                obstacle1.draw()
+                obstacle2.draw()
+                obstacle4.draw()
+                obstacle3.draw()
+                c.fillStyle = "white"
+                c.fillText("AAAAAAAHHHHH!!! A BLUE BAR NOW!", canvas.width / 2, 100)
+                c.fillText("I am so scared! I can't move!", canvas.width / 2, 150)
+            }
+            if (level == 3) {
+                obstacle1.draw()
+                obstacle2.draw()
+                obstacle5.draw()
+                obstacle3.draw()
+                c.fillStyle = "white"
+                c.fillText("Orange now? How many colors are there?", canvas.width / 2, 100)
+                c.fillText("I am not scared anymore! I will face it head first!", canvas.width / 2, 150)
+            }
+            if (level == 4) {
+                obstacle1.draw()
+                obstacle2.draw()
+                obstacle5.draw()
+                obstacle6.draw()
+                obstacle3.draw()
+                c.fillStyle = "white"
+                c.fillText("Both!? HOW?!", canvas.width / 2, 100)
+            }
+
+            if (level == 5) {
+                obstacle1.draw()
+                obstacle2.draw()
+                obstacle3.draw()
+                obstacle7.draw()
+                if (reverse == true) {
+                    c.fillText("I am dizzy...", canvas.width / 2, 100)
+                }
+            }
+
+            if (level == 6) {
+                obstacle8.draw()
+                obstacle9.draw()
+                obstacle3.draw()
+                c.fillStyle = "white"
+                c.fillText("Stop following me!", canvas.width / 2, 100)
+            }
+
+            if (level == 7) {
+                obstacle11.draw()
+                obstacle10.draw()
+                obstacle3.draw()
+                obstacle12.draw()
+                obstacle13.draw()
+                c.fillStyle = "white"
+                c.fillText("I don't think you understand the GRAVITY of the situation...", canvas.width / 2, 100)
+            }
+
+            if (level == 8) {
+                obstacle18.draw()
+                c.drawImage(fleched, obstacle18.x, obstacle18.y, obstacle18.w, obstacle18.h / 2)
+                c.drawImage(fleched, obstacle18.x, canvas.height / 2 + 20, obstacle18.w, obstacle18.h / 2)
+                obstacle19.draw()
+                obstacle21.draw()
+                obstacle14.draw()
+                obstacle15.draw()
+                obstacle16.draw()
+                obstacle17.draw()
+                obstacle20.draw()
+                if (ouvert == false) {
+                    c.drawImage(lock, canvas.width / 1.25, canvas.height / 4.5)
+                    c.drawImage(clef, canvas.width - 95, canvas.height / 1.35)
+                }
+                c.fillStyle = "white"
+                c.fillText("Where does that wind come from?", canvas.width / 2, 100)
+            }
+
+            if (level == 9) {
+                obstacle30.draw()
+                obstacle29.draw()
+                obstacle28.draw()
+                obstacle27.draw()
+                obstacle26.draw()
+                obstacle25.draw()
+                obstacle22.draw()
+                obstacle23.draw()
+                obstacle24.draw()
+                obstacle21.draw()
+                obstacle19.draw()
+                obstacle20.draw()
+                obstacle14.draw()
+                if (ouvert == false) {
+                    c.drawImage(lock, canvas.width / 1.25, canvas.height / 4.5)
+                    c.drawImage(clef, canvas.width - 95, canvas.height / 1.35)
+                }
+                if (joueur.w == canvas.width / 25) {
+                    c.font = "45px Arial"
+                    c.fillStyle = "white"
+                    c.fillText("I will start a diet... maybe tomorow.", canvas.width / 2, 100)
+                }
+                if (joueur.w == canvas.width / 100) {
+                    c.font = "8px Arial"
+                    c.fillStyle = "white"
+                    c.fillText("HEY! Do you see me?", canvas.width / 2, 100)
+                }
+            }
+            if (level == 10) {
+                obstacle44.draw()
+                obstacle43.draw()
+                obstacle42.draw()
+                obstacle40.draw()
+                obstacle39.draw()
+                obstacle38.draw()
+                c.drawImage(flecheh, obstacle38.x, obstacle38.y, obstacle38.w, obstacle38.h)
+                c.drawImage(flecheb, obstacle39.x, obstacle39.y, obstacle39.w, obstacle39.h)
+                obstacle37.draw()
+                obstacle36.draw()
+                obstacle35.draw()
+                obstacle34.draw()
+                obstacle41.draw()
+                obstacle33.draw()
+                obstacle31.draw()
+                obstacle32.draw()
+            }
+
+            if (level == 11) {
+                obstacle56.draw()
+                obstacle55.draw()
+                obstacle54.draw()
+                obstacle53.draw()
+                obstacle52.draw()
+                obstacle51.draw()
+                obstacle47.draw()
+                obstacle46.draw()
+                obstacle45.draw()
+                obstacle46.draw()
+                obstacle48.draw()
+                obstacle49.draw()
+                obstacle50.draw()
+            }
+            if (level == 12) {
+                night = true
+                obstacle66.draw()
+                obstacle65.draw()
+                obstacle64.draw()
+                obstacle61.draw()
+                obstacle62.draw()
+                obstacle63.draw()
+                obstacle67.draw()
+                if (ouvert == false) {
+                    c.drawImage(lock, canvas.width / 2.1, canvas.height / 1.5)
+                    c.drawImage(clef, canvas.width / 19, canvas.height / 8)
+                }
+                c.font = "15px Arial"
+                c.fillStyle = "white"
+                c.fillText("Wrong way.", 75, canvas.height / 1.2)
+            }
+
+            if (level == 13) {
+                obstacle3.draw()
+                obstacle68.draw()
+                obstacle69.draw()
+                obstacle70.draw()
+                obstacle71.draw()
+                obstacle72.draw()
+                obstacle73.draw()
+                obstacle74.draw()
+                obstacle75.draw()
+                c.font = "25px Arial"
+                c.fillStyle = "white"
+                c.fillText("Don't go near those turquoise monters!", canvas.width / 2, 100)
+            }
+            if (level == 14) {
+                obstacle78.draw()
+                obstacle79.draw()
+                obstacle80.draw()
+                obstacle68.draw()
+                obstacle69.draw()
+                obstacle70.draw()
+                obstacle71.draw()
+                obstacle76.draw()
+                obstacle77.draw()
+                if (collision(joueur, obstacle79)) {
+                    c.font = "25px Arial"
+                    c.fillStyle = "white"
+                    c.fillText("I need something heavier.", canvas.width / 2, 100)
+                }
+
+            }
+            if (level == 15) {
+                obstacle18.draw()
+                c.drawImage(flecheg, obstacle18.x, obstacle18.y, obstacle18.w, obstacle18.h)
+                obstacle81.draw()
+                obstacle82.draw()
+                obstacle83.draw()
+                obstacle84.draw()
+                obstacle85.draw()
+                obstacle86.draw()
+                obstacle87.draw()
+                obstacle88.draw()
+                obstacle3.draw()
+            }
+
+            if (level == 16) {
+                night = false
+                obstacle3.draw()
+                obstacle89.draw()
+                obstacle90.draw()
+                obstacle91.draw()
+                obstacle92.draw()
+                if (cles.un == false || cles.deux == false || cles.trois == false) {
+                    c.drawImage(lock, obstacle89.x, canvas.height / 2, canvas.width / 20, canvas.width / 20)
+                }
+                if (cles.un == true) {
+                    c.drawImage(clef, canvas.width / 60, canvas.height / 1.15, canvas.width / 20, canvas.width / 20)
+                }
+                if (cles.deux == true) {
+                    c.drawImage(clef, canvas.width / 14, canvas.height / 1.15, canvas.width / 20, canvas.width / 20)
+                }
+                if (cles.trois == true) {
+                    c.drawImage(clef, canvas.width / 8, canvas.height / 1.15, canvas.width / 20, canvas.width / 20)
+                }
+                if (cles.un == true || cles.deux == true || cles.trois == true) {
+                    c.font = "100px Arial"
+                    c.fillStyle = "white"
+                    c.fillText("/3", canvas.width / 4.8, canvas.height / 1.03)
+                }
+
+            }
+
+            if (level == 100) {
+                obstacle93.draw()
+                obstacle94.draw()
+                obstacle95.draw()
+                obstacle96.draw()
+                obstacle97.draw()
+                obstacle98.draw()
+                obstacle46.draw()
+                obstacle81.draw()
+                obstacle82.draw()
+                obstacle83.draw()
+                obstacle84.draw()
+                obstacle85.draw()
+                obstacle86.draw()
+                obstacle87.draw()
+                obstacle88.draw()
+                obstacle99.draw()
+                if (ouvert == false) {
+                    c.drawImage(clef, obstacle99.x +20, obstacle99.y + 15)
+                }
+            }
+            if (level == 101) {
+                night = true
+                obstacle110.draw()
+                obstacle67.draw()
+                obstacle100.draw()
+                obstacle101.draw()
+                obstacle102.draw()
+                obstacle103.draw()
+                obstacle104.draw()
+                obstacle105.draw()
+                obstacle106.draw()
+                obstacle107.draw()
+                obstacle108.draw()
+                if (ouvert == false) {
+                    c.drawImage(clef, canvas.width / 19, canvas.height / 8)
+                }
+            }
+            if (level == 102) {
+                obstacle79.draw()
+                if (button.un == true && button.deux == true && button.trois == true && ouvert == false) {
+                    obstacle116.draw()
+                    c.drawImage(clef, canvas.width / 2, canvas.height / 4)
+                }
+                obstacle113.draw()
+                obstacle114.draw()
+                obstacle115.draw()
+                obstacle109.draw()
+                obstacle111.draw()
+                obstacle112.draw()
+                if (collision(joueur, obstacle79) || collision(joueur, obstacle114) || collision(joueur, obstacle115)) {
+                    c.font = "25px Arial"
+                    c.fillStyle = "white"
+                    c.fillText("I need something heavier.", canvas.width / 2, 100)
+                }
+            }
+
+            if (level == 17) {
+                if (blueattack == true) {
+                    obstacle119.draw()
+                }
+                if (bosslife.w >= 1) {
+                    c.fillStyle = bosslife.color
+                    c.fillRect(bosslife.x, bosslife.y, bosslife.w, bosslife.h)
+                    c.font = "40px Arial"
+                    c.fillStyle = "darkolivegreen"
+                    c.fillText("BOSS", canvas.width / 2, canvas.height / 1.04)
+                    obstacle117.draw()
+                    obstacle118.draw()
+                } else {
+                    c.font = "100px Arial"
+                    c.fillStyle = "white"
+                    c.fillText("You defeated the boss", canvas.width / 2, canvas.height / 2)
+                    c.fillText("and completed the game!", canvas.width / 2, canvas.height / 1.5)
+                }
+                if (bosslife.w <= canvas.width / 4 && blueattack == false && attacking == false && bosslife.w >= 1) {
+                    setTimeout(attack, 5000)
+                    attacking = true
+                }
+            }
+
+            if (night == true) {
+                obstacle57.draw()
+                obstacle58.draw()
+                obstacle59.draw()
+                obstacle60.draw()
+                c.font = "25px Arial"
+                c.fillStyle = "white"
+                c.fillText("Who closed the lights?", canvas.width / 2, 100)
+                obstacle57.h = joueur.y - canvas.height / 7
+                obstacle58.w = joueur.x - canvas.height / 7
+                obstacle59.x = joueur.x + joueur.w + canvas.height / 7
+                obstacle60.y = joueur.y + joueur.h + canvas.height / 7
+            }
+        }
+
+        function attack() {
+            boss.src = "blueboss.png"
+            setTimeout(attack2, 3000)
+        }
+
+        function attack2() {
+            blueattack = true
+            boss.src = "boss.png"
+            setTimeout(attack3, 500)
+        }
+
+        function attack3() {
+            blueattack = false
+            attacking = false
+        }
+
+        function checkcollision() {
+            if (collision(joueur, obstacle1) && level < 6
+                || collision(joueur, obstacle2) && level < 6
+                || collision(joueur, obstacle8) && level == 6
+                || collision(joueur, obstacle9) && level == 6
+                || collision(joueur, obstacle11) && level == 7
+                || collision(joueur, obstacle15) && level == 8
+                || collision(joueur, obstacle16) && level == 8
+                || collision(joueur, obstacle17) && level == 8
+                || collision(joueur, obstacle25) && level == 9
+                || collision(joueur, obstacle28) && level == 9
+                || collision(joueur, obstacle29) && level == 9
+                || collision(joueur, obstacle34) && level == 10
+                || collision(joueur, obstacle44) && level == 10
+                || collision(joueur, obstacle45) && level == 11
+                || collision(joueur, obstacle46) && level == 11
+                || collision(joueur, obstacle53) && level == 11
+                || collision(joueur, obstacle55) && level == 11
+                || collision(joueur, obstacle56) && level == 11
+                || collision(joueur, obstacle65) && level == 12
+                || collision(joueur, obstacle68) && level == 13
+                || collision(joueur, obstacle69) && level == 13
+                || collision(joueur, obstacle70) && level == 13
+                || collision(joueur, obstacle71) && level == 13
+                || collision(joueur, obstacle72) && level == 13
+                || collision(joueur, obstacle73) && level == 13
+                || collision(joueur, obstacle74) && level == 13
+                || collision(joueur, obstacle75) && level == 13
+                || collision(joueur, obstacle68) && level == 14
+                || collision(joueur, obstacle69) && level == 14
+                || collision(joueur, obstacle70) && level == 14
+                || collision(joueur, obstacle71) && level == 14
+                || collision(joueur, obstacle76) && level == 14
+                || collision(joueur, obstacle81) && level == 15
+                || collision(joueur, obstacle82) && level == 15
+                || collision(joueur, obstacle83) && level == 15
+                || collision(joueur, obstacle84) && level == 15
+                || collision(joueur, obstacle85) && level == 15
+                || collision(joueur, obstacle86) && level == 15
+                || collision(joueur, obstacle87) && level == 15
+                || collision(joueur, obstacle88) && level == 15
+                || collision(joueur, obstacle46) && level == 100
+                || collision(joueur, obstacle81) && level == 100
+                || collision(joueur, obstacle82) && level == 100
+                || collision(joueur, obstacle83) && level == 100
+                || collision(joueur, obstacle84) && level == 100
+                || collision(joueur, obstacle85) && level == 100
+                || collision(joueur, obstacle86) && level == 100
+                || collision(joueur, obstacle87) && level == 100
+                || collision(joueur, obstacle88) && level == 100
+                || collision(joueur, obstacle100) && level == 101
+                || collision(joueur, obstacle101) && level == 101
+                || collision(joueur, obstacle102) && level == 101
+                || collision(joueur, obstacle103) && level == 101
+                || collision(joueur, obstacle104) && level == 101
+                || collision(joueur, obstacle105) && level == 101
+                || collision(joueur, obstacle106) && level == 101
+                || collision(joueur, obstacle107) && level == 101
+                || collision(joueur, obstacle108) && level == 101
+                || collision(joueur, obstacle111) && level == 102
+                || collision(joueur, obstacle112) && level == 102
+                || collision(joueur, obstacle113) && level == 102
+                || collision(joueur, obstacle117) && level == 17 && bosslife.w >= 1
+                || collision(joueur, obstacle118) && level == 17 && bosslife.w >= 1) {
+                hit()
+            }
+
+            if (collision(obstacle117, obstacle118) && level == 17 && bosslife.w >= 1) {
+                oof.play()
+                bosslife.w -= canvas.width / 250
+            }
+
+            if (collision(joueur, obstacle18) && level == 8) {
+                joueur.x += 5
+            }
+
+            if (collision(joueur, obstacle18) && level == 15) {
+                joueur.x -= 5
+            }
+
+            if (collision(joueur, obstacle39) && level == 10) {
+                joueur.y += 5
+            }
+
+            if (collision(joueur, obstacle38) && level == 10) {
+                joueur.y -= 5
+            }
+
+            if (collision(joueur, obstacle4) && lastxy.x != joueur.x && level == 2 || collision(joueur, obstacle4) && lastxy.y != joueur.y && level == 2
+                || collision(joueur, obstacle6) && lastxy.x != joueur.x && level == 4 || collision(joueur, obstacle6) && lastxy.y != joueur.y && level == 4
+                || collision(joueur, obstacle30) && lastxy.x != joueur.x && level == 9 || collision(joueur, obstacle30) && lastxy.y != joueur.y && level == 9
+                || collision(joueur, obstacle41) && lastxy.x != joueur.x && level == 10 || collision(joueur, obstacle41) && lastxy.y != joueur.y && level == 10
+                || collision(joueur, obstacle119) && lastxy.x != joueur.x && level == 17 && blueattack == true && bosslife.w >= 1 || collision(joueur, obstacle119) && lastxy.y != joueur.y && level == 17 && blueattack == true && bosslife.w >= 1) {
+                hit()
+            }
+
+
+            if (collision(joueur, obstacle5) && lastxy.y == joueur.y && lastxy.x == joueur.x && level == 3
+                || collision(joueur, obstacle5) && lastxy.y == joueur.y && lastxy.x == joueur.x && level == 4
+                || collision(joueur, obstacle40) && lastxy.y == joueur.y && lastxy.x == joueur.x && level == 10) {
+                hit()
+            }
+
+            if (collision(joueur, obstacle7) && level == 5
+                || collision(joueur, obstacle35) && level == 10) {
+                reverse = true
+            }
+
+            if (collision(joueur, obstacle10) && level == 7
+                || collision(joueur, obstacle42) && level == 10
+                || collision(joueur, obstacle52) && level == 11
+                || collision(joueur, obstacle97) && level == 100) {
+                gravity = true
+            }
+
+            if (collision(joueur, obstacle24) && level == 9
+                || collision(joueur, obstacle26) && level == 9
+                || collision(joueur, obstacle27) && level == 9
+                || collision(joueur, obstacle37) && level == 10
+                || collision(joueur, obstacle54) && level == 11
+                || collision(joueur, obstacle98) && level == 100) {
+                gravity = false
+                reverse = false
+                joueur.w = canvas.width / 50
+                joueur.h = canvas.width / 50
+                particule1.w = canvas.width / 150
+                particule2.w = canvas.width / 150
+                particule3.w = canvas.width / 150
+                particule4.w = canvas.width / 150
+                particule5.w = canvas.width / 150
+                particule6.w = canvas.width / 150
+                particule1.h = canvas.width / 150
+                particule2.h = canvas.width / 150
+                particule3.h = canvas.width / 150
+                particule4.h = canvas.width / 150
+                particule5.h = canvas.width / 150
+                particule6.h = canvas.width / 150
+            }
+
+            if (collision(joueur, obstacle22) && level == 9
+                || collision(joueur, obstacle36) && level == 10) {
+                joueur.w = canvas.width / 100
+                joueur.h = canvas.width / 100
+                particule1.w = 1
+                particule2.w = 1
+                particule3.w = 1
+                particule4.w = 1
+                particule5.w = 1
+                particule6.w = 1
+                particule1.h = 1
+                particule2.h = 1
+                particule3.h = 1
+                particule4.h = 1
+                particule5.h = 1
+                particule6.h = 1
+            }
+
+            if (collision(joueur, obstacle23) && level == 9
+                || collision(joueur, obstacle43) && level == 10) {
+                joueur.w = canvas.width / 25
+                joueur.h = canvas.width / 25
+                particule2.w = 20
+                particule3.w = 20
+                particule4.w = 20
+                particule5.w = 20
+                particule6.w = 20
+                particule1.h = 20
+                particule2.h = 20
+                particule3.h = 20
+                particule4.h = 20
+                particule5.h = 20
+                particule6.h = 20
+
+            }
+
+            if (collision(joueur, obstacle20) && level == 8
+                || collision(joueur, obstacle20) && level == 9
+                || collision(joueur, obstacle67) && level == 12) {
+                ouvert = true
+            }
+
+            if (collision(joueur, obstacle99) && level == 100) {
+                ouvert = true
+                obstacle99.h = 0
+            }
+            if (collision(joueur, obstacle67) && level == 101) {
+                ouvert = true
+                obstacle67.h = 0
+            }
+
+            if (level == 14) {
+                if (collision(obstacle76, obstacle79)) {
+                    ouvert = true
+                    obstacle79.color = "darkorange"
+                } else {
+                    ouvert = false
+                    obstacle79.color = "yellow"
+                }
+            }
+
+            if (level == 102) {
+                if (collision(obstacle111, obstacle79) || collision(obstacle112, obstacle79) || collision(obstacle113, obstacle79)) {
+                    button.un = true
+                    obstacle79.color = "darkorange"
+                } else {
+                    button.un = false
+                    obstacle79.color = "yellow"
+                }
+                if (collision(obstacle111, obstacle114) || collision(obstacle112, obstacle114) || collision(obstacle113, obstacle114)) {
+                    button.deux = true
+                    obstacle114.color = "darkorange"
+                } else {
+                    button.deux = false
+                    obstacle114.color = "yellow"
+                }
+                if (collision(obstacle111, obstacle115) || collision(obstacle112, obstacle115) || collision(obstacle113, obstacle115)) {
+                    button.trois = true
+                    obstacle115.color = "darkorange"
+                } else {
+                    button.trois = false
+                    obstacle115.color = "yellow"
+                }
+                if (collision(joueur, obstacle116) && button.un == true && button.deux == true && button.trois == true) {
+                    ouvert = true
+                }
+            }
+
+            if (collision(joueur, obstacle12) && joueur.y < obstacle12.y && level == 7) {
+                joueur.y = obstacle12.y - joueur.h
+            }
+            if (collision(joueur, obstacle47) && joueur.y < obstacle47.y && level == 11) {
+                joueur.y = obstacle47.y - joueur.h
+            }
+            if (collision(joueur, obstacle94) && joueur.y < obstacle94.y && level == 100) {
+                joueur.y = obstacle94.y - joueur.h
+            }
+            if (collision(joueur, obstacle96) && joueur.y < obstacle96.y && level == 100) {
+                joueur.y = obstacle96.y - joueur.h
+            }
+
+            if (collision(joueur, obstacle13) && joueur.y < obstacle13.y && level == 7) {
+                joueur.y = obstacle13.y - joueur.h
+                joueur.x += obstacle13.speed
+            }
+            if (collision(joueur, obstacle95) && joueur.y < obstacle95.y && level == 100) {
+                joueur.y = obstacle95.y - joueur.h
+                joueur.x += obstacle95.speed
+            }
+            if (collision(joueur, obstacle48) && joueur.y < obstacle48.y && level == 11) {
+                joueur.y = obstacle48.y - joueur.h
+                joueur.y += obstacle48.speed
+            }
+            if (collision(joueur, obstacle49) && joueur.y < obstacle49.y && level == 11) {
+                joueur.y = obstacle49.y - joueur.h
+                joueur.y += obstacle49.speed
+            }
+            if (collision(joueur, obstacle50) && joueur.y < obstacle50.y && level == 11) {
+                joueur.y = obstacle50.y - joueur.h
+                joueur.y += obstacle50.speed
+            }
+
+            if (collision(joueur, obstacle14) && joueur.y < obstacle14.y && level == 8
+                || collision(joueur, obstacle14) && joueur.y < obstacle14.y && level == 9) {
+                joueur.y = obstacle14.y - joueur.h
+            } else if (collision(joueur, obstacle14) && joueur.y + joueur.h > obstacle14.y && level == 8
+                || collision(joueur, obstacle14) && joueur.y + joueur.h > obstacle14.y && level == 9) {
+                joueur.y = obstacle14.y + obstacle14.h
+            }
+
+            if (collision(joueur, obstacle61) && joueur.y < obstacle61.y && level == 12) {
+                joueur.y = obstacle61.y - joueur.h
+            } else if (collision(joueur, obstacle61) && joueur.y + joueur.h > obstacle61.y && level == 12) {
+                joueur.y = obstacle61.y + obstacle61.h
+            }
+
+            if (collision(joueur, obstacle62) && joueur.y < obstacle62.y && level == 12
+                || collision(joueur, obstacle63) && joueur.y < obstacle63.y && level == 12) {
+                joueur.y = obstacle62.y - joueur.h
+            } else if (collision(joueur, obstacle62) && joueur.y + joueur.h > obstacle62.y && level == 12
+                || collision(joueur, obstacle63) && joueur.y + joueur.h > obstacle63.y && level == 12) {
+                joueur.y = obstacle62.y + obstacle62.h
+            }
+
+            if (collision(joueur, obstacle31) && joueur.x < obstacle31.x && level == 10) {
+                joueur.x = obstacle31.x - joueur.w
+            } else if (collision(joueur, obstacle31) && joueur.x + joueur.w > obstacle31.x && level == 10) {
+                joueur.x = obstacle31.x + obstacle31.w
+            }
+
+            if (collision(joueur, obstacle32) && joueur.x < obstacle32.x && level == 10) {
+                joueur.x = obstacle32.x - joueur.w
+            } else if (collision(joueur, obstacle32) && joueur.x + joueur.w > obstacle32.x && level == 10) {
+                joueur.x = obstacle32.x + obstacle32.w
+            }
+
+            if (collision(joueur, obstacle77) && joueur.x < obstacle77.x && level == 14) {
+                joueur.x = obstacle77.x - joueur.w
+            } else if (collision(joueur, obstacle77) && joueur.x + joueur.w > obstacle77.x && level == 14) {
+                joueur.x = obstacle77.x + obstacle77.w
+            }
+
+            if (collision(joueur, obstacle19) && ouvert == false && level == 8
+                || collision(joueur, obstacle19) && ouvert == false && level == 9) {
+                joueur.x = obstacle19.x - joueur.w
+            } else if (ouvert == true) {
+                obstacle19.h = 0
+                obstacle20.h = 0
+            } else if (ouvert == false) {
+                obstacle19.h = canvas.height / 2
+                obstacle20.h = 60
+            }
+
+            if (collision(joueur, obstacle66) && ouvert == false && level == 12) {
+                joueur.y = obstacle66.y - joueur.h
+            } else if (ouvert == true) {
+                obstacle66.w = 0
+                obstacle67.w = 0
+            } else if (ouvert == false) {
+                obstacle66.w = canvas.width / 6
+                obstacle67.w = 60
+            }
+
+            if (collision(joueur, obstacle78) && ouvert == false && level == 14) {
+                joueur.y = obstacle66.y - joueur.h
+            } else if (ouvert == true) {
+                obstacle78.w = 0
+            } else if (ouvert == false) {
+                obstacle78.w = canvas.width
+            }
+
+            if (collision(joueur, obstacle89) && ouvert == false && level == 16) {
+                joueur.x = obstacle89.x - joueur.w
+            } else if (cles.un == true && cles.deux == true && cles.trois == true) {
+                obstacle89.h = 0
+            } else {
+                obstacle89.h = canvas.height
+            }
+
+            if (collision(joueur, obstacle90) && level == 16) {
+                level = 100
+                joueur.x = canvas.width / 1.05
+                joueur.y = canvas.height / 2
+            }
+            if (collision(joueur, obstacle91) && level == 16) {
+                level = 101
+                joueur.x = canvas.width / 2
+                joueur.y = canvas.height / 1.1
+                hitted = true
+                setTimeout(hits, 100)
+            }
+            if (collision(joueur, obstacle92) && level == 16) {
+                level = 102
+                joueur.x = canvas.width / 2
+                joueur.y = canvas.height / 15
+                hitted = true
+                setTimeout(hits, 100)
+            }
+
+            if (collision(joueur, obstacle109) && level == 102) {
+                if (ouvert == true) {
+                    cles.trois = true
+                    obstacle92.y = -1000
+                    ouvert = false
+                }
+                level = 16
+                joueur.x = canvas.width / 2
+                joueur.y = canvas.height / 1.1
+
+            }
+            if (collision(joueur, obstacle110) && level == 101) {
+                if (ouvert == true) {
+                    cles.deux = true
+                    obstacle91.y = -1000
+                    ouvert = false
+                }
+                level = 16
+                joueur.x = canvas.width / 2
+                joueur.y = canvas.height / 15
+            }
+            if (collision(joueur, obstacle93) && level == 100) {
+                if (ouvert == true) {
+                    cles.un = true
+                    obstacle90.y = -1000
+                    ouvert = false
+                }
+                level = 16
+                joueur.x = canvas.width / 50
+                joueur.y = canvas.height / 2
+            }
+
+            if (collision(joueur, obstacle3) && level < 8
+                || collision(joueur, obstacle21) && level == 8
+                || collision(joueur, obstacle21) && level == 9
+                || collision(joueur, obstacle33) && level == 10
+                || collision(joueur, obstacle51) && level == 11
+                || collision(joueur, obstacle64) && level == 12
+                || collision(joueur, obstacle3) && level == 13
+                || collision(joueur, obstacle80) && level == 14
+                || collision(joueur, obstacle3) && level == 15
+                || collision(joueur, obstacle3) && level == 16) {
+                if (bruits == true) {
+                    winsound.src = "win.mp3"
+                    winsound.play()
+                }
+                if (level == 9) {
+                    respawn.y = 100
+                    respawn.x = canvas.width / 6
+                }
+                if (level == 10 || level == 16) {
+                    respawn.y = canvas.height / 1.5 - canvas.width / 50
+                    respawn.x = 50
+                }
+                if (level == 15) {
+                    respawn.y = canvas.height / 2
+                    respawn.x = canvas.width / 2
+                }
+                joueur.y = respawn.y
+                joueur.x = respawn.x
+                win = true
+                ++coins
+                if (level == 10 || level == 16) {
+                    coins += 4
+                }
+                ++level
+            }
+
+        }
+
+        //gestion des collision
+
+        function collision(a, b) {
+            if (a.x + a.w > b.x &&
+                a.x < b.x + b.w &&
+                a.y < b.y + b.h &&
+                a.y + a.h > b.y) {
+
+                return (true)
+            }
+        }
+
+        //événements clavier
+
+        document.addEventListener("keydown", function (e) {
+            keyDown[e.keyCode] = true
+
+        })
+
+        document.addEventListener("keyup", function (e) {
+            delete keyDown[e.keyCode]
+        })
+
+
+        function clavier() {
+
+            if (37 in keyDown && joueur.x > 0 && reverse == false || 39 in keyDown && joueur.x > 0 && reverse == true) {
+                joueur.x -= joueur.speed
+            }
+            if (39 in keyDown && joueur.x < canvas.width - joueur.w && reverse == false || 37 in keyDown && joueur.x < canvas.width - joueur.w && reverse == true) {
+                joueur.x += joueur.speed
+            }
+            if (38 in keyDown && joueur.y > 0 && reverse == false && gravity == false || 40 in keyDown && joueur.y > 0 && reverse == true && gravity == false) {
+                joueur.y -= joueur.speed
+            }
+            if (40 in keyDown && joueur.y < canvas.height - joueur.h && reverse == false && gravity == false || 38 in keyDown && joueur.y < canvas.height - joueur.h && reverse == true && gravity == false) {
+                joueur.y += joueur.speed
+            }
+
+            if (38 in keyDown && lastxy.y == joueur.y
+                || 38 in keyDown && collision(joueur, obstacle12) && level == 7
+                || 38 in keyDown && collision(joueur, obstacle13) && level == 7
+                || 38 in keyDown && collision(joueur, obstacle47) && level == 11
+                || 38 in keyDown && collision(joueur, obstacle48) && level == 11
+                || 38 in keyDown && collision(joueur, obstacle49) && level == 11
+                || 38 in keyDown && collision(joueur, obstacle50) && level == 11
+                || 38 in keyDown && collision(joueur, obstacle94) && level == 100
+                || 38 in keyDown && collision(joueur, obstacle95) && level == 100
+                || 38 in keyDown && collision(joueur, obstacle96) && level == 100) {
+                if (joueur.y > 0 && gravity == true && jump == false && falling == false) {
+                    jump = true
+                    setTimeout(nojump, 200)
+                }
+
+            }
+
+            if (13 in keyDown) {
+                menu = true
+                canvas.style.display = "none"
+                document.getElementById("titlescreen").style.display = "block"
+            }
+
+            if (88 in keyDown && dashlvl > 0 && dashed > 0 && dashing == false && jump == false && falling == false && refresh == false) {
+                dashsound.play()
+                dashing = true
+                joueur.speed += 20
+                setTimeout(nodash, 200)
+            }
+
+            if (67 in keyDown && freezelvl == 1 && freezing == false && freezeuse == 1) {
+                freezesound.play()
+                freezeuse = 0
+                freezing = true
+                setTimeout(timeboot, 2000)
+            }
+
+            if (67 in keyDown && freezelvl == 2 && freezing == false && freezeuse == 1) {
+                freezesound.play()
+                freezeuse = 0
+                freezing = true
+                setTimeout(timeboot, 4000)
+            }
+
+        }
+
+        function timeboot() {
+            freezing = false
+        }
+
+        function nodash() {
+            if (joueur.speed != 10) {
+                dashed -= 1
+            }
+            joueur.speed = 10
+            refresh = true
+            dashing = false
+            if (joueur.x + joueur.w > canvas.width + 25 || joueur.x < -25 || joueur.y + joueur.h > canvas.height + 25 || joueur.y < -25) {
+                joueur.x = respawn.x
+                joueur.y = respawn.y
+            }
+            setTimeout(refreshing, 500)
+        }
+
+        function refreshing() {
+            refresh = false
+        }
+
+        setInterval(chrono, 1000)
+        function chrono() {
+            if (menu == false && win == false) {
+                ++time
+            }
+        }
+
+        function nojump() {
+            falling = true
+            jump = false
+            setTimeout(nodouble, 200)
+        }
+
+        function nodouble() {
+            falling = false
+        }
+
+        setInterval(jumping, 1)
+        function jumping() {
+            if (jump == true) {
+                joueur.y -= joueur.velocity
+            }
+        }
+
+//m.odifi.é par Zh.i J.i L.i :)
+
+        function graviti() {
+            if (jump == false && gravity == true && joueur.y + joueur.h <= canvas.height) {
+                joueur.y += joueur.velocity * 2
+            }
+            if (joueur.y + joueur.h > canvas.height) {
+                joueur.y = canvas.height - joueur.h
+            }
+
+        }
+
+        setInterval(nomove, 100)
+        function nomove() {
+            lastxy.x = joueur.x
+            lastxy.y = joueur.y
+        }
+
+        function Showmenu() {
+
+            c2.font = "40px Arial"
+            c2.fillStyle = "white"
+            c2.textAlign = "center"
+            c2.fillText("PLAY", canvas2.width / 2, canvas2.height / 2)
+            c2.font = "20px Arial"
+            c2.fillText("level " + level, canvas2.width / 2, canvas2.height / 1.2)
+            canvas2.addEventListener("click", function () {
+                clicksound.play()
+                canvas.style.display = "block"
+                document.getElementById("titlescreen").style.display = "none"
+                menu = false
+            })
+            canvas2.addEventListener("mouseover", function () {
+                document.getElementById("game").style.border = "5px yellow solid"
+            })
+            canvas2.addEventListener("mouseout", function () {
+                document.getElementById("game").style.border = "2px white solid"
+            })
+
+            c3.font = "40px Arial"
+            c3.fillStyle = "white"
+            c3.textAlign = "center"
+            if (level < 6) {
+                c3.fillText("SHOP", canvas2.width / 2, canvas2.height / 2)
+            } else {
+                c3.fillText("SHOP", canvas2.width / 2, canvas2.height / 1.5)
+            }
+            if (level < 6) {
+                c3.fillStyle = "red"
+                c3.font = "20px Arial"
+                c3.fillText("Unlock after level 5", canvas2.width / 2, canvas2.height / 1.2)
+            }
+            canvas3.addEventListener("click", function () {
+                if (level > 5) {
+                    clicksound.play()
+                    document.getElementById("titlescreen").style.display = "none"
+                    document.getElementById("shopscreen").style.display = "block"
+                } else {
+                    errorsound.play()
+                }
+            })
+            canvas3.addEventListener("mouseover", function () {
+                document.getElementById("shop").style.border = "5px yellow solid"
+            })
+            canvas3.addEventListener("mouseout", function () {
+                document.getElementById("shop").style.border = "2px white solid"
+            })
+
+            c6.fillStyle = "white"
+            c6.textAlign = "center"
+            c6.font = "20px Arial"
+            c6.drawImage(ihealt, 20, 5)
+            c6.fillText("Health Bar lvl " + healtlvl + "/100", canvas2.width / 2, canvas2.height / 3)
+            c6.fillText("Gives you a permanent health bar", canvas2.width / 2, canvas2.height / 2)
+            c6.fillText("that lets you take some damage.", canvas2.width / 2, canvas2.height / 1.5)
+            if (coins >= 2 && healtlvl < 100) {
+                canvas6.addEventListener("mousedown", function () {
+                    if (coins >= 2 && healtlvl < 100 && buying == false) {
+                        coinsound.play()
+                        healtbar.w += 10
+                        healtlvl += 10
+                        coins -= 2
+                        buying = true
+                        setTimeout(buyonce, 100)
+                    } else {
+                        if (buying == false) {
+                            errorsound.play()
+                        }
+                    }
+                })
+                c6.fillStyle = "green"
+            } else {
+                c6.fillStyle = "red"
+            }
+            c6.fillText(coins + "/2 coins", canvas2.width / 2, canvas2.height / 1.1)
+            canvas6.addEventListener("mouseover", function () {
+                document.getElementById("healt").style.border = "5px yellow solid"
+            })
+            canvas6.addEventListener("mouseout", function () {
+                document.getElementById("healt").style.border = "2px white solid"
+            })
+
+            c7.fillStyle = "white"
+            c7.textAlign = "center"
+            c7.font = "20px Arial"
+            c7.drawImage(idash, 20, 0)
+            c7.fillText("Dash lvl " + dashlvl + "/3", canvas2.width / 2, canvas2.height / 3.7)
+            c7.fillText("Gives you the ability to dash", canvas2.width / 2, canvas2.height / 2.4)
+            c7.fillText("once by pressing X.", canvas2.width / 2, canvas2.height / 1.7)
+            c7.fillText("Immunes from all damage.", canvas2.width / 2, canvas2.height / 1.3)
+            if (coins >= 3 && dashlvl < 3) {
+                canvas7.addEventListener("mousedown", function () {
+                    if (coins >= 3 && dashlvl < 3 && buying == false) {
+                        coinsound.play()
+                        dashlvl += 1
+                        dashed = dashlvl
+                        coins -= 3
+                        buying = true
+                        setTimeout(buyonce, 100)
+                    } else {
+                        if (buying == false) {
+                            errorsound.play()
+                        }
+                    }
+                })
+                c7.fillStyle = "green"
+            } else {
+                c7.fillStyle = "red"
+            }
+            c7.fillText(coins + "/3 coins", canvas2.width / 2, canvas2.height / 1.05)
+            canvas7.addEventListener("mouseover", function () {
+                document.getElementById("dash").style.border = "5px yellow solid"
+            })
+            canvas7.addEventListener("mouseout", function () {
+                document.getElementById("dash").style.border = "2px white solid"
+            })
+
+            c9.fillStyle = "white"
+            c9.textAlign = "center"
+            c9.font = "20px Arial"
+            c9.drawImage(stoptime, 20, 0)
+            c9.fillText("Time freeze lvl " + freezelvl + "/2", canvas2.width / 2, canvas2.height / 3.7)
+            c9.fillText("Freeze time all around you", canvas2.width / 2, canvas2.height / 2.4)
+            c9.fillText("by pressing C.", canvas2.width / 2, canvas2.height / 1.7)
+            c9.fillText("(lvl1=2sec lvl2=4sec)", canvas2.width / 2, canvas2.height / 1.3)
+            if (coins >= 4 && freezelvl < 2) {
+                canvas9.addEventListener("mousedown", function () {
+                    if (coins >= 4 && freezelvl < 2 && buying == false) {
+                        coinsound.play()
+                        freezelvl += 1
+                        coins -= 4
+                        buying = true
+                        setTimeout(buyonce, 100)
+                    } else {
+                        if (buying == false) {
+                            errorsound.play()
+                        }
+                    }
+                })
+                c9.fillStyle = "green"
+            } else {
+                c9.fillStyle = "red"
+            }
+            c9.fillText(coins + "/4 coins", canvas2.width / 2, canvas2.height / 1.05)
+            canvas9.addEventListener("mouseover", function () {
+                document.getElementById("freeze").style.border = "5px yellow solid"
+            })
+            canvas9.addEventListener("mouseout", function () {
+                document.getElementById("freeze").style.border = "2px white solid"
+            })
+
+            c8.font = "20px Arial"
+            c8.fillStyle = "red"
+            c8.textAlign = "center"
+            c8.fillText("BACK", canvas8.width / 2, canvas8.height / 1.5)
+            canvas8.addEventListener("click", function () {
+                clicksound.play()
+                document.getElementById("titlescreen").style.display = "block"
+                document.getElementById("shopscreen").style.display = "none"
+            })
+            canvas8.addEventListener("mouseover", function () {
+                document.getElementById("back").style.border = "5px yellow solid"
+            })
+            canvas8.addEventListener("mouseout", function () {
+                document.getElementById("back").style.border = "2px white solid"
+            })
+
+
+            c4.font = "40px Arial"
+            c4.fillStyle = "white"
+            c4.textAlign = "center"
+            c4.fillText("RULES", canvas2.width / 2, canvas2.height / 1.5)
+            canvas4.addEventListener("click", function () {
+                clicksound.play()
+                document.getElementById("titlescreen").style.display = "none"
+                document.getElementById("rulescreen").style.display = "block"
+            })
+            canvas4.addEventListener("mouseover", function () {
+                document.getElementById("rules").style.border = "5px yellow solid"
+            })
+            canvas4.addEventListener("mouseout", function () {
+                document.getElementById("rules").style.border = "2px white solid"
+            })
+
+            c10.font = "20px Arial"
+            c10.fillStyle = "red"
+            c10.textAlign = "center"
+            c10.fillText("BACK", canvas8.width / 2, canvas8.height / 1.5)
+            canvas10.addEventListener("click", function () {
+                clicksound.play()
+                document.getElementById("titlescreen").style.display = "block"
+                document.getElementById("rulescreen").style.display = "none"
+            })
+            canvas10.addEventListener("mouseover", function () {
+                document.getElementById("back2").style.border = "5px yellow solid"
+            })
+            canvas10.addEventListener("mouseout", function () {
+                document.getElementById("back2").style.border = "2px white solid"
+            })
+
+            c5.font = "40px Arial"
+            c5.fillStyle = "white"
+            c5.textAlign = "center"
+            c5.fillText("OPTIONS", canvas2.width / 2, canvas2.height / 1.5)
+            canvas5.addEventListener("click", function () {
+                clicksound.play()
+                document.getElementById("titlescreen").style.display = "none"
+                document.getElementById("optionscreen").style.display = "block"
+            })
+            canvas5.addEventListener("mouseover", function () {
+                document.getElementById("options").style.border = "5px yellow solid"
+            })
+            canvas5.addEventListener("mouseout", function () {
+                document.getElementById("options").style.border = "2px white solid"
+            })
+
+            c12.font = "20px Arial"
+            c12.textAlign = "center"
+            if (chanson == true) {
+                c12.fillStyle = "green"
+                c12.fillText("Background music: ON", canvas2.width / 2, canvas2.height / 1.8)
+            } else {
+                c12.fillStyle = "red"
+                c12.fillText("Background music: OFF", canvas2.width / 2, canvas2.height / 1.8)
+            }
+            if (buying == false) {
+                canvas12.addEventListener("click", function () {
+                    clicksound.play()
+                    if (chanson == true && buying == false) {
+                        chanson = false
+                        menumusic.src = ""
+                        music1.src = ""
+                        buying = true
+                    }
+                    if (chanson == false && buying == false) {
+                        chanson = true
+                        menumusic.src = "menu.mp3"
+                        music1.src = "music1.mp3"
+                        buying = true
+                    }
+                    setTimeout(buyonce, 100)
+                })
+            }
+            canvas12.addEventListener("mouseover", function () {
+                document.getElementById("musique").style.border = "5px yellow solid"
+            })
+            canvas12.addEventListener("mouseout", function () {
+                document.getElementById("musique").style.border = "2px white solid"
+            })
+
+            c13.font = "20px Arial"
+            c13.textAlign = "center"
+            if (bruits == true) {
+                c13.fillStyle = "green"
+                c13.fillText("Sound effects: ON", canvas2.width / 2, canvas2.height / 1.8)
+            } else {
+                c13.fillStyle = "red"
+                c13.fillText("Sound effects: OFF", canvas2.width / 2, canvas2.height / 1.8)
+            }
+            if (buying == false) {
+                canvas13.addEventListener("click", function () {
+                    clicksound.play()
+                    if (bruits == true && buying == false) {
+                        bruits = false
+                        coinsound.src = ""
+                        damagesound.src = ""
+                        clicksound.src = ""
+                        dashsound.src = ""
+                        freezesound.src = ""
+                        errorsound.src = ""
+                        buying = true
+                    }
+                    if (bruits == false && buying == false) {
+                        bruits = true
+                        coinsound.src = "coins.mp3"
+                        damagesound.src = "damage.mp3"
+                        clicksound.src = "click.mp3"
+                        dashsound.src = "dashing.mp3"
+                        freezesound.src = "freeze.mp3"
+                        errorsound.src = "error.mp3"
+                        buying = true
+                    }
+                    setTimeout(buyonce, 100)
+                })
+            }
+            canvas13.addEventListener("mouseover", function () {
+                document.getElementById("bruit").style.border = "5px yellow solid"
+            })
+            canvas13.addEventListener("mouseout", function () {
+                document.getElementById("bruit").style.border = "2px white solid"
+            })
+
+            c11.font = "20px Arial"
+            c11.fillStyle = "red"
+            c11.textAlign = "center"
+            c11.fillText("BACK", canvas8.width / 2, canvas8.height / 1.5)
+            canvas11.addEventListener("click", function () {
+                clicksound.play()
+                document.getElementById("titlescreen").style.display = "block"
+                document.getElementById("optionscreen").style.display = "none"
+            })
+            canvas11.addEventListener("mouseover", function () {
+                document.getElementById("back3").style.border = "5px yellow solid"
+            })
+            canvas11.addEventListener("mouseout", function () {
+                document.getElementById("back3").style.border = "2px white solid"
+            })
+
+        }
+
+        function buyonce() {
+            buying = false
+        }
+
+        function end() {
+            c.font = "45px Arial"
+            c.textAlign = "center"
+            c.fillStyle = "white"
+            c.fillText("Wow! You finished the level in " + time + "sec!", canvas.width / 2, canvas.height / 4)
+            c.fillText("You died " + dead + " time(s)!", canvas.width / 2, canvas.height / 3)
+            c.fillText("Click to go to level " + level, canvas.width / 2, canvas.height / 2)
+            c.fillStyle = "gold"
+            if (level == 11 || level == 17) {
+                c.fillText("You found 5 coins!!!", canvas.width / 2, canvas.height / 1.5)
+            } else {
+                c.fillText("You found a coin!", canvas.width / 2, canvas.height / 1.5)
+            }
+            if (level == 6) {
+                c.fillStyle = "magenta"
+                c.fillText("You have unlocked the shop! Go check it out in the menu!", canvas.width / 2, canvas.height / 1.2)
+            }
+            if (level == 10 || level == 16) {
+                c.fillStyle = "magenta"
+                c.fillText("Big level in approach!", canvas.width / 2, canvas.height / 1.2)
+            }
+            if (level == 17) {
+                c.fillStyle = "magenta"
+                c.fillText("Boss fight in approach!", canvas.width / 2, canvas.height / 1.2)
+            }
+            hitted = true
+            joueur.w = canvas.width / 50
+            joueur.h = canvas.width / 50
+            healtbar.w = healtlvl
+            reverse = false
+            night = false
+            gravity = false
+            ouvert = false
+            freezing = false
+            freezeuse = 1
+            dashed = dashlvl
+            particule1.w = canvas.width / 150
+            particule2.w = canvas.width / 150
+            particule3.w = canvas.width / 150
+            particule4.w = canvas.width / 150
+            particule5.w = canvas.width / 150
+            particule6.w = canvas.width / 150
+            particule1.h = canvas.width / 150
+            particule2.h = canvas.width / 150
+            particule3.h = canvas.width / 150
+            particule4.h = canvas.width / 150
+            particule5.h = canvas.width / 150
+            particule6.h = canvas.width / 150
+if (32 in keyDown) {
+                setTimeout(hits, 100)
+                time = 0
+                dead = 0
+                winsound.src = ""
+                win = false
+            }
+            canvas.addEventListener("click", function () {
+                setTimeout(hits, 100)
+                time = 0
+                dead = 0
+                winsound.src = ""
+                win = false
+            })
+        }
+
+        function hit() {
+            if (dashing == false) {
+                damagesound.play()
+                if (healtbar.w > 1) {
+                    healtbar.w -= 1
+                } else {
+                    bosslife.w = canvas.width / 2
+                    obstacle99.h = 60
+                    obstacle67.h = 60
+                    hitted = true
+                    joueur.w = canvas.width / 50
+                    joueur.h = canvas.width / 50
+                    healtbar.w = healtlvl
+                    reverse = false
+                    gravity = false
+                    ouvert = false
+                    freezing = false
+                    freezeuse = 1
+                    dashed = dashlvl
+                    if (level > 99) {
+                        level = 16
+                    }
+                    joueur.x = respawn.x
+                    joueur.y = respawn.y
+                    ++dead
+                    particule1.w = canvas.width / 150
+                    particule2.w = canvas.width / 150
+                    particule3.w = canvas.width / 150
+                    particule4.w = canvas.width / 150
+                    particule5.w = canvas.width / 150
+                    particule6.w = canvas.width / 150
+                    particule1.h = canvas.width / 150
+                    particule2.h = canvas.width / 150
+                    particule3.h = canvas.width / 150
+                    particule4.h = canvas.width / 150
+                    particule5.h = canvas.width / 150
+                    particule6.h = canvas.width / 150
+                    setTimeout(hits, 100)
+                }
+            }
+        }
+
+        function hits() {
+            hitted = false
+        }
+
+        //boucle principale du jeu
+
+        function game() {
+            if (menu == true) {
+                menumusic.play()
+                music1.pause()
+                c2.clearRect(0, 0, canvas.width, canvas.height)
+                c3.clearRect(0, 0, canvas.width, canvas.height)
+                c6.clearRect(0, 0, canvas.width, canvas.height)
+                c7.clearRect(0, 0, canvas.width, canvas.height)
+                c9.clearRect(0, 0, canvas.width, canvas.height)
+                c12.clearRect(0, 0, canvas.width, canvas.height)
+                c13.clearRect(0, 0, canvas.width, canvas.height)
+                Showmenu()
+            } else {
+                music1.play()
+                menumusic.pause()
+                if (level == 17) {
+                    battle.play()
+                    music1.pause()
+                }
+                c.clearRect(0, 0, canvas.width, canvas.height)
+                if (win == false) {
+                    graviti()
+                    clavier()
+                    draw()
+                    checkcollision()
+                    drawJoueur()
+                    drawstats()
+                }
+                if (win == true) {
+                    end()
+                }
+            }
+            setTimeout(game, 500 / 60)
+        }
+        game()
+
+    </script>
+</body>
+
+</html>
