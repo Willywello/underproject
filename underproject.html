@@ -31,6 +31,10 @@
             display: block;
             margin: auto;
             width: 500px;
+            color: white;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 15px;
         }
 
         #container {
@@ -114,7 +118,9 @@
 <body>
     <canvas id="vieCanvas"></canvas>
 
-    <div id="container0"><img src="./undercat.jpg"></div>
+    <div id="container0"><img src="./undercat.jpg"><br>
+        *use the arrow keys to move, enter to select and shift to go back
+    </div>
     <div id="container"><img src="./cat.GIF"></div>
     <div id="container2"><img src="./madcat.GIF"></div>
     <div id="container3"><img src="./slice.GIF"></div>
@@ -1155,7 +1161,7 @@
             if (phase < 3 && bouton == 1) {
                 dialogue += 1
                 if (attbar.x + attbar.w / 2 > 100 && attbar.x + attbar.w / 2 <= 320 || attbar.x + attbar.w / 2 > 680 && attbar.x + attbar.w / 2 <= 1000) {
-                    damage = Math.floor(Math.random() * 6000000)
+                    damage = Math.floor(Math.random() * 6)
                 } else if (attbar.x + attbar.w / 2 > 320 && attbar.x + attbar.w / 2 <= 450 || attbar.x + attbar.w / 2 > 550 && attbar.x + attbar.w / 2 <= 680) {
                     damage = 5 + Math.floor(Math.random() * 6)
                 } else if (attbar.x + attbar.w / 2 > 450 && attbar.x + attbar.w / 2 <= 490 || attbar.x + attbar.w / 2 > 510 && attbar.x + attbar.w / 2 <= 550) {
