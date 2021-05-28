@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>undertale</title>
+    <title>undercat</title>
     <style>
         body {
             background-color: black;
@@ -16,7 +16,7 @@
         }
 
         #text {
-            display: block;
+            display: none;
             position: absolute;
             left: 60%;
             top: 3%
@@ -27,8 +27,14 @@
             max-height: 100%;
         }
 
-        #container {
+        #container0 {
             display: block;
+            margin: auto;
+            width: 500px;
+        }
+
+        #container {
+            display: none;
             margin: auto;
             width: 300px;
         }
@@ -52,17 +58,20 @@
         }
 
         #container5 {
-            margin-left: 15%;
+            width: 1200px;
+            margin: auto;
             display: none;
         }
 
         #container6 {
-            margin-left: 15%;
+            width: 1200px;
+            margin: auto;
             display: none;
         }
 
         #container7 {
-            margin-left: 15%;
+            width: 1200px;
+            margin: auto;
             display: none;
         }
 
@@ -89,13 +98,23 @@
             width: 300px;
             margin: auto;
         }
+
+        #container12 {
+            width: 750px;
+            margin: auto;
+            display: none;
+            color: white;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 25px;
+        }
     </style>
 </head>
 
 <body>
     <canvas id="vieCanvas"></canvas>
 
-
+    <div id="container0"><img src="./undercat.jpg"></div>
     <div id="container"><img src="./cat.GIF"></div>
     <div id="container2"><img src="./madcat.GIF"></div>
     <div id="container3"><img src="./slice.GIF"></div>
@@ -107,6 +126,12 @@
     <div id="container9"><img src="./surprised.PNG"></div>
     <div id="container10"><img src="./blocked.GIF"></div>
     <div id="container11"><img src="./madmiss.GIF"></div>
+    <div id="container12"><img src="./undercat.jpg"><br>
+        NUTRAL ENDING<br><br><br>
+        game by the the smart and sexy Willywello<br>
+        inspired a bit by undertale from Toby Fox<br>
+        music from the soundtrack of Hiveswap<br>
+    </div>
     <canvas id="text"></canvas>
     <canvas id="monCanvas"></canvas>
 
@@ -142,6 +167,15 @@
         var cible = new Image()
         cible.src = "./cible.jpg"
 
+        var music=new Audio()
+        music.src="menumusic.mp3"
+
+        var hurt=new Audio()
+        hurt.src="damage.mp3"
+
+        var sclick=new Audio()
+        sclick.src="click.mp3"
+
         var canvas = document.getElementById("monCanvas")
         var c = canvas.getContext("2d")
         canvas.width = 1000
@@ -160,8 +194,8 @@
         var keyDown = {}
 
         var joueur = {
-            x: 300,
-            y: canvas.height - 47,
+            x: 50,//300
+            y: canvas.height / 2.3,//canvas.height - 47
             w: 20,
             h: 20,
             color: "lime",
@@ -208,6 +242,14 @@
             w: 200,
             h: 20,
             color: "lime",
+        }
+
+        var shield = {
+            x: -100,
+            y: -100,
+            w: 20,
+            h: 20,
+            color: "darkblue",
         }
 
         var clicked = false
@@ -263,291 +305,371 @@
             ster: 0
         }
 
+        var menu = 0
+
+        var checkpoints = false
+
+        var degat = 20
 
         function draw() {
 
-            if (joueur.x == 50 && bouton == 0 && combat == false) {
-                c.drawImage(sfight, 0, canvas.height - 100, 250, 125)
-            } else {
-                c.drawImage(fight, 25, canvas.height - 75, 200, 75)
-            }
+            if (menu == 0) {
+                c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
+                c.font = "50px Comic Sans MS"
+                c.fillStyle = "white"
+                c.textAlign = "center"
+                c.fillText("PLAY", 150, canvas.height / 2)
+                c.fillText("RULES", 500, canvas.height / 2)
+                c.fillText("OPTIONS", 850, canvas.height / 2)
+            } else if (menu == 1) {
+                c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
+                c.fillText("EASY", 150, canvas.height / 2)
+                c.fillText("NORMAL", 500, canvas.height / 2)
+                c.fillText("VERY HARD", 850, canvas.height / 2)
+            } else if (menu == 2) {
+                c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
+                c.fillText("CHECKPOINTS?", canvas.width / 2, canvas.height / 3)
+                c.fillText("NO", 360, canvas.height / 2)
+                c.fillText("YES", 600, canvas.height / 2)
+            } else if (menu == 3) {
+                if (joueur.x == 50 && bouton == 0 && combat == false) {
+                    c.drawImage(sfight, 0, canvas.height - 100, 250, 125)
+                } else {
+                    c.drawImage(fight, 25, canvas.height - 75, 200, 75)
+                }
 
-            if (joueur.x == 300 && bouton == 0 && combat == false) {
-                c.drawImage(sact, 250, canvas.height - 100, 250, 125)
-            } else {
-                c.drawImage(act, 275, canvas.height - 75, 200, 75)
-            }
+                if (joueur.x == 300 && bouton == 0 && combat == false) {
+                    c.drawImage(sact, 250, canvas.height - 100, 250, 125)
+                } else {
+                    c.drawImage(act, 275, canvas.height - 75, 200, 75)
+                }
 
-            if (joueur.x == 550 && bouton == 0 && combat == false) {
-                c.drawImage(sitem, 500, canvas.height - 100, 245, 120)
-            } else {
-                c.drawImage(item, 525, canvas.height - 75, 200, 75)
-            }
+                if (joueur.x == 550 && bouton == 0 && combat == false) {
+                    c.drawImage(sitem, 500, canvas.height - 100, 245, 120)
+                } else {
+                    c.drawImage(item, 525, canvas.height - 75, 200, 75)
+                }
 
-            if (joueur.x == 800 && bouton == 0 && combat == false) {
-                c.drawImage(smercy, 750, canvas.height - 100, 240, 115)
-            } else {
-                c.drawImage(mercy, 775, canvas.height - 75, 200, 75)
-            }
+                if (joueur.x == 800 && bouton == 0 && combat == false) {
+                    c.drawImage(smercy, 750, canvas.height - 100, 240, 115)
+                } else {
+                    c.drawImage(mercy, 775, canvas.height - 75, 200, 75)
+                }
 
-            c.font = "25px Comic Sans MS"
-            c.textAlign = "left"
-            c.fillStyle = "white"
-            c.fillText("FRISK      LV1                       HP", 0, 315)
-            c.fillText(healthbar.w / 5 + "/20", 550, 315)
-            if (healthbar.w > 100) {
-                healthbar.w = 100
-            }
-
-
-            c.fillStyle = "red"
-            c.fillRect(400, 300, 100, 20)
-            c.fillStyle = healthbar.color
-            c.fillRect(healthbar.x, healthbar.y, healthbar.w, healthbar.h)
-
-            if (attack >= 0 && contour.x != 300 && combat == true) {
-                contour.x += 15
-                contour.w -= 30
-                boite.x += 15
-                boite.w -= 30
-            }
-
-            c.fillStyle = contour.color
-            c.fillRect(contour.x, contour.y, contour.w, contour.h)
-            c.fillStyle = boite.color
-            c.fillRect(boite.x, boite.y, boite.w, boite.h)
-
-            c.font = "30px Comic Sans MS"
-            c.textAlign = "left"
-            c.fillStyle = "white"
-            if (bouton == 1 && attacking == false && combat == false) {
-                c.fillText(" * Pixie", 70, 70)
-                c.fillStyle = "red"
-                c.fillRect(200, 50, 200, bossvie.h)
-                c.fillStyle = bossvie.color
-                c.fillRect(200, 50, bossvie.w, bossvie.h)
-            }
-            else if (bouton == 2) {
-                c.fillText(" * Pixie", 70, 70)
-            }
-            else if (bouton == 2.5 && combat == false) {
-                c.fillText(" * check", 70, 70)
-            }
-            else if (bouton == 3 && combat == false) {
                 c.font = "25px Comic Sans MS"
-                c.fillText(" * noodles x" + items.noodles, 70, 70)
-                c.fillText(" * steroids x" + items.steroids, 270, 70)
-                c.fillText(" * candy x" + items.candy, 470, 70)
-                c.fillText(" * cake x" + items.cake, 670, 70)
-                c.fillText(" * pie x" + items.pie, 870, 70)
-                if (joueur.x == 49) {
-                    c.fillText("Noodles:   +2HP", 50, 150)
-                    c.fillText("The damage you receive is cut in half during the 2 next attacks.", 50, 190)
-                    c.fillText("Delicious and practicle! Don't get used to it.", 50, 230)
-                } else if (joueur.x == 249) {
-                    c.fillText("Steroids:   +2HP", 50, 150)
-                    c.fillText("The damage you deal is multiplied by 2 during your 2 next attacks.", 50, 190)
-                    c.fillText("Don't be scared of the warnings behind the box.", 50, 230)
-                } else if (joueur.x == 449) {
-                    c.fillText("Candy:   +5HP", 50, 150)
-                    c.fillText("Just a little treat.", 50, 190)
-                    c.fillText("Eat with moderation.", 50, 230)
-                } else if (joueur.x == 649) {
-                    c.fillText("Cake:   +10HP", 50, 150)
-                    c.fillText("Is it a lie?", 50, 190)
-                    c.fillText("There's only one way to find out.", 50, 230)
-                } else if (joueur.x == 849) {
-                    c.fillText("Pie:   +20HP", 50, 150)
-                    c.fillText("Dessert in the middle of a fight?", 50, 190)
-                    c.fillText("I wouldn't recommend it, but it looks so good!", 50, 230)
+                c.textAlign = "left"
+                c.fillStyle = "white"
+                c.fillText("FRISK      LV1                       HP", 0, 315)
+                c.fillText(healthbar.w / 5 + "/20", 550, 315)
+                if (healthbar.w > 100) {
+                    healthbar.w = 100
                 }
-            }
-            else if (bouton == 4) {
-                c.fillText(" * spare", 70, 70)
-            }
 
-            c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
-            if (gravity == 0) {
-                coeur.src = "blueheart.PNG"
-            } else if (gravity == 1) {
-                coeur.src = "upsideheart.PNG"
-            } else if (gravity == 2) {
-                coeur.src = "leftheart.PNG"
-            } else if (gravity == 3) {
-                coeur.src = "rightheart.PNG"
-            } else {
-                coeur.src = "coeur.PNG"
-            }
-
-            if (attacking == true) {
-                attbar.x += attbar.speed
-                c.drawImage(cible, boite.x, boite.y, boite.w, boite.h)
-            }
-            c.fillStyle = attbar.color
-            c.fillRect(attbar.x, attbar.y, attbar.w, attbar.h)
-
-            if (transition == true) {
-                cv.fillStyle = "grey"
-                cv.fillRect(bossvie.x, bossvie.y, 200, bossvie.h)
-                cv.fillStyle = bossvie.color
-                cv.fillRect(bossvie.x, bossvie.y, bossvie.w, bossvie.h)
-                cv.font = "20px Comic Sans MS"
-                cv.textAlign = "center"
-                cv.fillStyle = "red"
-                if (bossvie.w > 150 && bossvie.w <= 200) {
-                    cv.fillText("-" + damage, 100, 18)
-                } else if (bossvie.w > 100 && bossvie.w <= 150) {
-                    cv.fillText("-" + damage * 17, 100, 18)
-                } else if (bossvie.w > 50 && bossvie.w <= 100) {
-                    cv.fillText("-" + damage * 185, 100, 18)
-                } else if (bossvie.w > 0 && bossvie.w <= 50) {
-                    cv.fillText("-" + damage * 1482, 100, 18)
-                }
-            }
-
-            for (i = 0; i < sacb.length; i++) {
-                sacb[i].draw()
-            }
-
-            for (i = 0; i < saco.length; i++) {
-                saco[i].draw()
-            }
-
-            for (i = 0; i < sac.length; i++) {
-                sac[i].draw()
-            }
-
-            ct.font = "25px Comic Sans MS"
-            ct.fillStyle = "white"
-            c.font = "30px Comic Sans MS"
-            c.fillStyle = "white"
-            if (bouton == 2.6 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* ATT : 4                 DEF : 200", 50, 70)
-                c.fillText("A strange cat who wants to play with you.", 70, 110)
-            }
-            if ( bouton == 3&& bossvie.w > 10&&combat==false) {
-                speak = true
-                ct.fillText("That's looking good!", 10, 50)
-                ct.fillText("Mind sharing a bite?", 10, 80)
-                speak = false
-            }
-
-            if (dialogue == 0 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* A strange looking cat is blocking your path.", 50, 70)
-            }
-            if (dialogue == 1 && bossvie.w > 10 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("You came here to play huh?", 10, 50)
-            }
-            if (dialogue == 2 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* You did came here to play.", 50, 70)
-                c.fillText("Or are you expecting more from this?", 70, 110)
-            }
-            if (dialogue == 3 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("Sure, I'll play.", 10, 50)
-                ct.fillText("It's not like I have something", 10, 80)
-                ct.fillText("else to do anyway.", 10, 110)
-            }
-            if (dialogue == 4 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* Just play.", 50, 70)
-            }
-            if (dialogue == 5 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("Don't be scared about dying.", 10, 50)
-                ct.fillText("You'll just restart at the beginning.", 10, 80)
-                ct.fillText("I can't say the same for me though.", 10, 110)
-            }
-            if (dialogue == 6 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* You feel that he is hidding something from you.", 50, 70)
-            }
-            if (dialogue == 7 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("We wouldn't want to", 10, 50)
-                ct.fillText("truly hurt each other...", 10, 80)
-                ct.fillText("Right?", 10, 110)
-            }
-            if (dialogue == 8 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* Right...?", 50, 70)
-            }
-            if (dialogue == 9 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("Anyway,", 10, 50)
-                ct.fillText("doesn't this game looks", 10, 80)
-                ct.fillText("familiar to you?", 10, 110)
-            }
-            if (dialogue == 10 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* You start to question the creativity of the developer.", 50, 70)
-            }
-            if (dialogue == 11 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("Almost as if the brilliant", 10, 50)
-                ct.fillText("and beautiful developer behind", 10, 80)
-                ct.fillText("this masterpiece was inspired", 10, 110)
-                ct.fillText("by another game.", 10, 140)
-            }
-            if (dialogue == 12 && bouton == 0 && bossvie.w > 10 || dialogue == 15 && bouton == 0 && bossvie.w > 10 || dialogue == 18 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* Keep having fun.", 50, 70)
-            }
-            if (dialogue == 13 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("If that's the case,", 10, 50)
-                ct.fillText("I bet this game is superior.", 10, 80)
-            }
-            if (dialogue == 14 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* A ton of game better than this one cross your mind.", 50, 70)
-            }
-            if (dialogue == 16 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("Still alive I see.", 10, 50)
-                ct.fillText("You are really good.", 10, 80)
-            }
-            if (dialogue == 17 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* You feel your skills at the end of your fingers.", 50, 70)
-            }
-            if (dialogue == 19 && bossvie.w > 100 && bouton == 1) {
-                dialogue += 1
-                speak = true
-                ct.fillText("Is this your first time", 10, 50)
-                ct.fillText("coming this far or...", 10, 80)
-                ct.fillText("am I repeating myself?", 10, 110)
-            }
-            if (dialogue == 20 && bouton == 0 && bossvie.w > 100 && bouton == 1) {
-                speak = true
-                c.fillText("* Is he repeating himself?", 50, 70)
-                c.fillText("How could he know?", 70, 110)
-            }
-            if (dialogue > 20 && bouton == 0 && bossvie.w > 10) {
-                speak = true
-                c.fillText("* You can feel the game coming to an end...?", 50, 70)
-            }
-            if (phase == 2 && bouton == 0 && bossvie.w == 10) {
-                speak = true
-                c.fillText("* You considere to spare him and go play something better...", 50, 70)
                 c.fillStyle = "red"
-                c.fillText("But why not finishing the job first? :)", 70, 110)
+                c.fillRect(400, 300, 100, 20)
+                c.fillStyle = healthbar.color
+                c.fillRect(healthbar.x, healthbar.y, healthbar.w, healthbar.h)
+
+                if (attack >= 0 && contour.x != 300 && combat == true) {
+                    contour.x += 15
+                    contour.w -= 30
+                    boite.x += 15
+                    boite.w -= 30
+                }
+
+                c.fillStyle = contour.color
+                c.fillRect(contour.x, contour.y, contour.w, contour.h)
+                c.fillStyle = boite.color
+                c.fillRect(boite.x, boite.y, boite.w, boite.h)
+
+                c.font = "30px Comic Sans MS"
+                c.textAlign = "left"
+                c.fillStyle = "white"
+                if (bouton == 1 && attacking == false && combat == false) {
+                    c.fillText(" * Pixie", 70, 70)
+                    c.fillStyle = "red"
+                    c.fillRect(200, 50, 200, bossvie.h)
+                    c.fillStyle = bossvie.color
+                    c.fillRect(200, 50, bossvie.w, bossvie.h)
+                }
+                else if (bouton == 2) {
+                    c.fillText(" * Pixie", 70, 70)
+                }
+                else if (bouton == 2.5 && combat == false) {
+                    c.fillText(" * check", 70, 70)
+                }
+                else if (bouton == 3 && combat == false) {
+                    c.font = "25px Comic Sans MS"
+                    c.fillText(" * noodles x" + items.noodles, 70, 70)
+                    c.fillText(" * steroids x" + items.steroids, 270, 70)
+                    c.fillText(" * candy x" + items.candy, 470, 70)
+                    c.fillText(" * cake x" + items.cake, 670, 70)
+                    c.fillText(" * pie x" + items.pie, 870, 70)
+                    if (joueur.x == 49) {
+                        c.fillText("Noodles:   +2HP", 50, 150)
+                        c.fillText("The damage you receive is cut in half during the 2 next attacks.", 50, 190)
+                        c.fillText("Delicious and practicle! Don't get used to it.", 50, 230)
+                    } else if (joueur.x == 249) {
+                        c.fillText("Steroids:   +2HP", 50, 150)
+                        c.fillText("The damage you deal is multiplied by 2 during your 2 next attacks.", 50, 190)
+                        c.fillText("Don't be scared of the warnings behind the box.", 50, 230)
+                    } else if (joueur.x == 449) {
+                        c.fillText("Candy:   +5HP", 50, 150)
+                        c.fillText("Just a little treat.", 50, 190)
+                        c.fillText("Eat with moderation.", 50, 230)
+                    } else if (joueur.x == 649) {
+                        c.fillText("Cake:   +10HP", 50, 150)
+                        c.fillText("Is it a lie?", 50, 190)
+                        c.fillText("There's only one way to find out.", 50, 230)
+                    } else if (joueur.x == 849) {
+                        c.fillText("Pie:   +20HP", 50, 150)
+                        c.fillText("Dessert in the middle of a fight?", 50, 190)
+                        c.fillText("I wouldn't recommend it, but it looks so good!", 50, 230)
+                    }
+                }
+                else if (bouton == 4) {
+                    if (phase == 2) {
+                        c.fillStyle = "yellow"
+                    }
+                    c.fillText(" * spare", 70, 70)
+                }
+
+                c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
+                if (gravity == 0) {
+                    coeur.src = "blueheart.PNG"
+                } else if (gravity == 1) {
+                    coeur.src = "upsideheart.PNG"
+                } else if (gravity == 2) {
+                    coeur.src = "leftheart.PNG"
+                } else if (gravity == 3) {
+                    coeur.src = "rightheart.PNG"
+                } else if (gravity == 4) {
+                    c.fillStyle = shield.color
+                    c.fillRect(shield.x, shield.y, shield.w, shield.h)
+                    coeur.src = "greenheart.PNG"
+                } else {
+                    shield.x = -100
+                    coeur.src = "coeur.PNG"
+                }
+
+                if (attacking == true) {
+                    attbar.x += attbar.speed
+                    c.drawImage(cible, boite.x, boite.y, boite.w, boite.h)
+                }
+                c.fillStyle = attbar.color
+                c.fillRect(attbar.x, attbar.y, attbar.w, attbar.h)
+
+                if (transition == true) {
+                    cv.fillStyle = "grey"
+                    cv.fillRect(bossvie.x, bossvie.y, 200, bossvie.h)
+                    cv.fillStyle = bossvie.color
+                    cv.fillRect(bossvie.x, bossvie.y, bossvie.w, bossvie.h)
+                    cv.font = "20px Comic Sans MS"
+                    cv.textAlign = "center"
+                    cv.fillStyle = "red"
+                    if (bossvie.w > 150 && bossvie.w <= 200) {
+                        cv.fillText("-" + damage, 100, 18)
+                    } else if (bossvie.w > 100 && bossvie.w <= 150) {
+                        cv.fillText("-" + damage * 17, 100, 18)
+                    } else if (bossvie.w > 50 && bossvie.w <= 100) {
+                        cv.fillText("-" + damage * 185, 100, 18)
+                    } else if (bossvie.w > 0 && bossvie.w <= 50) {
+                        cv.fillText("-" + damage * 1482, 100, 18)
+                    }
+                }
+
+                for (i = 0; i < sacb.length; i++) {
+                    sacb[i].draw()
+                }
+
+                for (i = 0; i < saco.length; i++) {
+                    saco[i].draw()
+                }
+
+                for (i = 0; i < sac.length; i++) {
+                    sac[i].draw()
+                }
+
+                ct.font = "25px Comic Sans MS"
+                ct.fillStyle = "white"
+                c.font = "30px Comic Sans MS"
+                c.fillStyle = "white"
+                if (bouton == 2.6 && phase == 1) {
+                    speak = true
+                    c.fillText("* ATT : 4                 DEF : 200", 50, 70)
+                    c.fillText("A strange cat who wants to play with you.", 70, 110)
+                }
+                if (bouton == 2.6 && phase == 2) {
+                    speak = true
+                    c.fillText("* ATT : 4                 DEF : 0", 50, 70)
+                    c.fillText("A strange cat who wanted to play with you.", 70, 110)
+                    c.fillText("He is now waiting to be spared...", 70, 150)
+                    c.fillStyle = "red"
+                    c.fillText("He is vulnerable... go for it! :3", 70, 250)
+                }
+                if (bouton == 2.6 && phase == 3) {
+                    speak = true
+                    c.fillText("* ATT : 4                 DEF : ???", 50, 70)
+                    c.fillText("A strange cat who no longer wants to play with you.", 70, 110)
+                    c.fillText("He is now taking this fight way more seriously...", 70, 150)
+                    c.fillStyle = "red"
+                    c.fillText("Finally! A true challenge! :3", 70, 250)
+                }
+                if (bouton == 3 && bossvie.w > 10 && combat == false) {
+                    speak = true
+                    ct.fillText("That's looking good!", 10, 50)
+                    ct.fillText("Mind sharing a bite?", 10, 80)
+                    speak = false
+                }
+                if (bouton == 4.5 && phase == 1) {
+                    bouton=4.9
+                    speak = true
+                    ct.fillText("Don't be scared to attack me.", 10, 50)
+                    ct.fillText("I still got a lot of health.", 10, 80)
+                    ct.fillText("We are just here to have fun!", 10, 110)
+                }
+                if (bouton == 4.5 && phase == 3) {
+                    bouton=4.9
+                    speak = true
+                    ct.fillText("You're kidding right?", 10, 50)
+                    ct.fillText("Is this some sort of joke to you?", 10, 80)
+                    ct.fillText("You had your chance.", 10, 110)
+
+                }
+                if (bouton == 4.6) {
+                    speak = true
+                    ct.fillText("It was fun playing with you.", 10, 50)
+                    ct.fillText("Don't hesitate to come ", 10, 80)
+                    ct.fillText("for a second round!", 10, 110)
+                }
+
+                if (dialogue == 0 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* A strange looking cat is blocking your path.", 50, 70)
+                }
+                if (dialogue == 1 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("You came here to play huh?", 10, 50)
+                    if (degat == 10) {
+                        ct.fillText("Did you really need baby mode though?", 10, 80)
+                    } else if (degat == 25) {
+                        ct.fillText("Are you sure you can play on hard?", 10, 80)
+                    }
+                }
+                if (dialogue == 2 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* You did came here to play.", 50, 70)
+                    c.fillText("Or are you expecting more from this?", 70, 110)
+                }
+                if (dialogue == 3 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("Sure, I'll play.", 10, 50)
+                    ct.fillText("It's not like I have something", 10, 80)
+                    ct.fillText("else to do anyway.", 10, 110)
+                }
+                if (dialogue == 4 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* Just play.", 50, 70)
+                }
+                if (dialogue == 5 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("Don't be scared about dying.", 10, 50)
+                    ct.fillText("You'll just restart at the beginning.", 10, 80)
+                    ct.fillText("I can't say the same for me though.", 10, 110)
+                }
+                if (dialogue == 6 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* You feel that he is hidding something from you.", 50, 70)
+                }
+                if (dialogue == 7 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("We wouldn't want to", 10, 50)
+                    ct.fillText("truly hurt each other...", 10, 80)
+                    ct.fillText("Right?", 10, 110)
+                }
+                if (dialogue == 8 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* Right...?", 50, 70)
+                }
+                if (dialogue == 9 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("Anyway,", 10, 50)
+                    ct.fillText("doesn't this game looks", 10, 80)
+                    ct.fillText("familiar to you?", 10, 110)
+                }
+                if (dialogue == 10 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* You start to question the creativity of the developer.", 50, 70)
+                }
+                if (dialogue == 11 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("Almost as if the brilliant", 10, 50)
+                    ct.fillText("and beautiful developer behind", 10, 80)
+                    ct.fillText("this masterpiece was inspired", 10, 110)
+                    ct.fillText("by another game.", 10, 140)
+                }
+                if (dialogue == 12 && bouton == 0 && bossvie.w > 10 || dialogue == 15 && bouton == 0 && bossvie.w > 10 || dialogue == 18 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* Keep having fun.", 50, 70)
+                }
+                if (dialogue == 13 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("If that's the case,", 10, 50)
+                    ct.fillText("I bet this game is superior.", 10, 80)
+                }
+                if (dialogue == 14 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* A ton of game better than this one cross your mind.", 50, 70)
+                }
+                if (dialogue == 16 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("Still alive I see.", 10, 50)
+                    ct.fillText("You are really good.", 10, 80)
+                }
+                if (dialogue == 17 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* You feel your skills at the end of your fingers.", 50, 70)
+                }
+                if (dialogue == 19 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("Is this your first time", 10, 50)
+                    ct.fillText("coming this far or...", 10, 80)
+                    ct.fillText("am I repeating myself?", 10, 110)
+                }
+                if (dialogue == 20 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* Is he repeating himself?", 50, 70)
+                    c.fillText("How could he know?", 70, 110)
+                }
+                if (dialogue > 20 && bouton == 0 && bossvie.w > 10) {
+                    speak = true
+                    c.fillText("* You can feel the game coming to an end...?", 50, 70)
+                }
+                if (dialogue == 25 && bossvie.w > 10 && bouton == 1) {
+                    dialogue += 1
+                    speak = true
+                    ct.fillText("You're kinda slow arean't you?", 10, 50)
+                    ct.fillText("Try to stop the bar in the", 10, 80)
+                    ct.fillText("middle to deal more damage...", 10, 110)
+                }
+                if (phase == 2 && bouton == 0 && bossvie.w == 10) {
+                    speak = true
+                    c.fillText("* You considere to spare him and go play something better...", 50, 70)
+                    c.fillStyle = "red"
+                    c.fillText("But why not finishing the job first? :)", 70, 110)
+                }
+
             }
-
         }
-
 
         function collision(a, b) {
             if (a.x + a.w > b.x &&
@@ -571,264 +693,441 @@
 
 
         function clavier() {
-            if (38 in keyDown && combat == true && gravity == 0 && joueur.y + joueur.h <= boite.y + boite.h && joueur.y > 100 && jump == true) {
-                joueur.y -= joueur.velocity
-                joueur.velocity = joueur.velocity * 0.99
-            } else {
-                if (gravity == 0) {
-                    if (jump == true) {
-                        joueur.velocity = 0.75
+            if (menu == 0) {
+                if (37 in keyDown && clicked == false && joueur.x != 50) {
+                    clicked = true
+                    joueur.x -= 320
+                    setTimeout(clicks, 200)
+                }
+                if (39 in keyDown && clicked == false && joueur.x != 690) {
+                    clicked = true
+                    joueur.x += 320
+                    setTimeout(clicks, 200)
+                }
+                if (13 in keyDown && clicked == false) {
+                    clicked = true
+                    sclick.play()
+                    if (joueur.x == 50) {
+                        menu = 1
                     }
-                    jump = false
-                }
-            }
-            if (joueur.y + joueur.h >= boite.y + boite.h && combat == true && gravity == 0) {
-                jump = true
-                joueur.y = boite.y + boite.h - joueur.h
-                joueur.velocity = 7.5
-            }
-            if (gravity == 0 && jump == false && combat == true) {
-                joueur.y += joueur.velocity
-                joueur.velocity = joueur.velocity * 1.07
-            }
-
-            if (40 in keyDown && combat == true && gravity == 1 && joueur.y >= boite.y && joueur.y + joueur.h < 190 && jump == true) {
-                joueur.y += joueur.velocity
-                joueur.velocity = joueur.velocity * 0.99
-            } else {
-                if (gravity == 1) {
-                    if (jump == true) {
-                        joueur.velocity = 0.75
+                    if (joueur.x == 370) {
+                        joueur.x = 360
                     }
-                    jump = false
-                }
-            }
-            if (joueur.y <= boite.y && combat == true && gravity == 1) {
-                jump = true
-                joueur.y = boite.y
-                joueur.velocity = 7.5
-            }
-            if (gravity == 1 && jump == false && combat == true) {
-                joueur.y -= joueur.velocity
-                joueur.velocity = joueur.velocity * 1.07
-            }
-
-            if (39 in keyDown && combat == true && gravity == 2 && joueur.x >= boite.x && joueur.x + joueur.w < boite.x + 230 && jump == true) {
-                joueur.x += joueur.velocity
-                joueur.velocity = joueur.velocity * 0.99
-            } else {
-                if (gravity == 2) {
-                    if (jump == true) {
-                        joueur.velocity = 0.75
+                    if (joueur.x == 690) {
+                        joueur.x = 670
                     }
-                    jump = false
+                    setTimeout(clicks, 200)
                 }
-            }
-            if (joueur.x <= boite.x && combat == true && gravity == 2) {
-                jump = true
-                joueur.x = boite.x
-                joueur.velocity = 7.5
-            }
-            if (gravity == 2 && jump == false && combat == true) {
-                joueur.x -= joueur.velocity
-                joueur.velocity = joueur.velocity * 1.07
-            }
-
-            if (37 in keyDown && combat == true && gravity == 3 && joueur.x + joueur.w <= boite.x + boite.w && joueur.x > boite.x + 150 && jump == true) {
-                joueur.x -= joueur.velocity
-                joueur.velocity = joueur.velocity * 0.99
-            } else {
-                if (gravity == 3) {
-                    if (jump == true) {
-                        joueur.velocity = 0.75
+            } else if (menu == 1) {
+                if (37 in keyDown && clicked == false && joueur.x != 50) {
+                    clicked = true
+                    joueur.x -= 310
+                    setTimeout(clicks, 200)
+                }
+                if (39 in keyDown && clicked == false && joueur.x != 670) {
+                    clicked = true
+                    joueur.x += 310
+                    setTimeout(clicks, 200)
+                }
+                if (13 in keyDown && clicked == false) {
+                    clicked = true
+                    sclick.play()
+                    if (joueur.x == 50) {
+                        menu = 2
+                        degat = 10
+                        joueur.x = 280
                     }
-                    jump = false
+                    if (joueur.x == 360) {
+                        menu = 2
+                        degat = 20
+                        joueur.x = 280
+                    }
+                    if (joueur.x == 670) {
+                        music.src="nutral.mp3"
+                        joueur.x = 300
+                        joueur.y = canvas.height - 47
+                        menu = 3
+                        degat = 25
+                        document.getElementById("container0").style.display = "none"
+                        document.getElementById("container").style.display = "block"
+                        document.getElementById("text").style.display = "block"
+                    }
+                    setTimeout(clicks, 200)
                 }
-            }
-            if (joueur.x + joueur.w >= boite.x + boite.w && combat == true && gravity == 3) {
-                jump = true
-                joueur.x = boite.x + boite.w - joueur.w
-                joueur.velocity = 7.5
-            }
-            if (gravity == 3 && jump == false && combat == true) {
-                joueur.x += joueur.velocity
-                joueur.velocity = joueur.velocity * 1.07
-            }
-
-
-
-            if (37 in keyDown && joueur.x > boite.x && combat == true && gravity < 2) {
-                joueur.x -= joueur.speed
-            }
-            if (39 in keyDown && joueur.x < boite.x + boite.w - joueur.w && combat == true && gravity < 2) {
-                joueur.x += joueur.speed
-            }
-            if (38 in keyDown && joueur.y > boite.y && combat == true && gravity == -1 || 38 in keyDown && joueur.y > boite.y && combat == true && gravity > 1) {
-                joueur.y -= joueur.speed
-            }
-            if (40 in keyDown && joueur.y < boite.h + boite.y - joueur.h && combat == true && gravity == -1 || 40 in keyDown && joueur.y < boite.h + boite.y - joueur.h && combat == true && gravity > 1) {
-                joueur.y += joueur.speed
-            }
-
-            if (37 in keyDown && clicked == false && bouton == 0 && combat == false) {
-                clicked = true
-                if (joueur.x == 50) {
-                    joueur.x = 800
-                } else {
-                    joueur.x -= 250
+                if (16 in keyDown && clicked == false) {
+                    menu = 0
+                    if (joueur.x == 360) {
+                        joueur.x = 370
+                    }
+                    if (joueur.x == 670) {
+                        joueur.x = 690
+                    }
                 }
-                setTimeout(clicks, 200)
-            }
-            if (39 in keyDown && clicked == false && bouton == 0 && combat == false) {
-                clicked = true
-                if (joueur.x == 800) {
-                    joueur.x = 50
-                } else {
-                    joueur.x += 250
+            } else if (menu == 2) {
+                if (37 in keyDown && clicked == false && joueur.x != 280) {
+                    clicked = true
+                    joueur.x -= 240
+                    setTimeout(clicks, 200)
                 }
-                setTimeout(clicks, 200)
-            }
-
-            if (37 in keyDown && clicked == false && bouton == 3 && combat == false) {
-                clicked = true
-                if (joueur.x == 49) {
-                    joueur.x = 849
-                } else {
-                    joueur.x -= 200
+                if (39 in keyDown && clicked == false && joueur.x != 520) {
+                    clicked = true
+                    joueur.x += 240
+                    setTimeout(clicks, 200)
                 }
-                setTimeout(clicks, 200)
-            }
-            if (39 in keyDown && clicked == false && bouton == 3 && combat == false) {
-                clicked = true
-                if (joueur.x == 849) {
-                    joueur.x = 49
-                } else {
-                    joueur.x += 200
-                }
-                setTimeout(clicks, 200)
-            }
-
-            if (13 in keyDown && joueur.y != 50 && combat == false && healthbar.w > 0) {
-                if (joueur.x == 50) {
-                    bouton = 1
-                }
-                if (joueur.x == 300) {
-                    bouton = 2
-                }
-                if (joueur.x == 550) {
-                    bouton = 3
-                }
-                if (joueur.x == 800) {
-                    bouton = 4
-                }
-                joueur.y = 49
-                joueur.x = 49
-                setTimeout(clickss, 200)
-            }
-            if (16 in keyDown && attacking == false && combat == false && bouton != 2.6) {
-                if (bouton == 1) {
-                    joueur.x = 50
-                }
-                if (bouton == 2 || bouton == 2.5) {
+                if (13 in keyDown && clicked == false) {
+                    clicked = true
+                    sclick.play()
+                    if (joueur.x == 280) {
+                        checkpoints = false
+                    }
+                    if (joueur.x == 520) {
+                        checkpoints = true
+                    }
+                    music.src="nutral.mp3"
+                    menu = 3
+                    document.getElementById("container0").style.display = "none"
+                    document.getElementById("container").style.display = "block"
+                    document.getElementById("text").style.display = "block"
                     joueur.x = 300
+                    joueur.y = canvas.height - 47
+                    setTimeout(clicks, 200)
                 }
-                if (bouton == 3 || bouton == 3.5) {
-                    joueur.x = 550
+                if (16 in keyDown && clicked == false) {
+                    clicked = true
+                    menu = 1
+                    joueur.x = 50
+                    setTimeout(clicks, 200)
                 }
-                if (bouton == 4) {
-                    joueur.x = 800
-                }
-                joueur.y = canvas.height - 47
-                bouton = 0
-            }
 
-            if (13 in keyDown && phase == 1 && speak == true && bossvie != 10) {
-                ct.clearRect(0, 0, canvast.width, canvast.height)
-                setTimeout(function () { speak = false }, 1000)
-            }
+            } else if (menu == 3) {
+                if (38 in keyDown && combat == true && gravity == 0 && joueur.y + joueur.h <= boite.y + boite.h && joueur.y > 100 && jump == true) {
+                    joueur.y -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 0) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.y + joueur.h >= boite.y + boite.h && combat == true && gravity == 0) {
+                    jump = true
+                    joueur.y = boite.y + boite.h - joueur.h
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 0 && jump == false && combat == true) {
+                    joueur.y += joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
 
-            if (13 in keyDown && joueur.y == 50 && combat == false && clicked == false) {
-                clicked = true
-                if (bouton == 1 && attacking == false && attbar.x < 100) {
-                    attacking = true
-                    joueur.x = -100
-                    attbar.x = 0
-                } else if (attacking == true && attbar.x > 100 && joueur.x < 0) {
+                if (40 in keyDown && combat == true && gravity == 1 && joueur.y >= boite.y && joueur.y + joueur.h < 190 && jump == true) {
+                    joueur.y += joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 1) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.y <= boite.y && combat == true && gravity == 1) {
+                    jump = true
+                    joueur.y = boite.y
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 1 && jump == false && combat == true) {
+                    joueur.y -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (39 in keyDown && combat == true && gravity == 2 && joueur.x >= boite.x && joueur.x + joueur.w < boite.x + 230 && jump == true) {
+                    joueur.x += joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 2) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.x <= boite.x && combat == true && gravity == 2) {
+                    jump = true
+                    joueur.x = boite.x
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 2 && jump == false && combat == true) {
+                    joueur.x -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (37 in keyDown && combat == true && gravity == 3 && joueur.x + joueur.w <= boite.x + boite.w && joueur.x > boite.x + 150 && jump == true) {
+                    joueur.x -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 3) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.x + joueur.w >= boite.x + boite.w && combat == true && gravity == 3) {
+                    jump = true
+                    joueur.x = boite.x + boite.w - joueur.w
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 3 && jump == false && combat == true) {
+                    joueur.x += joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (gravity == 4) {
+                    if (37 in keyDown) {
+                        shield.x = joueur.x - 30
+                        shield.y = joueur.y - 20
+                        shield.w = 10
+                        shield.h = 60
+                    }
+                    if (39 in keyDown) {
+                        shield.x = joueur.x + 40
+                        shield.y = joueur.y - 20
+                        shield.w = 10
+                        shield.h = 60
+                    }
+                    if (38 in keyDown) {
+                        shield.x = joueur.x - 20
+                        shield.y = joueur.y - 30
+                        shield.w = 60
+                        shield.h = 10
+                    }
+                    if (40 in keyDown) {
+                        shield.x = joueur.x - 20
+                        shield.y = joueur.y + 40
+                        shield.w = 60
+                        shield.h = 10
+                    }
+                }
+
+                if (37 in keyDown && joueur.x > boite.x && combat == true && gravity < 2) {
+                    joueur.x -= joueur.speed
+                }
+                if (39 in keyDown && joueur.x < boite.x + boite.w - joueur.w && combat == true && gravity < 2) {
+                    joueur.x += joueur.speed
+                }
+                if (38 in keyDown && joueur.y > boite.y && combat == true && gravity == -1 || 38 in keyDown && joueur.y > boite.y && combat == true && gravity > 1 && gravity != 4) {
+                    joueur.y -= joueur.speed
+                }
+                if (40 in keyDown && joueur.y < boite.h + boite.y - joueur.h && combat == true && gravity == -1 || 40 in keyDown && joueur.y < boite.h + boite.y - joueur.h && combat == true && gravity > 1 && gravity != 4) {
+                    joueur.y += joueur.speed
+                }
+
+                if (37 in keyDown && clicked == false && bouton == 0 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 50) {
+                        joueur.x = 800
+                    } else {
+                        joueur.x -= 250
+                    }
+                    setTimeout(clicks, 200)
+                }
+                if (39 in keyDown && clicked == false && bouton == 0 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 800) {
+                        joueur.x = 50
+                    } else {
+                        joueur.x += 250
+                    }
+                    setTimeout(clicks, 200)
+                }
+
+                if (37 in keyDown && clicked == false && bouton == 3 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 49) {
+                        joueur.x = 849
+                    } else {
+                        joueur.x -= 200
+                    }
+                    setTimeout(clicks, 200)
+                }
+                if (39 in keyDown && clicked == false && bouton == 3 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 849) {
+                        joueur.x = 49
+                    } else {
+                        joueur.x += 200
+                    }
+                    setTimeout(clicks, 200)
+                }
+
+                if (13 in keyDown && joueur.y != 50 && combat == false && healthbar.w > 0 && clicked == false) {
+                    if (joueur.x == 50) {
+                        bouton = 1
+                    }
+                    if (joueur.x == 300) {
+                        bouton = 2
+                    }
+                    if (joueur.x == 550) {
+                        bouton = 3
+                    }
+                    if (joueur.x == 800) {
+                        bouton = 4
+                    }
+                    joueur.y = 49
+                    joueur.x = 49
+                    setTimeout(clickss, 200)
+                }
+                if (16 in keyDown && attacking == false && combat == false && bouton != 2.6) {
+                    if (bouton == 1) {
+                        joueur.x = 50
+                    }
+                    if (bouton == 2 || bouton == 2.5) {
+                        joueur.x = 300
+                    }
+                    if (bouton == 3 || bouton == 3.5) {
+                        joueur.x = 550
+                    }
+                    if (bouton == 4) {
+                        joueur.x = 800
+                    }
+                    joueur.y = canvas.height - 47
+                    bouton = 0
+                }
+
+                if (13 in keyDown && speak == true && clicked == false&&combat==true) {
+                    ct.clearRect(0, 0, canvast.width, canvast.height)
+                    setTimeout(function () { speak = false }, 1000)
+                    if (bouton == 4.5) {
+                        bouton = 4.1
+                    }
+                }
+
+                if (13 in keyDown && joueur.y == 50 && combat == false && clicked == false) {
+                    clicked = true
+                    speak=false
+                    if (bouton == 1 && attacking == false && attbar.x < 100) {
+                        
+                        attacking = true
+                        joueur.x = -100
+                        attbar.x = 0
+                    } else if (attacking == true && attbar.x > 100 && joueur.x < 0) {
+                        attbar.speed = 0
+                        joueur.y = boite.y + boite.h / 2 - joueur.h / 2
+                        joueur.x = boite.x + boite.w / 2 - joueur.w / 2
+                        if (phase == 1) {
+                            document.getElementById("container").style.display = "none"
+                            document.getElementById("container3").style.display = "block"
+                        } else if (phase == 3) {
+                            document.getElementById("container2").style.display = "none"
+                            document.getElementById("container10").style.display = "block"
+                        }
+                        setTimeout(attacked, 600)
+                    }
+                    if (bouton == 2) {
+                        bouton = 2.5
+                    } else if (bouton == 2.5) {
+                        bouton = 2.6
+                        joueur.x = -100
+                    } else if (bouton == 2.6) {
+                        bouton = 2.7
+                        attacked()
+                    }
+                    if (bouton == 3) {
+                        if (joueur.x == 49 && items.noodles != 0) {
+                            items.noodles -= 1
+                            items.nood += 2
+                            healthbar.w += 10
+                            attacked()
+                        } else if (joueur.x == 249 && items.steroids != 0) {
+                            items.steroids -= 1
+                            items.ster += 2
+                            healthbar.w += 10
+                            attacked()
+                        } else if (joueur.x == 449 && items.candy != 0) {
+                            items.candy -= 1
+                            healthbar.w += 25
+                            attacked()
+                        } else if (joueur.x == 649 && items.cake != 0) {
+                            items.cake -= 1
+                            healthbar.w += 50
+                            attacked()
+                        } else if (joueur.x == 849 && items.pie != 0) {
+                            items.pie -= 1
+                            healthbar.w += 100
+                            attacked()
+                        }
+
+                    }
+                    if (bouton == 4 && phase != 2) {
+                        bouton = 4.5
+                        attacked()
+                    } else if (bouton == 4 && phase == 2) {
+                        bouton = 4.6
+                    } else if (bouton == 4.6) {
+                        music.src="menumusic.mp3"
+                        bouton = 4.7
+                        document.getElementById("container").style.display = "none"
+                        document.getElementById("text").style.display = "none"
+                        document.getElementById("monCanvas").style.display = "none"
+                        document.getElementById("vieCanvas").style.display = "none"
+                        document.getElementById("container12").style.display = "block"
+                    } else if (bouton == 4.7) {
+                        menu = 0
+                        dialogue = 0
+                        phase = 1
+                        lastatt = -1
+                        speak = false
+                        checkpoints = false
+                        attack = -1
+                        joueur.x = 50
+                        joueur.y = canvas.height / 2.3
+                        bouton = 0
+                        bossvie.w = 200
+                        healthbar.w = 100
+                        items.noodles = 2
+                        items.nood = 0
+                        items.steroids = 2
+                        items.ster = 0
+                        items.candy = 5
+                        items.cake = 3
+                        items.pie = 2
+                        document.getElementById("vieCanvas").style.display = "block"
+                        document.getElementById("container0").style.display = "block"
+                        document.getElementById("monCanvas").style.display = "block"
+                        document.getElementById("container12").style.display = "none"
+                    }
+                    setTimeout(clicks, 200)
+                }
+                if (attacking == true && attbar.x > 1000 && joueur.x < 0) {
+                    bouton = 1.1
                     attbar.speed = 0
                     joueur.y = boite.y + boite.h / 2 - joueur.h / 2
                     joueur.x = boite.x + boite.w / 2 - joueur.w / 2
-                    if (phase == 1) {
+                    if (phase < 3) {
                         document.getElementById("container").style.display = "none"
-                        document.getElementById("container3").style.display = "block"
+                        document.getElementById("container4").style.display = "block"
                     } else if (phase == 3) {
                         document.getElementById("container2").style.display = "none"
-                        document.getElementById("container10").style.display = "block"
+                        document.getElementById("container11").style.display = "block"
                     }
                     setTimeout(attacked, 600)
                 }
-                if (bouton == 2) {
-                    bouton = 2.5
-                } else if (bouton == 2.5) {
-                    bouton = 2.6
-                    joueur.x = -100
-                } else if (bouton == 2.6) {
-                    bouton = 2.7
-                    attacked()
-                }
-                if (bouton == 3) {
-                    if (joueur.x == 49) {
-                        items.noodles -= 1
-                        items.nood += 2
-                        healthbar.w += 10
-                        attacked()
-                    } else if (joueur.x == 249) {
-                        items.steroids -= 1
-                        items.ster += 2
-                        healthbar.w += 10
-                        attacked()
-                    } else if (joueur.x == 449) {
-                        items.candy -= 1
-                        healthbar.w += 25
-                        attacked()
-                    } else if (joueur.x == 649) {
-                        items.cake -= 1
-                        healthbar.w += 50
-                        attacked()
-                    } else if (joueur.x == 849) {
-                        items.pie -= 1
-                        healthbar.w += 100
-                        attacked()
-                    }
-                }
-                setTimeout(clicks, 200)
-            }
-            if (attacking == true && attbar.x > 1000 && joueur.x < 0) {
-                attbar.speed = 0
-                joueur.y = boite.y + boite.h / 2 - joueur.h / 2
-                joueur.x = boite.x + boite.w / 2 - joueur.w / 2
-                if (phase == 1) {
+
+                //debug
+                if (32 in keyDown) {
+                    phase = 3
                     document.getElementById("container").style.display = "none"
-                    document.getElementById("container4").style.display = "block"
-                } else if (phase == 3) {
-                    document.getElementById("container2").style.display = "none"
-                    document.getElementById("container11").style.display = "block"
+                    document.getElementById("container2").style.display = "block"
                 }
-                setTimeout(attacked, 600)
-            }
 
-            //debug
-            if (32 in keyDown) {
-                phase = 3
-                document.getElementById("container").style.display = "none"
-                document.getElementById("container2").style.display = "block"
+                if (70 in keyDown && clicked == false) {
+                    clicked = true
+                    attack += 1
+                    setTimeout(clicks, 200)
+                }
             }
-
-            if (70 in keyDown && clicked == false) {
-                clicked = true
-                attack += 1
-                setTimeout(clicks, 200)
-            }
-
         }
 
         function clicks() {
@@ -843,7 +1142,7 @@
         function attacked() {
 
             transition = true
-            if (phase == 1) {
+            if (phase < 3) {
                 document.getElementById("container").style.display = "block"
                 document.getElementById("container3").style.display = "none"
                 document.getElementById("container4").style.display = "none"
@@ -853,10 +1152,10 @@
                 document.getElementById("container11").style.display = "none"
             }
 
-            if (phase == 1 && bouton == 1) {
+            if (phase < 3 && bouton == 1) {
                 dialogue += 1
                 if (attbar.x + attbar.w / 2 > 100 && attbar.x + attbar.w / 2 <= 320 || attbar.x + attbar.w / 2 > 680 && attbar.x + attbar.w / 2 <= 1000) {
-                    damage = Math.floor(Math.random() * 6)
+                    damage = Math.floor(Math.random() * 6000000)
                 } else if (attbar.x + attbar.w / 2 > 320 && attbar.x + attbar.w / 2 <= 450 || attbar.x + attbar.w / 2 > 550 && attbar.x + attbar.w / 2 <= 680) {
                     damage = 5 + Math.floor(Math.random() * 6)
                 } else if (attbar.x + attbar.w / 2 > 450 && attbar.x + attbar.w / 2 <= 490 || attbar.x + attbar.w / 2 > 510 && attbar.x + attbar.w / 2 <= 550) {
@@ -874,7 +1173,7 @@
             if (items.nood > 0) {
                 items.nood -= 1
             }
-            if (items.ster > 0&&bouton==1) {
+            if (items.ster > 0 && bouton == 1) {
                 items.ster -= 1
                 damage = damage * 2
             }
@@ -886,13 +1185,19 @@
             combat = true
 
             if (phase < 3) {
-                attack = Math.floor(Math.random() * 16)
+                attack =  Math.floor(Math.random() * 21)
                 if (lastatt == attack) {
-                    attack = Math.floor(Math.random() * 16)
+                    attack = Math.floor(Math.random() * 21)
                 }
                 lastatt = attack
-            } else if (phase == 3) {
+            } else if (phase == 3 && bouton == 1 || phase == 3 && attack == -1) {
                 attack += 1
+            } else if (phase == 3 && bouton != 1 && attack == 1) {
+                attack = 0
+            } else if (phase == 3 && bouton != 1 && attack == 4) {
+                attack = 3
+            }else if (phase == 3 && bouton != 1 && attack == 11) {
+                attack = 10
             }
             joueur.y = boite.y + boite.h / 2 - joueur.h / 2
             joueur.x = boite.x + boite.w / 2 - joueur.w / 2
@@ -904,9 +1209,15 @@
                 if (attack == 14) {
                     gravity = 1
                 }
+                if (attack == 17 || attack == 18) {
+                    gravity = 4
+                }
             } else if (phase == 3) {
-                if (attack == 0) {
+                if (attack == 0||attack==10||attack==12) {
                     gravity = 0
+                }
+                if (attack == 8 || attack == 9) {
+                    gravity = 4
                 }
             }
 
@@ -915,7 +1226,7 @@
                 gravity = -1
             }
 
-            if (bossvie.w <= 10 && phase == 2) {
+            if (bossvie.w <= 10 && phase == 2 && damage > 0) {
                 document.getElementById("container").style.display = "none"
                 document.getElementById("container8").style.display = "block"
                 gravity = -1
@@ -923,9 +1234,13 @@
 
             setTimeout(function () {
                 transition = false
-                if (bossvie.w <= 10 && phase == 2) {
+                if (bossvie.w <= 10 && phase == 2 && damage > 0) {
                     bossvie.w = 10
                     end()
+                }
+                if (bossvie.w <= 10 && phase == 2 && damage == 0) {
+                    bossvie.w = 10
+                    returns()
                 }
                 if (bossvie.w <= 10 && phase == 1) {
                     end()
@@ -947,7 +1262,7 @@
             this.draw = function () {
                 c.fillStyle = this.color
 
-                if (this.dir == 1) {
+                if (this.dir == 1 || this.dir == 0) {
                     c.fillRect(this.x += this.speed, this.y, this.w, this.h)
                 } else if (this.dir == 2) {
                     c.fillRect(this.x -= this.speed, this.y, this.w, this.h)
@@ -955,7 +1270,16 @@
                     c.fillRect(this.x, this.y -= this.speed, this.w, this.h)
                 } else if (this.dir == 4) {
                     c.fillRect(this.x, this.y += this.speed, this.w, this.h)
+                } else if (this.dir == 5) {
+                    c.fillRect(this.x += this.speed, this.y += this.speed, this.w, this.h)
+                } else if (this.dir == 6) {
+                    c.fillRect(this.x -= this.speed, this.y += this.speed, this.w, this.h)
+                } else if (this.dir == 7) {
+                    c.fillRect(this.x += this.speed, this.y -= this.speed, this.w, this.h)
+                } else if (this.dir == 8) {
+                    c.fillRect(this.x -= this.speed, this.y -= this.speed, this.w, this.h)
                 }
+
 
                 if (this.mode == 1) {
                     if (this.dir == 1) {
@@ -964,6 +1288,7 @@
                     if (this.dir == 2) {
                         sac.push(new missiles(this.x + 3, this.y + this.h + 55, this.w, boite.h - this.h - 55, this.color, this.speed, this.dir))
                     }
+
                 }
 
                 if (this.mode == 2) {
@@ -983,7 +1308,33 @@
                 }
 
                 if (this.mode == 3) {
+
                     this.speed = this.speed * 1.05
+                }
+
+                if (this.mode == 4 && this.speed == 0) {
+                    if (this.dir == 1 || this.dir == 0) {
+                        this.x = -40
+                        this.y = joueur.y
+                        this.w = 40
+                        this.h = 20
+                    } else if (this.dir == 2) {
+                        this.x = canvas.width
+                        this.y = joueur.y
+                        this.w = 40
+                        this.h = 20
+                    } else if (this.dir == 3) {
+                        this.x = joueur.x
+                        this.y = canvas.height
+                        this.w = 20
+                        this.h = 40
+                    } else if (this.dir == 4) {
+                        this.x = joueur.x
+                        this.y = -40
+                        this.w = 20
+                        this.h = 40
+                    }
+                    this.speed = 2
                 }
 
                 if (this.mode == 13) {
@@ -1007,6 +1358,7 @@
         setInterval(attack2, 200)
         setInterval(attack3, 3000)
         setInterval(attack4, 800)
+        setInterval(attack5, 600)
 
         function attack1() {
             if (phase == 1 && transition == false && speak == false) {
@@ -1039,7 +1391,7 @@
                 }
             }
 
-            if (phase == 3 && transition == false && combat2 == true) {
+            if (phase == 3 && transition == false && combat2 == true && speak == false) {
                 if (attack == 0) {
                     sac.push(new missiles(0, boite.y, 10, boite.h / 2, "red", 3.5, 1))
                     sac.push(new missiles(canvas.width, boite.y + boite.h / 2, 10, boite.h / 2, "red", 3.5, 2))
@@ -1062,10 +1414,10 @@
                         setTimeout(end, 7000)
                     }
                 } else if (attack == 3) {
-                    sac.push(new missiles(boite.x + Math.random() * boite.w, boite.y, 55, 55, "red", 2, 4))
+                    sac.push(new missiles(boite.x + Math.random() * (boite.w - 55), boite.y - 55, 55, 55, "red", 2, 4))
                     setTimeout(function () { attack = 4 }, 7500)
                 } if (attack == 4) {
-                    sac.push(new missiles(boite.x + Math.random() * boite.w, boite.y + boite.h, 55, 55, "red", 2, 3))
+                    sac.push(new missiles(boite.x + Math.random() * (boite.w - 55), boite.y + boite.h + 55, 55, 55, "red", 2, 3))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 14000)
@@ -1088,6 +1440,12 @@
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 15000)
+                    }
+                } else if (attack == 8) {
+                    sac.push(new missiles(joueur.x, canvas.height, 20, 40, "red", 0.75, 3))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 20000)
                     }
                 }
 
@@ -1113,8 +1471,8 @@
                 }
             }
 
-            if (phase == 3) {
-
+            if (phase == 3 && transition == false && combat2 == true && speak == false) {
+                
             }
 
         }
@@ -1122,15 +1480,15 @@
         function attack3() {
             if (phase == 1 && transition == false && speak == false) {
                 if (attack == 6) {
-                    sac.push(new missiles(boite.x + Math.random() * boite.w / 1.3, 10, 20, 20, "red", 2, 0, 2, 2))
-                    sac.push(new missiles(boite.x + Math.random() * boite.w / 1.3, boite.y + boite.h - 20, 20, 20, "red", -2, 0, 2, -2))
+                    sac.push(new missiles(boite.x + Math.random() * boite.w / 1.3, 10, 20, 20, "red", 2, -1, 2, 2))
+                    sac.push(new missiles(boite.x + Math.random() * boite.w / 1.3, boite.y + boite.h - 20, 20, 20, "red", -2, -1, 2, -2))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 7000)
                     }
                 } else if (attack == 7) {
-                    sac.push(new missiles(boite.x, boite.y + Math.random() * boite.h / 1.3, 20, 20, "red", 2, 0, 2, 2))
-                    sac.push(new missiles(boite.x + boite.w - 20, boite.y + Math.random() * boite.h / 1.3, 20, 20, "red", -2, 0, 2, -2))
+                    sac.push(new missiles(boite.x, boite.y + Math.random() * boite.h / 1.3, 20, 20, "red", 2, -1, 2, 2))
+                    sac.push(new missiles(boite.x + boite.w - 20, boite.y + Math.random() * boite.h / 1.3, 20, 20, "red", -2, -1, 2, -2))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 7000)
@@ -1205,10 +1563,58 @@
                         setTimeout(end, 9000)
                     }
 
+                } else if (attack == 17) {
+                    sac.push(new missiles(-40, joueur.y, 40, 20, "red", 5, 1))
+                    setTimeout(function () {
+                        sac.push(new missiles(canvas.width, joueur.y, 40, 20, "red", 5, 2))
+                        setTimeout(function () {
+                            sac.push(new missiles(joueur.x, canvas.height, 20, 40, "red", 5, 3))
+                            setTimeout(function () {
+                                sac.push(new missiles(joueur.x, -40, 20, 40, "red", 5, 4))
+                            }, 1000)
+                        }, 1000)
+                    }, 500)
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 9000)
+                    }
+
+                } else if (attack == 18) {
+                    sac.push(new missiles(-40, joueur.y, 40, 20, "red", 1.5, 1))
+                    setTimeout(function () {
+                        sac.push(new missiles(joueur.x, -40, 20, 40, "red", 1, 4))
+                        setTimeout(function () {
+                            sac.push(new missiles(joueur.x, canvas.height, 20, 40, "red", 1, 3))
+                            setTimeout(function () {
+                                sac.push(new missiles(canvas.width, joueur.y, 40, 20, "red", 1.5, 2))
+                            }, 400)
+                        }, 400)
+                    }, 200)
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 13000)
+                    }
+
+                }else if (attack == 19) {
+                    sacb.push(new missiles(0, boite.y, 10, boite.h, "bleu", 3, 1))
+                    saco.push(new missiles(canvas.width, boite.y, 10, boite.h, "orange", 3, 2))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 13000)
+                    }
+                }else if (attack == 20) {
+                    sacb.push(new missiles(0, boite.y, 10, boite.h, "lightblue", 0.08, 1, 13))
+                    setTimeout(function () { saco.push(new missiles(canvas.width, boite.y, 10, boite.h, "orange", 0.08, 2, 13)) }, 1000)
+                    setTimeout(function () { saco.push(new missiles(0, boite.y, 10, boite.h, "orange", 0.08, 1, 13)) }, 1500)
+                    setTimeout(function () { sacb.push(new missiles(canvas.width, boite.y, 10, boite.h, "lughtblue", 0.08, 2, 13)) }, 2500)
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 13000)
+                    }
                 }
             }
 
-            if (phase == 3 && transition == false && combat2 == true) {
+            if (phase == 3 && transition == false && combat2 == true && speak == false) {
                 if (attack == 2) {
                     sac.push(new missiles(0, boite.y, 10, Math.random() * boite.h / 1.3, "red", 3, 1, 1))
                     sacb.push(new missiles(0, boite.y, 10, boite.h, "lightblue", 3, 1))
@@ -1227,15 +1633,55 @@
                     saco.push(new missiles(canvas.width, boite.y, 10, boite.h, "orange", 0.08, 2, 13))
                     setTimeout(function () { sacb.push(new missiles(canvas.width, boite.y, 10, boite.h, "lightblue", 0.08, 2, 13)) }, 2000)
                 } else if (attack == 7) {
-                    sacb.push(new missiles(boite.x + Math.random() * boite.w / 1.3, 10, 20, 20, "lightblue", 1, 0, 2, 1))
-                    sacb.push(new missiles(boite.x + Math.random() * boite.w / 1.3, boite.y + boite.h - 20, 20, 20, "lightblue", -1, 0, 2, -1))
-                    saco.push(new missiles(boite.x, boite.y + Math.random() * boite.h / 1.3, 20, 20, "orange", 1, 0, 2, 1))
-                    saco.push(new missiles(boite.x + boite.w - 20, boite.y + Math.random() * boite.h / 1.3, 20, 20, "orange", -1, 0, 2, -1))
+                    sacb.push(new missiles(boite.x + Math.random() * boite.w / 1.3, 10, 20, 20, "lightblue", 1, -1, 2, 1))
+                    sacb.push(new missiles(boite.x + Math.random() * boite.w / 1.3, boite.y + boite.h - 20, 20, 20, "lightblue", -1, -1, 2, -1))
+                    saco.push(new missiles(boite.x, boite.y + Math.random() * boite.h / 1.3, 20, 20, "orange", 1, -1, 2, 1))
+                    saco.push(new missiles(boite.x + boite.w - 20, boite.y + Math.random() * boite.h / 1.3, 20, 20, "orange", -1, -1, 2, -1))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 14000)
                     }
+                } else if (attack == 6) {
+                    sac.push(new missiles(joueur.x - 130, joueur.y, 50, 50, "red", 0.02, 1, 3))
+                    sac.push(new missiles(joueur.x + 130, joueur.y, 50, 50, "red", 0.02, 2, 3))
+                    sac.push(new missiles(joueur.x, joueur.y + 130, 50, 50, "red", 0.02, 3, 3))
+                    sac.push(new missiles(joueur.x, joueur.y - 130, 50, 50, "red", 0.02, 4, 3))
+                    setTimeout(function () {
+                        sac.push(new missiles(joueur.x - 130, joueur.y - 130, 50, 50, "red", 0.02, 5, 3))
+                        sac.push(new missiles(joueur.x - 130, joueur.y + 130, 50, 50, "red", 0.02, 7, 3))
+                        sac.push(new missiles(joueur.x + 130, joueur.y - 130, 50, 50, "red", 0.02, 6, 3))
+                        sac.push(new missiles(joueur.x + 130, joueur.y + 130, 50, 50, "red", 0.02, 8, 3))
+                    }, 1000)
+
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 20000)
+                    }
+                } else if (attack == 8) {
+                    sac.push(new missiles(joueur.x, -40, 20, 40, "red", 1.5, 4))
+                    sac.push(new missiles(-40, joueur.y, 40, 20, "red", 8, 1))
+                    sac.push(new missiles(canvas.width, joueur.y, 40, 20, "red", 15, 2))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 20000)
+                    }
+                }else if (attack == 11) {
+                     gravity=1
+                        sac.push(new missiles(0, boite.y, 10, 100, "red", 7, 1))
+                        sac.push(new missiles(canvas.width, boite.y, 10, 100, "red", 7, 2))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 2000)
+                    }
+                }else if (attack == 12) {
+                        sac.push(new missiles(0, boite.y, 10, Math.random() * boite.h / 2.1+58, "red", 6, 1,1))
+                        setTimeout(function () {sac.push(new missiles(canvas.width, boite.y, 10,  Math.random() * boite.h / 2.1+58, "red", 6, 2,1))}, 1500)
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 20000)
+                    }
                 }
+               
             }
 
         }
@@ -1244,22 +1690,30 @@
             if (phase == 1 && transition == false && speak == false) {
                 if (attack == 8) {
                     sac.push(new missiles(0, boite.y, 10, 190, "red", 5, 1, 1))
-                    sac.push(new missiles(canvas.width, boite.y, 10, 190, "red", 5, 2, 1))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 7000)
                     }
                 } else if (attack == 9) {
-                    sac.push(new missiles(boite.x - 50, joueur.y, 50, 20, "red", 0.5, 1, 3))
-                    sac.push(new missiles(boite.x + boite.w, joueur.y, 50, 20, "red", 0.5, 2, 3))
-                    sac.push(new missiles(joueur.x, boite.y + boite.h, 20, 50, "red", 0.5, 3, 3))
+                    sac.push(new missiles(joueur.x - 230, joueur.y, 50, 20, "red", 0.05, 1, 3))
+                    sac.push(new missiles(joueur.x + 200, joueur.y, 50, 20, "red", 0.05, 2, 3))
+                    sac.push(new missiles(joueur.x, joueur.y + 200, 20, 50, "red", 0.05, 3, 3))
+                    sac.push(new missiles(joueur.x, joueur.y - 230, 20, 50, "red", 0.05, 4, 3))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 7000)
                     }
                 } else if (attack == 14) {
-                    sac.push(new missiles(0, boite.y, 10, 20, "red", 5, 1, 1))
                     sac.push(new missiles(canvas.width, boite.y, 10, 20, "red", 5, 2, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 7000)
+                    }
+                } else if (attack == 16) {
+                    sac.push(new missiles(joueur.x - 130, joueur.y - 130, 25, 25, "red", 0.5, 5, 3))
+                    sac.push(new missiles(joueur.x - 130, joueur.y + 130, 25, 25, "red", 0.5, 7, 3))
+                    sac.push(new missiles(joueur.x + 130, joueur.y - 130, 25, 25, "red", 0.5, 6, 3))
+                    sac.push(new missiles(joueur.x + 130, joueur.y + 130, 25, 25, "red", 0.5, 8, 3))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 7000)
@@ -1267,30 +1721,59 @@
                 }
             }
 
-            if (phase == 3 && transition == false && combat2 == true) {
-                if (attack == 6) {
-                    sac.push(new missiles(boite.x - 50, joueur.y, 50, 20, "red", 0.01, 1, 3))
-                    sac.push(new missiles(boite.x + boite.w, joueur.y, 50, 20, "red", 0.01, 2, 3))
-                    sac.push(new missiles(joueur.x, boite.y + boite.h, 20, 50, "red", 0.01, 3, 3))
-                    sac.push(new missiles(joueur.x, boite.y - 50, 20, 50, "red", 0.01, 4, 3))
+            if (phase == 3 && transition == false && combat2 == true && speak == false) {
+               
+            }
+
+        }
+
+        function attack5() {
+            
+            if (phase == 3 && transition == false && combat2 == true && speak == false) {
+                if (attack == 9) {
+                    sac.push(new missiles(0, 0, 0, 0, "red", 0, Math.floor(Math.random() * 5), 4))
                     if (wait == false) {
                         wait = true
-                        setTimeout(end, 14000)
+                        setTimeout(end, 20000)
+                    }
+                 }else if (attack == 10) {
+                        sac.push(new missiles(0, boite.y, 10, 200, "red", 5, 1, 1))
+                    sac.push(new missiles(canvas.width, boite.y, 10, 200, "red", 5, 2, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () { 
+                            attack=10.5
+                         }, 10000)
+                         setTimeout(function () { 
+                            attack=11
+                            gravity=1
+                            wait=false
+                         }, 13000)
                     }
                 }
+               
             }
 
         }
 
         function checkcollision() {
             for (i = 0; i < sac.length; i++) {
-                if (collision(sac[i], joueur) && hit == false) {
+                if (collision(sac[i], joueur) && hit == false&&healthbar.w!=-101) {
+                   hurt.play()
                     hit = true
-                    healthbar.w -= 20
                     setTimeout(function () { hit = false }, 2000)
+                    healthbar.w -= degat
                     if (items.nood >= 1) {
-                        healthbar.w += 10
+                        healthbar.w += degat / 2
                     }
+                }
+
+                if (collision(sac[i], joueur) && gravity == 4) {
+                    sac[i].h = 0
+                }
+
+                if (sac[i].y > canvas.height + 500 || sac[i].y < -500 || sac[i].x > canvas.width + 500 || sac[i].x < -500) {
+                    sac.splice(i, 1)
                 }
 
                 /* if (sac[i].y> boite.y + boite.h || sac[i].y < boite.y || sac[i].x> boite.x + boite.w || sac[i].x < boite.x) {
@@ -1299,27 +1782,39 @@
 
             }
 
+
             for (i = 0; i < sacb.length; i++) {
-                if (collision(sacb[i], joueur) && hit == false && lastxy.x != joueur.x || collision(sacb[i], joueur) && hit == false && lastxy.y != joueur.y) {
+                if (collision(sacb[i], joueur) && hit == false && lastxy.x != joueur.x&&healthbar.w!=-101 || collision(sacb[i], joueur) && hit == false && lastxy.y != joueur.y&&healthbar.w!=-101) {
+                    hurt.play()
                     hit = true
-                    healthbar.w -= 20
+                    healthbar.w -= degat
                     setTimeout(function () { hit = false }, 2000)
                     if (items.nood >= 1) {
-                        healthbar.w += 10
+                        healthbar.w += degat / 2
                     }
                 }
             }
 
+
             for (i = 0; i < saco.length; i++) {
-                if (collision(saco[i], joueur) && hit == false && lastxy.x == joueur.x && lastxy.y == joueur.y) {
+                if (collision(saco[i], joueur) && hit == false && lastxy.x == joueur.x && lastxy.y == joueur.y&&healthbar.w!=-101) {
+                    hurt.play()
                     hit = true
-                    healthbar.w -= 20
+                    healthbar.w -= degat
                     setTimeout(function () { hit = false }, 2000)
                     if (items.nood >= 1) {
-                        healthbar.w += 10
+                        healthbar.w += degat / 2
                     }
                 }
             }
+
+
+            for (i = 0; i < sac.length; i++) {
+                if (collision(sac[i], shield)) {
+                    sac.splice(i, 1)
+                }
+            }
+
         }
 
         function end() {
@@ -1329,6 +1824,7 @@
                 combat2 = false
             }
             if (bossvie.w == 10 && phase == 2) {
+                music.src="angry.wav"
                 setTimeout(function () {
                     document.getElementById("container8").style.display = "none"
                     document.getElementById("container9").style.display = "block"
@@ -1383,18 +1879,18 @@
         }
 
         function returns() {
-            if (bouton==1) {
-               joueur.y = 353
-            joueur.x = 50 
-            }else if (bouton==2.7) {
-               joueur.y = 353
-            joueur.x = 300 
-            }else if (bouton==3) {
-               joueur.y = 353
-            joueur.x = 550 
-            }else if (bouton==4) {
-               joueur.y = 353
-            joueur.x = 800 
+            if (bouton == 1 || bouton == 1.1) {
+                joueur.y = 353
+                joueur.x = 50
+            } else if (bouton == 2.7) {
+                joueur.y = 353
+                joueur.x = 300
+            } else if (bouton == 3) {
+                joueur.y = 353
+                joueur.x = 550
+            } else if (bouton == 4.9) {
+                joueur.y = 353
+                joueur.x = 800
             }
             wait = false
             combat = false
@@ -1402,7 +1898,7 @@
             sacb = []
             saco = []
             bouton = 0
-            
+
             contour.x = 0
             contour.w = 1000
             boite.x = 10
@@ -1413,8 +1909,9 @@
 
 
         function mort() {
-            if (healthbar.w <= 0) {
-                healthbar.w = -1
+            if (healthbar.w <= 0 && healthbar.w >= -100) {
+                music.src="gameovermusic.mp3"
+                healthbar.w = -101
                 document.getElementById("container5").style.display = "block"
                 document.getElementById("container").style.display = "none"
                 document.getElementById("monCanvas").style.display = "none"
@@ -1431,14 +1928,24 @@
                 }, 6700)
 
                 setTimeout(function () {
+                    dialogue = 0
                     attack = -1
                     combat2 = false
                     returns()
-                    phase = 1
+                    if (checkpoints == true && phase == 1 || checkpoints == false) {
+                        music.src="nutral.mp3"
+                        phase = 1
+                        bossvie.w = 200
+                        document.getElementById("container").style.display = "block"
+                    }
+                    if (checkpoints == true && phase == 3) {
+                        music.src="angry.mp3"
+                        bossvie.w = 10
+                        phase = 3
+                        document.getElementById("container2").style.display = "block"
+                    }
                     healthbar.w = 100
-                    bossvie.w = 200
                     document.getElementById("container6").style.display = "none"
-                    document.getElementById("container").style.display = "block"
                     document.getElementById("monCanvas").style.display = "block"
                     document.getElementById("text").style.display = "block"
                 }, 16500)
@@ -1453,16 +1960,17 @@
         }
 
         function game() {
+            music.play()
             c.clearRect(0, 0, canvas.width, canvas.height)
             cv.clearRect(0, 0, canvasv.width, canvasv.height)
-            if (speak == false) {
-                ct.clearRect(0, 0, canvast.width, canvast.height)
-            }
+            if (speak == false) {ct.clearRect(0, 0, canvast.width, canvast.height)}
             draw()
             clavier()
             checkcollision()
             mort()
             setTimeout(game, 16.67)
+
+
         }
         game()
 
