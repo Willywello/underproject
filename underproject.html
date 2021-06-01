@@ -234,6 +234,12 @@
         var sclick = new Audio()
         sclick.src = "click.mp3"
 
+        var soulshatter = new Audio()
+        soulshatter.src = "soulshatter.mp3"
+
+        var attackingsound = new Audio()
+        attackingsound.src = "attackingsound.mp3"
+
         var canvas = document.getElementById("monCanvas")
         var c = canvas.getContext("2d")
         canvas.width = 1000
@@ -537,6 +543,8 @@
                         cv.fillText("-" + damage * 185, 100, 18)
                     } else if (bossvie.w > 10 && bossvie.w <= 50) {
                         cv.fillText("-" + damage * 1482, 100, 18)
+                    }else if (bossvie.w == 10) {
+                        cv.fillText("-" + damage , 100, 18)
                     } else if (bossvie.w == 1) {
                         cv.fillText("-" + damage * 57360413, 100, 18)
                     } else if (bossvie.w < 1) {
@@ -1167,6 +1175,7 @@
                         joueur.x = -100
                         attbar.x = 0
                     } else if (attacking == true && attbar.x > 100 && joueur.x < 0) {
+                        attackingsound.play()
                         attbar.speed = 0
                         joueur.y = boite.y + boite.h / 2 - joueur.h / 2
                         joueur.x = boite.x + boite.w / 2 - joueur.w / 2
@@ -1268,7 +1277,7 @@
                 }
 
                 //debug
-                if (32 in keyDown) {
+                /*if (32 in keyDown) {
                     phase = 3
                     document.getElementById("container").style.display = "none"
                     document.getElementById("container2").style.display = "block"
@@ -1278,7 +1287,7 @@
                     clicked = true
                     attack = 11
                     setTimeout(clicks, 200)
-                }
+                }*/
             }
         }
 
@@ -2447,7 +2456,8 @@
                 healthbar.w = 100
             }
             if (healthbar.w <= 0 && healthbar.w >= -100 && menu == 3) {
-                music.src = "gameovermusic.mp3"
+                soulshatter.play()
+                music.src = ""
                 healthbar.w = -101
                 document.getElementById("container5").style.display = "block"
                 document.getElementById("container").style.display = "none"
@@ -2455,6 +2465,7 @@
                 document.getElementById("text").style.display = "none"
                 document.getElementById("container2").style.display = "none"
                 setTimeout(function () {
+                    music.src = "gameovermusic.mp3"
                     document.getElementById("container5").style.display = "none"
                     document.getElementById("container7").style.display = "block"
                 }, 4700)
