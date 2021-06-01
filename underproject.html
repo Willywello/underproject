@@ -112,6 +112,46 @@
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             font-size: 25px;
         }
+
+        #container13 {
+            display: none;
+            width: 300px;
+            margin: auto;
+        }
+
+        #container14 {
+            display: none;
+            width: 300px;
+            margin: auto;
+        }
+
+        #container15 {
+            display: none;
+            width: 300px;
+            margin: auto;
+        }
+
+        #container16 {
+            display: none;
+            width: 300px;
+            margin: auto;
+        }
+
+        #container17 {
+            display: none;
+            width: 300px;
+            margin: auto;
+        }
+
+        #container18 {
+            width: 750px;
+            margin: auto;
+            display: none;
+            color: white;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 25px;
+        }
     </style>
 </head>
 
@@ -138,6 +178,18 @@
         inspired a bit by undertale from Toby Fox<br>
         music from the soundtrack of Hiveswap<br>
     </div>
+    <div id="container13"><img src="./catslices.GIF"></div>
+    <div id="container14"><img src="./catdying.GIF"></div>
+    <div id="container15"><img src="./genoux.GIF"></div>
+    <div id="container16"><img src="./laststrike.GIF"></div>
+    <div id="container17"><img src="./catgobye.GIF"></div>
+    <div id="container18"><img src="./undercat.jpg"><br>
+        GENOCIDE ENDING<br><br><br>
+        game by the the smart and sexy Willywello<br>
+        inspired a bit by undertale from Toby Fox<br>
+        music from the soundtrack of Hiveswap<br>
+    </div>
+
     <canvas id="text"></canvas>
     <canvas id="monCanvas"></canvas>
 
@@ -173,14 +225,14 @@
         var cible = new Image()
         cible.src = "./cible.jpg"
 
-        var music=new Audio()
-        music.src="menumusic.mp3"
+        var music = new Audio()
+        music.src = "menumusic.mp3"
 
-        var hurt=new Audio()
-        hurt.src="damage.mp3"
+        var hurt = new Audio()
+        hurt.src = "damage.mp3"
 
-        var sclick=new Audio()
-        sclick.src="click.mp3"
+        var sclick = new Audio()
+        sclick.src = "click.mp3"
 
         var canvas = document.getElementById("monCanvas")
         var c = canvas.getContext("2d")
@@ -278,6 +330,8 @@
 
         var saco = []
 
+        var sacj = []
+
         var wait = false
 
         var hit = false
@@ -321,12 +375,14 @@
 
             if (menu == 0) {
                 c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
+                c.font = "20px Comic Sans MS"
+                c.fillText("*work in progress*", 850, canvas.height / 1.7)
                 c.font = "50px Comic Sans MS"
                 c.fillStyle = "white"
                 c.textAlign = "center"
                 c.fillText("PLAY", 150, canvas.height / 2)
                 c.fillText("RULES", 500, canvas.height / 2)
-                c.fillText("OPTIONS", 850, canvas.height / 2)
+                c.fillText("TROPHIES", 850, canvas.height / 2)
             } else if (menu == 1) {
                 c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
                 c.fillText("EASY", 150, canvas.height / 2)
@@ -416,7 +472,7 @@
                         c.fillText("The damage you receive is cut in half during the 2 next attacks.", 50, 190)
                         c.fillText("Delicious and practicle! Don't get used to it.", 50, 230)
                     } else if (joueur.x == 249) {
-                        c.fillText("Steroids:   +2HP", 50, 150)
+                        c.fillText("Steroids:   -5HP", 50, 150)
                         c.fillText("The damage you deal is multiplied by 2 during your 2 next attacks.", 50, 190)
                         c.fillText("Don't be scared of the warnings behind the box.", 50, 230)
                     } else if (joueur.x == 449) {
@@ -479,8 +535,12 @@
                         cv.fillText("-" + damage * 17, 100, 18)
                     } else if (bossvie.w > 50 && bossvie.w <= 100) {
                         cv.fillText("-" + damage * 185, 100, 18)
-                    } else if (bossvie.w > 0 && bossvie.w <= 50) {
+                    } else if (bossvie.w > 10 && bossvie.w <= 50) {
                         cv.fillText("-" + damage * 1482, 100, 18)
+                    } else if (bossvie.w == 1) {
+                        cv.fillText("-" + damage * 57360413, 100, 18)
+                    } else if (bossvie.w < 1) {
+                        cv.fillText("-" + damage * 5070306000401030, 100, 18)
                     }
                 }
 
@@ -494,6 +554,10 @@
 
                 for (i = 0; i < sac.length; i++) {
                     sac[i].draw()
+                }
+
+                for (i = 0; i < sacj.length; i++) {
+                    sacj[i].draw()
                 }
 
                 ct.font = "25px Comic Sans MS"
@@ -528,14 +592,14 @@
                     speak = false
                 }
                 if (bouton == 4.5 && phase == 1) {
-                    bouton=4.9
+                    bouton = 4.9
                     speak = true
                     ct.fillText("Don't be scared to attack me.", 10, 50)
                     ct.fillText("I still got a lot of health.", 10, 80)
                     ct.fillText("We are just here to have fun!", 10, 110)
                 }
                 if (bouton == 4.5 && phase == 3) {
-                    bouton=4.9
+                    bouton = 4.9
                     speak = true
                     ct.fillText("You're kidding right?", 10, 50)
                     ct.fillText("Is this some sort of joke to you?", 10, 80)
@@ -674,6 +738,46 @@
                     c.fillText("But why not finishing the job first? :)", 70, 110)
                 }
 
+            } else if (menu == 4) {
+                c.fillStyle = "red"
+                c.fillRect(400, 300, 100, 20)
+                c.fillStyle = healthbar.color
+                c.fillRect(healthbar.x, healthbar.y, healthbar.w, healthbar.h)
+                c.font = "25px Comic Sans MS"
+                c.textAlign = "left"
+                c.fillStyle = "white"
+                c.fillText(healthbar.w / 5 + "/20", 550, 315)
+                c.fillText("Use the arrow keys to move, enter to select", 300, 250)
+                c.fillText("and SHIFT TO GO BACK.", 300, 275)
+                c.fillText("This is your health bar.", 300, 350)
+                c.fillText("If it becomes all red you're dead.", 300, 375)
+                c.fillText("Use items to heal.", 300, 400)
+                c.fillText("Red bars will hurt you.", 300, 50)
+                c.fillText("Orange bars will hurt you if you're not moving.", 300, 75)
+                c.fillText("Blue bars will hurt you if you're moving.", 300, 100)
+                c.fillText("After being hit, you become invincible for the 2 next seconds.", 300, 125)
+                c.fillStyle = "red"
+                c.fillText("When your heart is red, you can move in any direction.", 300, 500)
+                c.fillStyle = "blue"
+                c.fillText("When your heart is blue, you are affected by gravity.", 300, 525)
+                c.fillStyle = "green"
+                c.fillText("When your heart is green, you control a shield", 300, 550)
+                c.fillText("around you to stop the bullets.", 300, 575)
+
+
+                for (i = 0; i < sacb.length; i++) {
+                    sacb[i].draw()
+                }
+
+                for (i = 0; i < saco.length; i++) {
+                    saco[i].draw()
+                }
+
+                for (i = 0; i < sac.length; i++) {
+                    sac[i].draw()
+                }
+                c.drawImage(item, 750, 300, 200, 75)
+                c.drawImage(coeur, joueur.x, joueur.y, joueur.w, joueur.h)
             }
         }
 
@@ -717,12 +821,41 @@
                         menu = 1
                     }
                     if (joueur.x == 370) {
-                        joueur.x = 360
+                        canvas.style.border = "10px white solid"
+                        document.getElementById("container0").style.display = "none"
+                        canvas.height = 600
+                        menu = 4
+                        joueur.x = canvas.width / 2
+                        joueur.y = canvas.height / 2
                     }
                     if (joueur.x == 690) {
-                        joueur.x = 670
                     }
                     setTimeout(clicks, 200)
+                }
+            } else if (menu == 4) {
+                if (37 in keyDown && joueur.x > 0) {
+                    joueur.x -= joueur.speed
+                }
+                if (39 in keyDown && joueur.x < canvas.width - joueur.w) {
+                    joueur.x += joueur.speed
+                }
+                if (38 in keyDown && joueur.y > 0) {
+                    joueur.y -= joueur.speed
+                }
+                if (40 in keyDown && joueur.y < canvas.height - joueur.h) {
+                    joueur.y += joueur.speed
+                }
+                if (16 in keyDown && clicked == false) {
+                    sac = []
+                    sacb = []
+                    saco = []
+                    healthbar.w = 100
+                    canvas.style.border = "0px white solid"
+                    document.getElementById("container0").style.display = "block"
+                    canvas.height = 400
+                    menu = 0
+                    joueur.x = 370
+                    joueur.y = canvas.height / 2.3
                 }
             } else if (menu == 1) {
                 if (37 in keyDown && clicked == false && joueur.x != 50) {
@@ -739,17 +872,32 @@
                     clicked = true
                     sclick.play()
                     if (joueur.x == 50) {
+                        items.noodles = 3
+                        items.steroids = 2
+                        items.candy = 7
+                        items.cake = 4
+                        items.pie = 3
                         menu = 2
                         degat = 10
                         joueur.x = 280
                     }
                     if (joueur.x == 360) {
+                        items.noodles = 2
+                        items.steroids = 2
+                        items.candy = 6
+                        items.cake = 3
+                        items.pie = 3
                         menu = 2
                         degat = 20
                         joueur.x = 280
                     }
                     if (joueur.x == 670) {
-                        music.src="nutral.mp3"
+                        items.noodles = 2
+                        items.steroids = 1
+                        items.candy = 5
+                        items.cake = 3
+                        items.pie = 2
+                        music.src = "nutral.mp3"
                         joueur.x = 300
                         joueur.y = canvas.height - 47
                         menu = 3
@@ -773,7 +921,7 @@
                 if (37 in keyDown && clicked == false && joueur.x != 280) {
                     clicked = true
                     joueur.x -= 240
-                    setTimeout(clicks, 200)
+                    setTimeout(clicks, 500)
                 }
                 if (39 in keyDown && clicked == false && joueur.x != 520) {
                     clicked = true
@@ -789,7 +937,7 @@
                     if (joueur.x == 520) {
                         checkpoints = true
                     }
-                    music.src="nutral.mp3"
+                    music.src = "nutral.mp3"
                     menu = 3
                     document.getElementById("container0").style.display = "none"
                     document.getElementById("container").style.display = "block"
@@ -1002,7 +1150,7 @@
                     bouton = 0
                 }
 
-                if (13 in keyDown && speak == true && clicked == false&&combat==true) {
+                if (13 in keyDown && speak == true && clicked == false && combat == true) {
                     ct.clearRect(0, 0, canvast.width, canvast.height)
                     setTimeout(function () { speak = false }, 1000)
                     if (bouton == 4.5) {
@@ -1012,9 +1160,9 @@
 
                 if (13 in keyDown && joueur.y == 50 && combat == false && clicked == false) {
                     clicked = true
-                    speak=false
+                    speak = false
                     if (bouton == 1 && attacking == false && attbar.x < 100) {
-                        
+
                         attacking = true
                         joueur.x = -100
                         attbar.x = 0
@@ -1025,9 +1173,10 @@
                         if (phase == 1) {
                             document.getElementById("container").style.display = "none"
                             document.getElementById("container3").style.display = "block"
-                        } else if (phase == 3) {
+                        } else if (phase == 3 && attack < 16) {
                             document.getElementById("container2").style.display = "none"
                             document.getElementById("container10").style.display = "block"
+                        } else if (phase == 3 && attack > 16) {
                         }
                         setTimeout(attacked, 600)
                     }
@@ -1049,7 +1198,7 @@
                         } else if (joueur.x == 249 && items.steroids != 0) {
                             items.steroids -= 1
                             items.ster += 2
-                            healthbar.w += 10
+                            healthbar.w -= 25
                             attacked()
                         } else if (joueur.x == 449 && items.candy != 0) {
                             items.candy -= 1
@@ -1068,11 +1217,13 @@
                     }
                     if (bouton == 4 && phase != 2) {
                         bouton = 4.5
+                        joueur.y = boite.y + boite.h / 2 - joueur.h / 2
+                        joueur.x = boite.x + boite.w / 2 - joueur.w / 2
                         attacked()
                     } else if (bouton == 4 && phase == 2) {
                         bouton = 4.6
                     } else if (bouton == 4.6) {
-                        music.src="menumusic.mp3"
+                        music.src = "menumusic.mp3"
                         bouton = 4.7
                         document.getElementById("container").style.display = "none"
                         document.getElementById("text").style.display = "none"
@@ -1092,13 +1243,8 @@
                         bouton = 0
                         bossvie.w = 200
                         healthbar.w = 100
-                        items.noodles = 2
                         items.nood = 0
-                        items.steroids = 2
                         items.ster = 0
-                        items.candy = 5
-                        items.cake = 3
-                        items.pie = 2
                         document.getElementById("vieCanvas").style.display = "block"
                         document.getElementById("container0").style.display = "block"
                         document.getElementById("monCanvas").style.display = "block"
@@ -1114,7 +1260,7 @@
                     if (phase < 3) {
                         document.getElementById("container").style.display = "none"
                         document.getElementById("container4").style.display = "block"
-                    } else if (phase == 3) {
+                    } else if (phase == 3 && attack < 16) {
                         document.getElementById("container2").style.display = "none"
                         document.getElementById("container11").style.display = "block"
                     }
@@ -1130,7 +1276,7 @@
 
                 if (70 in keyDown && clicked == false) {
                     clicked = true
-                    attack += 1
+                    attack = 11
                     setTimeout(clicks, 200)
                 }
             }
@@ -1152,12 +1298,29 @@
                 document.getElementById("container").style.display = "block"
                 document.getElementById("container3").style.display = "none"
                 document.getElementById("container4").style.display = "none"
-            } else if (phase == 3) {
+            } else if (phase == 3 && attack < 16) {
                 document.getElementById("container2").style.display = "block"
                 document.getElementById("container10").style.display = "none"
                 document.getElementById("container11").style.display = "none"
             }
 
+            if (phase < 3) {
+                attack = Math.floor(Math.random() * 21)
+                if (lastatt == attack) {
+                    attack = Math.floor(Math.random() * 21)
+                }
+                lastatt = attack
+            } else if (phase == 3 && bouton == 1 || phase == 3 && attack == -1) {
+                attack += 1
+            } else if (phase == 3 && bouton != 1 && attack == 1) {
+                attack = 0
+            } else if (phase == 3 && bouton != 1 && attack == 4) {
+                attack = 3
+            } else if (phase == 3 && bouton != 1 && attack == 11) {
+                attack = 10
+            } else if (phase == 3 && bouton != 1 && attack == 16) {
+                attack = 15
+            }
             if (phase < 3 && bouton == 1) {
                 dialogue += 1
                 if (attbar.x + attbar.w / 2 > 100 && attbar.x + attbar.w / 2 <= 320 || attbar.x + attbar.w / 2 > 680 && attbar.x + attbar.w / 2 <= 1000) {
@@ -1172,6 +1335,26 @@
             } else if (phase == 3) {
                 damage = 0
                 combat2 = true
+                if (attack == 17 && bouton == 1) {
+                    damage = 9
+                    document.getElementById("container2").style.display = "none"
+                    document.getElementById("container13").style.display = "block"
+                    setTimeout(function () {
+                        document.getElementById("container13").style.display = "none"
+                        document.getElementById("container14").style.display = "block"
+                    }, 2200)
+                }
+                if (attack == 18 && bouton == 1) {
+                    combat2 = false
+                    damage = 1000
+                    document.getElementById("container14").style.display = "none"
+                    document.getElementById("container15").style.display = "block"
+                    setTimeout(function () {
+                        document.getElementById("container15").style.display = "none"
+                        document.getElementById("container16").style.display = "block"
+                        combat2 = true
+                    }, 3000)
+                }
             } else if (bouton > 1) {
                 damage = 0
             }
@@ -1190,21 +1373,7 @@
             attacking = false
             combat = true
 
-            if (phase < 3) {
-                attack =  Math.floor(Math.random() * 21)
-                if (lastatt == attack) {
-                    attack = Math.floor(Math.random() * 21)
-                }
-                lastatt = attack
-            } else if (phase == 3 && bouton == 1 || phase == 3 && attack == -1) {
-                attack += 1
-            } else if (phase == 3 && bouton != 1 && attack == 1) {
-                attack = 0
-            } else if (phase == 3 && bouton != 1 && attack == 4) {
-                attack = 3
-            }else if (phase == 3 && bouton != 1 && attack == 11) {
-                attack = 10
-            }
+
             joueur.y = boite.y + boite.h / 2 - joueur.h / 2
             joueur.x = boite.x + boite.w / 2 - joueur.w / 2
 
@@ -1219,7 +1388,7 @@
                     gravity = 4
                 }
             } else if (phase == 3) {
-                if (attack == 0||attack==10||attack==12) {
+                if (attack == 0 || attack == 10 || attack == 12 || attack == 15) {
                     gravity = 0
                 }
                 if (attack == 8 || attack == 9) {
@@ -1289,10 +1458,10 @@
 
                 if (this.mode == 1) {
                     if (this.dir == 1) {
-                        sac.push(new missiles(this.x - 3, this.y + this.h + 55, this.w, boite.h - this.h - 55, this.color, this.speed, this.dir))
+                        sac.push(new missiles(this.x - 5, this.y + this.h + 55, this.w, boite.h - this.h - 55, this.color, this.speed, this.dir))
                     }
                     if (this.dir == 2) {
-                        sac.push(new missiles(this.x + 3, this.y + this.h + 55, this.w, boite.h - this.h - 55, this.color, this.speed, this.dir))
+                        sac.push(new missiles(this.x + 5, this.y + this.h + 55, this.w, boite.h - this.h - 55, this.color, this.speed, this.dir))
                     }
 
                 }
@@ -1367,6 +1536,11 @@
         setInterval(attack5, 600)
 
         function attack1() {
+            if (menu == 4) {
+                sac.push(new missiles(0, 0, 100, 10, "red", 4, 4))
+                saco.push(new missiles(100, 0, 100, 10, "orange", 4, 4))
+                sacb.push(new missiles(200, 0, 100, 10, "lightblue", 4, 4))
+            }
             if (phase == 1 && transition == false && speak == false) {
                 if (attack == 0) {
                     sac.push(new missiles(0, boite.y, 10, boite.h / 2, "red", 4, 1))
@@ -1453,6 +1627,172 @@
                         wait = true
                         setTimeout(end, 20000)
                     }
+                } else if (attack == 15) {
+                    sacb.push(new missiles(canvas.width, boite.y, 10, boite.h, "lightblue", 10, 2))
+                    setTimeout(function () { sac.push(new missiles(canvas.width, boite.y + boite.h - 80, 10, 80, "red", 10, 2)) }, 500)
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            wait = false
+                            attack = 16
+                        }, 7000)
+                    }
+                } else if (attack == 16) {
+                    sacb.push(new missiles(-150, boite.y, 10, boite.h, "lightblue", 7, 1))
+                    saco.push(new missiles(0, boite.y, 10, boite.h, "orange", 7, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 7000)
+                    }
+
+                } else if (attack == 17) {
+                    end()
+                } else if (attack == 20) {
+                    gravity = 2
+                    sac.push(new missiles(boite.x, canvas.height, 20, 10, "red", 6, 3))
+                    sac.push(new missiles(boite.x + 100, canvas.height, boite.w - 100, 10, "red", 6, 3))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            attack = 21
+                            wait = false
+                        }, 5000)
+                    }
+                } else if (attack == 21) {
+                    gravity = 3
+                    sac.push(new missiles(0, boite.y, 10, Math.random() * (boite.h - 55), "red", 7, 1, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            attack = 22
+                            wait = false
+                        }, 5000)
+                    }
+                } else if (attack == 22) {
+                    attack = 23
+                    sac.push(new missiles(canvas.width + 100, boite.y, 10, 110, "red", 5, 2, 1))
+                    sac.push(new missiles(boite.x + boite.w - 150, canvas.height + 300, 150, 10, "red", 5, 3))
+                } else if (attack == 23) {
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            gravity = 4
+                            joueur.y = boite.y + boite.h / 2 - joueur.h / 2
+                            joueur.x = boite.x + boite.w / 2 - joueur.w / 2
+                            attack = 24
+                            wait = false
+                        }, 1300)
+                    }
+
+                } else if (attack == 26) {
+                    gravity = Math.floor(Math.random() * 4)
+                    if (gravity == 0) {
+                        sac.push(new missiles(0, boite.y + boite.h - 70, 10, 70, "red", 8, 1))
+                        sac.push(new missiles(canvas.width, boite.y + boite.h - 70, 10, 70, "red", 8, 2))
+                    } else if (gravity == 1) {
+                        sac.push(new missiles(0, boite.y, 10, 70, "red", 8, 1))
+                        sac.push(new missiles(canvas.width, boite.y, 10, 70, "red", 8, 2))
+                    } else if (gravity == 2) {
+                        sac.push(new missiles(boite.x, -350, 70, 10, "red", 8, 4))
+                        sac.push(new missiles(boite.x, canvas.height + 250, 70, 10, "red", 8, 3))
+                    } else if (gravity == 3) {
+                        sac.push(new missiles(boite.x + boite.w - 70, -350, 70, 10, "red", 8, 4))
+                        sac.push(new missiles(boite.x + boite.w - 70, canvas.height + 250, 70, 10, "red", 8, 3))
+                    }
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            gravity = 1
+                            attack = 27
+                            wait = false
+                        }, 7000)
+                    }
+                } else if (attack == 27) {
+                    setTimeout(function () {
+                        gravity = -1
+                        attack = 28
+                        sac.push(new missiles(boite.x - 100, boite.y, 50, 25, "red", 0.5, 1, 3))
+                        sac.push(new missiles(boite.x + boite.w + 100, boite.y, 50, 25, "red", 0.5, 2, 3))
+                        setTimeout(function () {
+                            sac.push(new missiles(boite.x - 100, boite.y + 30, 50, 25, "red", 0.5, 1, 3))
+                            sac.push(new missiles(boite.x + boite.w + 100, boite.y + 30, 50, 25, "red", 0.5, 2, 3))
+                            setTimeout(function () {
+                                sac.push(new missiles(boite.x - 100, boite.y + 60, 50, 25, "red", 0.5, 1, 3))
+                                sac.push(new missiles(boite.x + boite.w + 100, boite.y + 60, 50, 25, "red", 0.5, 2, 3))
+                                setTimeout(function () {
+                                    sac.push(new missiles(boite.x - 100, boite.y + 90, 50, 25, "red", 0.5, 1, 3))
+                                    sac.push(new missiles(boite.x + boite.w + 100, boite.y + 90, 50, 25, "red", 0.5, 2, 3))
+                                    setTimeout(function () {
+                                        sac.push(new missiles(boite.x - 100, boite.y + 120, 50, 25, "red", 0.5, 1, 3))
+                                        sac.push(new missiles(boite.x + boite.w + 100, boite.y + 120, 50, 25, "red", 0.5, 2, 3))
+                                        setTimeout(function () {
+                                            sac.push(new missiles(boite.x - 100, boite.y + 150, 50, 25, "red", 0.5, 1, 3))
+                                            sac.push(new missiles(boite.x + boite.w + 100, boite.y + 150, 50, 25, "red", 0.5, 2, 3))
+                                            setTimeout(function () {
+                                                sac.push(new missiles(boite.x - 100, boite.y + 180, 50, 25, "red", 0.5, 1, 3))
+                                                sac.push(new missiles(boite.x + boite.w + 100, boite.y + 180, 50, 25, "red", 0.5, 2, 3))
+                                                setTimeout(function () {
+                                                    sac.push(new missiles(boite.x - 100, boite.y + 210, 50, 25, "red", 0.5, 1, 3))
+                                                    sac.push(new missiles(boite.x + boite.w + 100, boite.y + 210, 50, 25, "red", 0.5, 2, 3))
+
+                                                }, 100)
+                                            }, 100)
+                                        }, 100)
+                                    }, 100)
+                                }, 100)
+                            }, 100)
+                        }, 100)
+                    }, 600)
+                } else if (attack == 28) {
+                    setTimeout(function () {
+                        gravity = -1
+                        attack = 29
+                        sac.push(new missiles(boite.x - 100, boite.y + 240, 50, 25, "red", 0.5, 1, 3))
+                        sac.push(new missiles(boite.x + boite.w + 100, boite.y + 240, 50, 25, "red", 0.5, 2, 3))
+                        setTimeout(function () {
+                            sac.push(new missiles(boite.x - 100, boite.y + 210, 50, 25, "red", 0.5, 1, 3))
+                            sac.push(new missiles(boite.x + boite.w + 100, boite.y + 210, 50, 25, "red", 0.5, 2, 3))
+                            setTimeout(function () {
+                                sac.push(new missiles(boite.x - 100, boite.y + 180, 50, 25, "red", 0.5, 1, 3))
+                                sac.push(new missiles(boite.x + boite.w + 100, boite.y + 180, 50, 25, "red", 0.5, 2, 3))
+                                setTimeout(function () {
+                                    sac.push(new missiles(boite.x - 100, boite.y + 150, 50, 25, "red", 0.5, 1, 3))
+                                    sac.push(new missiles(boite.x + boite.w + 100, boite.y + 150, 50, 25, "red", 0.5, 2, 3))
+                                    setTimeout(function () {
+                                        sac.push(new missiles(boite.x - 100, boite.y + 120, 50, 25, "red", 0.5, 1, 3))
+                                        sac.push(new missiles(boite.x + boite.w + 100, boite.y + 120, 50, 25, "red", 0.5, 2, 3))
+                                        setTimeout(function () {
+                                            sac.push(new missiles(boite.x - 100, boite.y + 90, 50, 25, "red", 0.5, 1, 3))
+                                            sac.push(new missiles(boite.x + boite.w + 100, boite.y + 90, 50, 25, "red", 0.5, 2, 3))
+                                            setTimeout(function () {
+                                                sac.push(new missiles(boite.x - 100, boite.y + 60, 50, 25, "red", 0.5, 1, 3))
+                                                sac.push(new missiles(boite.x + boite.w + 100, boite.y + 60, 50, 25, "red", 0.5, 2, 3))
+                                                setTimeout(function () {
+                                                    sac.push(new missiles(boite.x - 100, boite.y + 30, 50, 25, "red", 0.5, 1, 3))
+                                                    sac.push(new missiles(boite.x + boite.w + 100, boite.y + 30, 50, 25, "red", 0.5, 2, 3))
+
+                                                }, 100)
+                                            }, 100)
+                                        }, 100)
+                                    }, 100)
+                                }, 100)
+                            }, 100)
+                        }, 100)
+                    }, 600)
+                } else if (attack == 29) {
+                    attack = 30
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            sac.push(new missiles(boite.x - 200, boite.y, 100, 100, "red", 0.5, 1, 3))
+                            sac.push(new missiles(boite.x + boite.w + 100, boite.y + boite.h - 100, 100, 100, "red", 0.5, 2, 3))
+                            attack = 31
+                            wait = false
+                        }, 700)
+                    }
+
+                } else if (attack == 31) {
+                    sacb.push(new missiles(0, boite.y, 10, boite.h, "lightblue", 4.5, 1))
                 }
 
             }
@@ -1475,10 +1815,6 @@
                         setTimeout(end, 10000)
                     }
                 }
-            }
-
-            if (phase == 3 && transition == false && combat2 == true && speak == false) {
-                
             }
 
         }
@@ -1601,18 +1937,18 @@
                         setTimeout(end, 13000)
                     }
 
-                }else if (attack == 19) {
-                    sacb.push(new missiles(0, boite.y, 10, boite.h, "bleu", 3, 1))
+                } else if (attack == 19) {
+                    sacb.push(new missiles(0, boite.y, 10, boite.h, "lightblue", 3, 1))
                     saco.push(new missiles(canvas.width, boite.y, 10, boite.h, "orange", 3, 2))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 13000)
                     }
-                }else if (attack == 20) {
+                } else if (attack == 20) {
                     sacb.push(new missiles(0, boite.y, 10, boite.h, "lightblue", 0.08, 1, 13))
                     setTimeout(function () { saco.push(new missiles(canvas.width, boite.y, 10, boite.h, "orange", 0.08, 2, 13)) }, 1000)
                     setTimeout(function () { saco.push(new missiles(0, boite.y, 10, boite.h, "orange", 0.08, 1, 13)) }, 1500)
-                    setTimeout(function () { sacb.push(new missiles(canvas.width, boite.y, 10, boite.h, "lughtblue", 0.08, 2, 13)) }, 2500)
+                    setTimeout(function () { sacb.push(new missiles(canvas.width, boite.y, 10, boite.h, "lightblue", 0.08, 2, 13)) }, 2500)
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 13000)
@@ -1671,23 +2007,178 @@
                         wait = true
                         setTimeout(end, 20000)
                     }
-                }else if (attack == 11) {
-                     gravity=1
-                        sac.push(new missiles(0, boite.y, 10, 100, "red", 7, 1))
-                        sac.push(new missiles(canvas.width, boite.y, 10, 100, "red", 7, 2))
+                } else if (attack == 11) {
+                    gravity = 1
+                    sac.push(new missiles(0, boite.y, 10, 100, "red", 7, 1))
+                    sac.push(new missiles(canvas.width, boite.y, 10, 100, "red", 7, 2))
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 2000)
                     }
-                }else if (attack == 12) {
-                        sac.push(new missiles(0, boite.y, 10, Math.random() * boite.h / 2.1+58, "red", 6, 1,1))
-                        setTimeout(function () {sac.push(new missiles(canvas.width, boite.y, 10,  Math.random() * boite.h / 2.1+58, "red", 6, 2,1))}, 1500)
+                } else if (attack == 12) {
+                    sac.push(new missiles(0, boite.y, 10, Math.random() * boite.h / 2.1 + 58, "red", 6, 1, 1))
+                    setTimeout(function () { sac.push(new missiles(canvas.width, boite.y, 10, Math.random() * boite.h / 2.1 + 58, "red", 6, 2, 1)) }, 1500)
                     if (wait == false) {
                         wait = true
                         setTimeout(end, 20000)
                     }
+                } else if (attack == 13) {
+                    attack = 13.5
+                    sac.push(new missiles(0, boite.y, 10, 10, "red", 4, 1, 1))
+                    sac.push(new missiles(-50, boite.y, 10, 30, "red", 4, 1, 1))
+                    sac.push(new missiles(-100, boite.y, 10, 50, "red", 4, 1, 1))
+                    sac.push(new missiles(-150, boite.y, 10, 70, "red", 4, 1, 1))
+                    sac.push(new missiles(-200, boite.y, 10, 90, "red", 4, 1, 1))
+                    sac.push(new missiles(-250, boite.y, 10, 110, "red", 4, 1, 1))
+                    sac.push(new missiles(-300, boite.y, 10, 130, "red", 4, 1, 1))
+                    sac.push(new missiles(-350, boite.y, 10, 130, "red", 4, 1, 1))
+                    sac.push(new missiles(-400, boite.y, 10, 110, "red", 4, 1, 1))
+                    sac.push(new missiles(-450, boite.y, 10, 90, "red", 4, 1, 1))
+                    sac.push(new missiles(-500, boite.y, 10, 70, "red", 4, 1, 1))
+                    sac.push(new missiles(-550, boite.y, 10, 50, "red", 4, 1, 1))
+                    sac.push(new missiles(-600, boite.y, 10, 30, "red", 4, 1, 1))
+                    sac.push(new missiles(-650, boite.y, 10, 10, "red", 4, 1, 1))
+                    setTimeout(function () {
+                        sac = []
+                        attack = 14
+                    }, 6500)
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(end, 21000)
+                        setTimeout(function () {
+                            attack = 14
+                        }, 21000)
+                    }
+                } else if (attack == 14) {
+                    attack = 13.5
+                    sac.push(new missiles(canvas.width, boite.y, 10, 130, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 50, boite.y, 10, 110, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 100, boite.y, 10, 90, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 150, boite.y, 10, 70, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 200, boite.y, 10, 50, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 250, boite.y, 10, 30, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 300, boite.y, 10, 10, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 350, boite.y, 10, 10, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 400, boite.y, 10, 30, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 450, boite.y, 10, 50, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 500, boite.y, 10, 70, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 550, boite.y, 10, 90, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 600, boite.y, 10, 110, "red", 4, 2, 1))
+                    sac.push(new missiles(canvas.width + 650, boite.y, 10, 130, "red", 4, 2, 1))
+                    setTimeout(function () {
+                        sac = []
+                        attack = 13
+                    }, 6500)
+                } else if (attack == 24) {
+                    sac.push(new missiles(-40, joueur.y, 40, 20, "red", 15, 1))
+                    sac.push(new missiles(-100, joueur.y, 40, 20, "red", 15, 1))
+                    sac.push(new missiles(-160, joueur.y, 40, 20, "red", 15, 1))
+                    sac.push(new missiles(-220, joueur.y, 40, 20, "red", 15, 1))
+                    sac.push(new missiles(-280, joueur.y, 40, 20, "red", 15, 1))
+                    sac.push(new missiles(-340, joueur.y, 40, 20, "red", 15, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            sac.push(new missiles(joueur.x, -100, 20, 40, "red", 10, 4))
+                            setTimeout(function () {
+                                sac.push(new missiles(joueur.x, canvas.height, 20, 40, "red", 10, 3))
+                                setTimeout(function () {
+                                    sac.push(new missiles(canvas.width, joueur.y, 40, 20, "red", 15, 2))
+                                    wait = false
+                                    attack = 25
+                                }, 200)
+                            }, 200)
+                        }, 1000)
+                    }
+
+                } else if (attack == 25) {
+                    sac.push(new missiles(canvas.width, joueur.y, 40, 20, "red", 15, 2))
+                    sac.push(new missiles(canvas.width + 60, joueur.y, 40, 20, "red", 15, 2))
+                    sac.push(new missiles(canvas.width + 120, joueur.y, 40, 20, "red", 15, 2))
+                    sac.push(new missiles(canvas.width + 180, joueur.y, 40, 20, "red", 15, 2))
+                    sac.push(new missiles(canvas.width + 240, joueur.y, 40, 20, "red", 15, 2))
+                    sac.push(new missiles(canvas.width + 300, joueur.y, 40, 20, "red", 15, 2))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            sac.push(new missiles(joueur.x, canvas.height, 20, 40, "red", 10, 3))
+                            setTimeout(function () {
+                                sac.push(new missiles(joueur.x, -150, 20, 40, "red", 10, 4))
+                                setTimeout(function () {
+                                    sac.push(new missiles(-40, joueur.y, 40, 20, "red", 15, 1))
+                                    setTimeout(function () {
+                                        wait = false
+                                        attack = 26
+                                    }, 500)
+                                }, 200)
+                            }, 200)
+                        }, 1000)
+                    }
+
+                } else if (attack == 31) {
+                    saco.push(new missiles(boite.x, canvas.height, boite.w, 10, "orange", 7, 3))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            wait = false
+                            attack = 32
+                            setTimeout(function () {
+                                attack = 33
+                            }, 2000)
+                        }, 8000)
+                    }
+
+                } else if (attack == 34) {
+                    attack = 35
+                    sacb.push(new missiles(boite.x, canvas.height, boite.w, 10, "lightblue", 10, 3))
+                    setTimeout(function () {
+                        gravity = -1
+                        sac = []
+                        sacb = []
+                        saco = []
+                        setTimeout(function () {
+                            document.getElementById("container16").style.display = "none"
+                            document.getElementById("container17").style.display = "block"
+                        }, 1000)
+                        setTimeout(function () {
+                            music.src = "menumusic.mp3"
+                            document.getElementById("text").style.display = "none"
+                            document.getElementById("monCanvas").style.display = "none"
+                            document.getElementById("vieCanvas").style.display = "none"
+                            document.getElementById("container17").style.display = "none"
+                            document.getElementById("container18").style.display = "block"
+                        }, 8700)
+                        setTimeout(function () {
+                            wait = false
+                            combat = false
+                            contour.x = 0
+                            contour.w = 1000
+                            boite.x = 10
+                            boite.w = 980
+                            menu = 0
+                            dialogue = 0
+                            phase = 1
+                            lastatt = -1
+                            speak = false
+                            checkpoints = false
+                            attack = -1
+                            joueur.x = 50
+                            joueur.y = canvas.height / 2.3
+                            bouton = 0
+                            bossvie.w = 200
+                            healthbar.w = 100
+                            items.nood = 0
+                            items.ster = 0
+                            document.getElementById("vieCanvas").style.display = "block"
+                            document.getElementById("monCanvas").style.display = "block"
+                            document.getElementById("container18").style.display = "none"
+                            document.getElementById("container0").style.display = "block"
+                        }, 13000)
+                    }, 5000)
                 }
-               
+
+
+
             }
 
         }
@@ -1728,13 +2219,37 @@
             }
 
             if (phase == 3 && transition == false && combat2 == true && speak == false) {
-               
+                if (attack == 18) {
+                    sac.push(new missiles(0, boite.y, 10, boite.h / 2, "red", 6, 1))
+                    sac.push(new missiles(canvas.width, boite.y + boite.h / 2, 10, boite.h / 2, "red", 6, 2))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            attack = 19
+                            wait = false
+                        }, 5000)
+                    }
+                } else if (attack == 19) {
+                    sac.push(new missiles(canvas.width, boite.y, 10, boite.h / 2, "red", 6, 2))
+                    sac.push(new missiles(0, boite.y + boite.h / 2, 10, boite.h / 2, "red", 6, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            attack = 19.5
+                            wait = false
+                        }, 5000)
+                        setTimeout(function () {
+                            attack = 20
+                            wait = false
+                        }, 6500)
+                    }
+                }
             }
 
         }
 
         function attack5() {
-            
+
             if (phase == 3 && transition == false && combat2 == true && speak == false) {
                 if (attack == 9) {
                     sac.push(new missiles(0, 0, 0, 0, "red", 0, Math.floor(Math.random() * 5), 4))
@@ -1742,30 +2257,43 @@
                         wait = true
                         setTimeout(end, 20000)
                     }
-                 }else if (attack == 10) {
-                        sac.push(new missiles(0, boite.y, 10, 200, "red", 5, 1, 1))
+                } else if (attack == 10) {
+                    sac.push(new missiles(0, boite.y, 10, 200, "red", 5, 1, 1))
                     sac.push(new missiles(canvas.width, boite.y, 10, 200, "red", 5, 2, 1))
                     if (wait == false) {
                         wait = true
-                        setTimeout(function () { 
-                            attack=10.5
-                         }, 10000)
-                         setTimeout(function () { 
-                            attack=11
-                            gravity=1
-                            wait=false
-                         }, 13000)
+                        setTimeout(function () {
+                            attack = 10.5
+                        }, 10000)
+                        setTimeout(function () {
+                            attack = 11
+                            gravity = 1
+                            wait = false
+                        }, 13000)
+                    }
+                } else if (attack == 33) {
+                    gravity = 0
+                    sac.push(new missiles(0, boite.y, 10, 200, "red", 5, 1, 1))
+                    sac.push(new missiles(canvas.width, boite.y, 10, 200, "red", 5, 2, 1))
+                    if (wait == false) {
+                        wait = true
+                        setTimeout(function () {
+                            attack = 33.5
+                        }, 5000)
+                        setTimeout(function () {
+                            attack = 34
+                            gravity = 1
+                            wait = false
+                        }, 7000)
                     }
                 }
-               
             }
-
         }
 
         function checkcollision() {
             for (i = 0; i < sac.length; i++) {
-                if (collision(sac[i], joueur) && hit == false&&healthbar.w!=-101) {
-                   hurt.play()
+                if (collision(sac[i], joueur) && hit == false && healthbar.w != -101) {
+                    hurt.play()
                     hit = true
                     setTimeout(function () { hit = false }, 2000)
                     healthbar.w -= degat
@@ -1778,7 +2306,7 @@
                     sac[i].h = 0
                 }
 
-                if (sac[i].y > canvas.height + 500 || sac[i].y < -500 || sac[i].x > canvas.width + 500 || sac[i].x < -500) {
+                if (sac[i].y > canvas.height + 500 || sac[i].y < -500 || sac[i].x > canvas.width + 660 || sac[i].x < -660) {
                     sac.splice(i, 1)
                 }
 
@@ -1790,7 +2318,7 @@
 
 
             for (i = 0; i < sacb.length; i++) {
-                if (collision(sacb[i], joueur) && hit == false && lastxy.x != joueur.x&&healthbar.w!=-101 || collision(sacb[i], joueur) && hit == false && lastxy.y != joueur.y&&healthbar.w!=-101) {
+                if (collision(sacb[i], joueur) && hit == false && lastxy.x != joueur.x && healthbar.w != -101 || collision(sacb[i], joueur) && hit == false && lastxy.y != joueur.y && healthbar.w != -101) {
                     hurt.play()
                     hit = true
                     healthbar.w -= degat
@@ -1803,7 +2331,7 @@
 
 
             for (i = 0; i < saco.length; i++) {
-                if (collision(saco[i], joueur) && hit == false && lastxy.x == joueur.x && lastxy.y == joueur.y&&healthbar.w!=-101) {
+                if (collision(saco[i], joueur) && hit == false && lastxy.x == joueur.x && lastxy.y == joueur.y && healthbar.w != -101) {
                     hurt.play()
                     hit = true
                     healthbar.w -= degat
@@ -1830,7 +2358,7 @@
                 combat2 = false
             }
             if (bossvie.w == 10 && phase == 2) {
-                music.src="angry.wav"
+                music.src = "angry.wav"
                 setTimeout(function () {
                     document.getElementById("container8").style.display = "none"
                     document.getElementById("container9").style.display = "block"
@@ -1915,8 +2443,11 @@
 
 
         function mort() {
-            if (healthbar.w <= 0 && healthbar.w >= -100) {
-                music.src="gameovermusic.mp3"
+            if (healthbar.w <= 0 && menu == 4) {
+                healthbar.w = 100
+            }
+            if (healthbar.w <= 0 && healthbar.w >= -100 && menu == 3) {
+                music.src = "gameovermusic.mp3"
                 healthbar.w = -101
                 document.getElementById("container5").style.display = "block"
                 document.getElementById("container").style.display = "none"
@@ -1939,17 +2470,40 @@
                     combat2 = false
                     returns()
                     if (checkpoints == true && phase == 1 || checkpoints == false) {
-                        music.src="nutral.mp3"
+                        music.src = "nutral.mp3"
                         phase = 1
                         bossvie.w = 200
                         document.getElementById("container").style.display = "block"
                     }
                     if (checkpoints == true && phase == 3) {
-                        music.src="angry.mp3"
+                        music.src = "angry.wav"
                         bossvie.w = 10
                         phase = 3
                         document.getElementById("container2").style.display = "block"
                     }
+                    if (degat == 10) {
+                        items.noodles = 3
+                        items.steroids = 2
+                        items.candy = 7
+                        items.cake = 4
+                        items.pie = 3
+                    }
+                    if (degat == 20) {
+                        items.noodles = 2
+                        items.steroids = 2
+                        items.candy = 6
+                        items.cake = 3
+                        items.pie = 3
+                    }
+                    if (degat == 25) {
+                        items.noodles = 2
+                        items.steroids = 1
+                        items.candy = 5
+                        items.cake = 3
+                        items.pie = 2
+                    }
+                    items.nood = 0
+                    items.ster = 0
                     healthbar.w = 100
                     document.getElementById("container6").style.display = "none"
                     document.getElementById("monCanvas").style.display = "block"
@@ -1969,14 +2523,12 @@
             music.play()
             c.clearRect(0, 0, canvas.width, canvas.height)
             cv.clearRect(0, 0, canvasv.width, canvasv.height)
-            if (speak == false) {ct.clearRect(0, 0, canvast.width, canvast.height)}
+            if (speak == false) { ct.clearRect(0, 0, canvast.width, canvast.height) }
             draw()
             clavier()
             checkcollision()
             mort()
             setTimeout(game, 16.67)
-
-
         }
         game()
 
