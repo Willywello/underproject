@@ -156,6 +156,7 @@
 </head>
 
 <body>
+
     <canvas id="vieCanvas"></canvas>
 
     <div id="container0"><img src="./undercat.jpg"><br>
@@ -195,6 +196,7 @@
 
     <script>
 
+//var images
         var fight = new Image()
         fight.src = "./fight.jpg"
 
@@ -225,6 +227,7 @@
         var cible = new Image()
         cible.src = "./cible.jpg"
 
+//var sonds
         var music = new Audio()
         music.src = "menumusic.mp3"
 
@@ -240,6 +243,7 @@
         var attackingsound = new Audio()
         attackingsound.src = "attackingsound.mp3"
 
+        //canvas
         var canvas = document.getElementById("monCanvas")
         var c = canvas.getContext("2d")
         canvas.width = 1000
@@ -255,6 +259,7 @@
         canvast.width = 500
         canvast.height = 300
 
+        //var du jeu
         var keyDown = {}
 
         var joueur = {
@@ -377,6 +382,9 @@
 
         var degat = 20
 
+        var wasd = false 
+
+        //interface, missiles, dialogues
         function draw() {
 
             if (menu == 0) {
@@ -789,6 +797,7 @@
             }
         }
 
+        //définit les collisions
         function collision(a, b) {
             if (a.x + a.w > b.x &&
                 a.x < b.x + b.w &&
@@ -799,7 +808,7 @@
 
         }
 
-
+//tout ce qui se passe sur le clavier
         document.addEventListener("keydown", function (e) {
             keyDown[e.keyCode] = true
 
@@ -811,6 +820,7 @@
 
 
         function clavier() {
+//menu
             if (menu == 0) {
                 if (37 in keyDown && clicked == false && joueur.x != 50) {
                     clicked = true
@@ -962,6 +972,8 @@
                 }
 
             } else if (menu == 3) {
+                //jeu commence
+                //les différentes gravités
                 if (38 in keyDown && combat == true && gravity == 0 && joueur.y + joueur.h <= boite.y + boite.h && joueur.y > 100 && jump == true) {
                     joueur.y -= joueur.velocity
                     joueur.velocity = joueur.velocity * 0.99
@@ -1261,6 +1273,494 @@
                     }
                     setTimeout(clicks, 200)
                 }
+                //miss
+                if (attacking == true && attbar.x > 1000 && joueur.x < 0) {
+                    bouton = 1.1
+                    attbar.speed = 0
+                    joueur.y = boite.y + boite.h / 2 - joueur.h / 2
+                    joueur.x = boite.x + boite.w / 2 - joueur.w / 2
+                    if (phase < 3) {
+                        document.getElementById("container").style.display = "none"
+                        document.getElementById("container4").style.display = "block"
+                    } else if (phase == 3 && attack < 16) {
+                        document.getElementById("container2").style.display = "none"
+                        document.getElementById("container11").style.display = "block"
+                    }
+                    setTimeout(attacked, 600)
+                }
+
+                //debug
+                /*if (32 in keyDown) {
+                    phase = 3
+                    document.getElementById("container").style.display = "none"
+                    document.getElementById("container2").style.display = "block"
+                }
+
+                if (70 in keyDown && clicked == false) {
+                    clicked = true
+                    attack = 11
+                    setTimeout(clicks, 200)
+                }*/
+            }
+        }
+
+        //wasd
+        function clavierwasd() {
+                
+//menu
+            if (menu == 0) {
+                if (65 in keyDown && clicked == false && joueur.x != 50) {
+                    clicked = true
+                    joueur.x -= 320
+                    setTimeout(clicks, 200)
+                }
+                if (68 in keyDown && clicked == false && joueur.x != 690) {
+                    clicked = true
+                    joueur.x += 320
+                    setTimeout(clicks, 200)
+                }
+                if (13 in keyDown && clicked == false) {
+                    clicked = true
+                    sclick.play()
+                    if (joueur.x == 50) {
+                        menu = 1
+                    }
+                    if (joueur.x == 370) {
+                        canvas.style.border = "10px white solid"
+                        document.getElementById("container0").style.display = "none"
+                        canvas.height = 600
+                        menu = 4
+                        joueur.x = canvas.width / 2
+                        joueur.y = canvas.height / 2
+                    }
+                    if (joueur.x == 690) {
+                    }
+                    setTimeout(clicks, 200)
+                }
+            } else if (menu == 4) {
+                if (65 in keyDown && joueur.x > 0) {
+                    joueur.x -= joueur.speed
+                }
+                if (68 in keyDown && joueur.x < canvas.width - joueur.w) {
+                    joueur.x += joueur.speed
+                }
+                if (87 in keyDown && joueur.y > 0) {
+                    joueur.y -= joueur.speed
+                }
+                if (83 in keyDown && joueur.y < canvas.height - joueur.h) {
+                    joueur.y += joueur.speed
+                }
+                if (16 in keyDown && clicked == false) {
+                    sac = []
+                    sacb = []
+                    saco = []
+                    healthbar.w = 100
+                    canvas.style.border = "0px white solid"
+                    document.getElementById("container0").style.display = "block"
+                    canvas.height = 400
+                    menu = 0
+                    joueur.x = 370
+                    joueur.y = canvas.height / 2.3
+                }
+            } else if (menu == 1) {
+                if (65 in keyDown && clicked == false && joueur.x != 50) {
+                    clicked = true
+                    joueur.x -= 310
+                    setTimeout(clicks, 200)
+                }
+                if (68 in keyDown && clicked == false && joueur.x != 670) {
+                    clicked = true
+                    joueur.x += 310
+                    setTimeout(clicks, 200)
+                }
+                if (13 in keyDown && clicked == false) {
+                    clicked = true
+                    sclick.play()
+                    if (joueur.x == 50) {
+                        items.noodles = 3
+                        items.steroids = 2
+                        items.candy = 7
+                        items.cake = 4
+                        items.pie = 3
+                        menu = 2
+                        degat = 10
+                        joueur.x = 280
+                    }
+                    if (joueur.x == 360) {
+                        items.noodles = 2
+                        items.steroids = 2
+                        items.candy = 6
+                        items.cake = 3
+                        items.pie = 3
+                        menu = 2
+                        degat = 20
+                        joueur.x = 280
+                    }
+                    if (joueur.x == 670) {
+                        items.noodles = 2
+                        items.steroids = 1
+                        items.candy = 5
+                        items.cake = 3
+                        items.pie = 2
+                        music.src = "nutral.mp3"
+                        joueur.x = 300
+                        joueur.y = canvas.height - 47
+                        menu = 3
+                        degat = 25
+                        document.getElementById("container0").style.display = "none"
+                        document.getElementById("container").style.display = "block"
+                        document.getElementById("text").style.display = "block"
+                    }
+                    setTimeout(clicks, 200)
+                }
+                if (16 in keyDown && clicked == false) {
+                    menu = 0
+                    if (joueur.x == 360) {
+                        joueur.x = 370
+                    }
+                    if (joueur.x == 670) {
+                        joueur.x = 690
+                    }
+                }
+            } else if (menu == 2) {
+                if (65 in keyDown && clicked == false && joueur.x != 280) {
+                    clicked = true
+                    joueur.x -= 240
+                    setTimeout(clicks, 500)
+                }
+                if (68 in keyDown && clicked == false && joueur.x != 520) {
+                    clicked = true
+                    joueur.x += 240
+                    setTimeout(clicks, 200)
+                }
+                if (13 in keyDown && clicked == false) {
+                    clicked = true
+                    sclick.play()
+                    if (joueur.x == 280) {
+                        checkpoints = false
+                    }
+                    if (joueur.x == 520) {
+                        checkpoints = true
+                    }
+                    music.src = "nutral.mp3"
+                    menu = 3
+                    document.getElementById("container0").style.display = "none"
+                    document.getElementById("container").style.display = "block"
+                    document.getElementById("text").style.display = "block"
+                    joueur.x = 300
+                    joueur.y = canvas.height - 47
+                    setTimeout(clicks, 200)
+                }
+                if (16 in keyDown && clicked == false) {
+                    clicked = true
+                    menu = 1
+                    joueur.x = 50
+                    setTimeout(clicks, 200)
+                }
+
+            } else if (menu == 3) {
+                //jeu commence
+                //les différentes gravités
+                if (87 in keyDown && combat == true && gravity == 0 && joueur.y + joueur.h <= boite.y + boite.h && joueur.y > 100 && jump == true) {
+                    joueur.y -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 0) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.y + joueur.h >= boite.y + boite.h && combat == true && gravity == 0) {
+                    jump = true
+                    joueur.y = boite.y + boite.h - joueur.h
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 0 && jump == false && combat == true) {
+                    joueur.y += joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (83 in keyDown && combat == true && gravity == 1 && joueur.y >= boite.y && joueur.y + joueur.h < 190 && jump == true) {
+                    joueur.y += joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 1) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.y <= boite.y && combat == true && gravity == 1) {
+                    jump = true
+                    joueur.y = boite.y
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 1 && jump == false && combat == true) {
+                    joueur.y -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (68 in keyDown && combat == true && gravity == 2 && joueur.x >= boite.x && joueur.x + joueur.w < boite.x + 230 && jump == true) {
+                    joueur.x += joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 2) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.x <= boite.x && combat == true && gravity == 2) {
+                    jump = true
+                    joueur.x = boite.x
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 2 && jump == false && combat == true) {
+                    joueur.x -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (65 in keyDown && combat == true && gravity == 3 && joueur.x + joueur.w <= boite.x + boite.w && joueur.x > boite.x + 150 && jump == true) {
+                    joueur.x -= joueur.velocity
+                    joueur.velocity = joueur.velocity * 0.99
+                } else {
+                    if (gravity == 3) {
+                        if (jump == true) {
+                            joueur.velocity = 0.75
+                        }
+                        jump = false
+                    }
+                }
+                if (joueur.x + joueur.w >= boite.x + boite.w && combat == true && gravity == 3) {
+                    jump = true
+                    joueur.x = boite.x + boite.w - joueur.w
+                    joueur.velocity = 7.5
+                }
+                if (gravity == 3 && jump == false && combat == true) {
+                    joueur.x += joueur.velocity
+                    joueur.velocity = joueur.velocity * 1.07
+                }
+
+                if (gravity == 4) {
+                    if (65 in keyDown) {
+                        shield.x = joueur.x - 30
+                        shield.y = joueur.y - 20
+                        shield.w = 10
+                        shield.h = 60
+                    }
+                    if (68 in keyDown) {
+                        shield.x = joueur.x + 40
+                        shield.y = joueur.y - 20
+                        shield.w = 10
+                        shield.h = 60
+                    }
+                    if (87 in keyDown) {
+                        shield.x = joueur.x - 20
+                        shield.y = joueur.y - 30
+                        shield.w = 60
+                        shield.h = 10
+                    }
+                    if (83 in keyDown) {
+                        shield.x = joueur.x - 20
+                        shield.y = joueur.y + 40
+                        shield.w = 60
+                        shield.h = 10
+                    }
+                }
+
+                if (65 in keyDown && joueur.x > boite.x && combat == true && gravity < 2) {
+                    joueur.x -= joueur.speed
+                }
+                if (68 in keyDown && joueur.x < boite.x + boite.w - joueur.w && combat == true && gravity < 2) {
+                    joueur.x += joueur.speed
+                }
+                if (87 in keyDown && joueur.y > boite.y && combat == true && gravity == -1 || 87 in keyDown && joueur.y > boite.y && combat == true && gravity > 1 && gravity != 4) {
+                    joueur.y -= joueur.speed
+                }
+                if (83 in keyDown && joueur.y < boite.h + boite.y - joueur.h && combat == true && gravity == -1 || 83 in keyDown && joueur.y < boite.h + boite.y - joueur.h && combat == true && gravity > 1 && gravity != 4) {
+                    joueur.y += joueur.speed
+                }
+
+                if (65 in keyDown && clicked == false && bouton == 0 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 50) {
+                        joueur.x = 800
+                    } else {
+                        joueur.x -= 250
+                    }
+                    setTimeout(clicks, 200)
+                }
+                if (68 in keyDown && clicked == false && bouton == 0 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 800) {
+                        joueur.x = 50
+                    } else {
+                        joueur.x += 250
+                    }
+                    setTimeout(clicks, 200)
+                }
+
+                if (65 in keyDown && clicked == false && bouton == 3 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 49) {
+                        joueur.x = 849
+                    } else {
+                        joueur.x -= 200
+                    }
+                    setTimeout(clicks, 200)
+                }
+                if (68 in keyDown && clicked == false && bouton == 3 && combat == false) {
+                    clicked = true
+                    if (joueur.x == 849) {
+                        joueur.x = 49
+                    } else {
+                        joueur.x += 200
+                    }
+                    setTimeout(clicks, 200)
+                }
+
+                if (13 in keyDown && joueur.y != 50 && combat == false && healthbar.w > 0 && clicked == false) {
+                    if (joueur.x == 50) {
+                        bouton = 1
+                    }
+                    if (joueur.x == 300) {
+                        bouton = 2
+                    }
+                    if (joueur.x == 550) {
+                        bouton = 3
+                    }
+                    if (joueur.x == 800) {
+                        bouton = 4
+                    }
+                    joueur.y = 49
+                    joueur.x = 49
+                    setTimeout(clickss, 200)
+                }
+                if (16 in keyDown && attacking == false && combat == false && bouton != 2.6) {
+                    if (bouton == 1) {
+                        joueur.x = 50
+                    }
+                    if (bouton == 2 || bouton == 2.5) {
+                        joueur.x = 300
+                    }
+                    if (bouton == 3 || bouton == 3.5) {
+                        joueur.x = 550
+                    }
+                    if (bouton == 4) {
+                        joueur.x = 800
+                    }
+                    joueur.y = canvas.height - 47
+                    bouton = 0
+                }
+
+                if (13 in keyDown && speak == true && clicked == false && combat == true) {
+                    ct.clearRect(0, 0, canvast.width, canvast.height)
+                    setTimeout(function () { speak = false }, 1000)
+                    if (bouton == 4.5) {
+                        bouton = 4.1
+                    }
+                }
+
+                if (13 in keyDown && joueur.y == 50 && combat == false && clicked == false) {
+                    clicked = true
+                    speak = false
+                    if (bouton == 1 && attacking == false && attbar.x < 100) {
+
+                        attacking = true
+                        joueur.x = -100
+                        attbar.x = 0
+                    } else if (attacking == true && attbar.x > 100 && joueur.x < 0) {
+                        attackingsound.play()
+                        attbar.speed = 0
+                        joueur.y = boite.y + boite.h / 2 - joueur.h / 2
+                        joueur.x = boite.x + boite.w / 2 - joueur.w / 2
+                        if (phase == 1) {
+                            document.getElementById("container").style.display = "none"
+                            document.getElementById("container3").style.display = "block"
+                        } else if (phase == 3 && attack < 16) {
+                            document.getElementById("container2").style.display = "none"
+                            document.getElementById("container10").style.display = "block"
+                        } else if (phase == 3 && attack > 16) {
+                        }
+                        setTimeout(attacked, 600)
+                    }
+                    if (bouton == 2) {
+                        bouton = 2.5
+                    } else if (bouton == 2.5) {
+                        bouton = 2.6
+                        joueur.x = -100
+                    } else if (bouton == 2.6) {
+                        bouton = 2.7
+                        attacked()
+                    }
+                    if (bouton == 3) {
+                        if (joueur.x == 49 && items.noodles != 0) {
+                            items.noodles -= 1
+                            items.nood += 2
+                            healthbar.w += 10
+                            attacked()
+                        } else if (joueur.x == 249 && items.steroids != 0) {
+                            items.steroids -= 1
+                            items.ster += 2
+                            healthbar.w -= 25
+                            attacked()
+                        } else if (joueur.x == 449 && items.candy != 0) {
+                            items.candy -= 1
+                            healthbar.w += 25
+                            attacked()
+                        } else if (joueur.x == 649 && items.cake != 0) {
+                            items.cake -= 1
+                            healthbar.w += 50
+                            attacked()
+                        } else if (joueur.x == 849 && items.pie != 0) {
+                            items.pie -= 1
+                            healthbar.w += 100
+                            attacked()
+                        }
+
+                    }
+                    if (bouton == 4 && phase != 2) {
+                        bouton = 4.5
+                        joueur.y = boite.y + boite.h / 2 - joueur.h / 2
+                        joueur.x = boite.x + boite.w / 2 - joueur.w / 2
+                        attacked()
+                    } else if (bouton == 4 && phase == 2) {
+                        bouton = 4.6
+                    } else if (bouton == 4.6) {
+                        music.src = "menumusic.mp3"
+                        bouton = 4.7
+                        document.getElementById("container").style.display = "none"
+                        document.getElementById("text").style.display = "none"
+                        document.getElementById("monCanvas").style.display = "none"
+                        document.getElementById("vieCanvas").style.display = "none"
+                        document.getElementById("container12").style.display = "block"
+                    } else if (bouton == 4.7) {
+                        menu = 0
+                        dialogue = 0
+                        phase = 1
+                        lastatt = -1
+                        speak = false
+                        checkpoints = false
+                        attack = -1
+                        joueur.x = 50
+                        joueur.y = canvas.height / 2.3
+                        bouton = 0
+                        bossvie.w = 200
+                        healthbar.w = 100
+                        items.nood = 0
+                        items.ster = 0
+                        document.getElementById("vieCanvas").style.display = "block"
+                        document.getElementById("container0").style.display = "block"
+                        document.getElementById("monCanvas").style.display = "block"
+                        document.getElementById("container12").style.display = "none"
+                    }
+                    setTimeout(clicks, 200)
+                }
+                //miss
                 if (attacking == true && attbar.x > 1000 && joueur.x < 0) {
                     bouton = 1.1
                     attbar.speed = 0
@@ -1299,7 +1799,7 @@
             joueur.y = 50
         }
 
-
+//mise en marche des attaques
         function attacked() {
 
             transition = true
@@ -1433,6 +1933,7 @@
 
         }
 
+        //construit missiles
         function missiles(x, y, w, h, color, speed, dir, mode, spy) {
             this.x = x
             this.y = y
@@ -1446,6 +1947,7 @@
             this.draw = function () {
                 c.fillStyle = this.color
 
+                //directions
                 if (this.dir == 1 || this.dir == 0) {
                     c.fillRect(this.x += this.speed, this.y, this.w, this.h)
                 } else if (this.dir == 2) {
@@ -1464,7 +1966,7 @@
                     c.fillRect(this.x -= this.speed, this.y -= this.speed, this.w, this.h)
                 }
 
-
+//"flappy mode"
                 if (this.mode == 1) {
                     if (this.dir == 1) {
                         sac.push(new missiles(this.x - 5, this.y + this.h + 55, this.w, boite.h - this.h - 55, this.color, this.speed, this.dir))
@@ -1475,6 +1977,7 @@
 
                 }
 
+                //"pong mode"
                 if (this.mode == 2) {
                     c.fillRect(this.x, this.y, this.w, this.h)
 
@@ -1491,11 +1994,13 @@
 
                 }
 
+                //accélération
                 if (this.mode == 3) {
 
                     this.speed = this.speed * 1.05
                 }
 
+                //for one attack only lol
                 if (this.mode == 4 && this.speed == 0) {
                     if (this.dir == 1 || this.dir == 0) {
                         this.x = -40
@@ -1521,6 +2026,7 @@
                     this.speed = 2
                 }
 
+                //accélération+flappy mode
                 if (this.mode == 13) {
 
                     if (this.dir == 1 && this.speed == 0.1) {
@@ -1537,7 +2043,7 @@
 
         }
 
-
+//toutes les attaques
         setInterval(attack1, 1200)
         setInterval(attack2, 200)
         setInterval(attack3, 3000)
@@ -2299,6 +2805,7 @@
             }
         }
 
+        //applique les dégats
         function checkcollision() {
             for (i = 0; i < sac.length; i++) {
                 if (collision(sac[i], joueur) && hit == false && healthbar.w != -101) {
@@ -2325,7 +2832,7 @@
 
             }
 
-
+//dont move
             for (i = 0; i < sacb.length; i++) {
                 if (collision(sacb[i], joueur) && hit == false && lastxy.x != joueur.x && healthbar.w != -101 || collision(sacb[i], joueur) && hit == false && lastxy.y != joueur.y && healthbar.w != -101) {
                     hurt.play()
@@ -2338,7 +2845,7 @@
                 }
             }
 
-
+//move
             for (i = 0; i < saco.length; i++) {
                 if (collision(saco[i], joueur) && hit == false && lastxy.x == joueur.x && lastxy.y == joueur.y && healthbar.w != -101) {
                     hurt.play()
@@ -2351,7 +2858,7 @@
                 }
             }
 
-
+//bouclier
             for (i = 0; i < sac.length; i++) {
                 if (collision(sac[i], shield)) {
                     sac.splice(i, 1)
@@ -2360,6 +2867,7 @@
 
         }
 
+        //fin attaque et transition entre phase 1 et 2
         function end() {
             if (phase != 3) {
                 attack = -1
@@ -2421,6 +2929,7 @@
 
         }
 
+        //retour apres attaque
         function returns() {
             if (bouton == 1 || bouton == 1.1) {
                 joueur.y = 353
@@ -2449,8 +2958,7 @@
             gravity = -1
         }
 
-
-
+//mort...
         function mort() {
             if (healthbar.w <= 0 && menu == 4) {
                 healthbar.w = 100
@@ -2524,19 +3032,29 @@
 
         }
 
+        //for blue and orange att
         setInterval(nomove, 100)
         function nomove() {
             lastxy.x = joueur.x
             lastxy.y = joueur.y
         }
 
+        //loop
         function game() {
+            if (65 in keyDown || 68 in keyDown || 87 in keyDown || 83 in keyDown) {
+                    wasd = true
+                }
+            if (40 in keyDown || 39 in keyDown || 38 in keyDown || 37 in keyDown) {
+                    wasd = false
+                }
+
             music.play()
             c.clearRect(0, 0, canvas.width, canvas.height)
             cv.clearRect(0, 0, canvasv.width, canvasv.height)
             if (speak == false) { ct.clearRect(0, 0, canvast.width, canvast.height) }
             draw()
-            clavier()
+            if (wasd == false) { clavier()}
+            if (wasd == true) {clavierwasd()}
             checkcollision()
             mort()
             setTimeout(game, 16.67)
